@@ -9,11 +9,18 @@
             type="com.project.farmingapp.viewmodel.AuthViewModel" />
     </data>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:fillViewport="true"
+        android:layout_height="match_parent">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+
         android:background="@drawable/authback"
         tools:context=".view.auth.SignupActivity">
+
 
         <TextView
             android:id="@+id/titleTextSignup"
@@ -75,8 +82,9 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
             android:textColorHint="#60AA39"
-            app:counterEnabled="true"
+            app:counterEnabled="false"
             app:counterMaxLength="10"
+            app:passwordToggleTint="#fff"
             app:layout_constraintBottom_toTopOf="@id/emailContSignup"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/nameContSignup">
@@ -219,13 +227,12 @@
 
         <com.google.android.gms.common.SignInButton
             android:id="@+id/signGoogleBtnSignup"
-            android:layout_width="200dp"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toTopOf="@id/accountText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/orTextSignup" />
-
 
         <TextView
             android:id="@+id/accountText"
@@ -237,12 +244,11 @@
             android:textSize="15sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/signGoogleBtnSignup" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
+</ScrollView>
 </layout>
 

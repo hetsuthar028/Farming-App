@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 
 class AuthViewModel:  ViewModel() {
 
+    var name:String? = null
 
 
 }
