@@ -70,6 +70,7 @@
                 android:id="@+id/nameEditSignup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="@={authViewModel.name}"
                 android:backgroundTint="#0060AA39"
                 android:hint="Full Name"
                 android:textColor="#fff"
@@ -93,6 +94,7 @@
                 android:id="@+id/numberEditSignup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="@={authViewModel.mobNo}"
                 android:backgroundTint="#0060AA39"
                 android:hint="Mobile Number"
                 android:inputType="phone"
@@ -114,6 +116,7 @@
                 android:id="@+id/emailEditSignup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="@={authViewModel.email}"
                 android:backgroundTint="#0060AA39"
                 android:hint="Email"
                 android:inputType="textEmailAddress"
@@ -135,6 +138,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/genderEditSignup"
                 android:layout_width="match_parent"
+                android:text="@={authViewModel.gender}"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#0060AA39"
                 android:hint="Gender"
@@ -160,6 +164,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/passwdEditSignup"
                 android:layout_width="match_parent"
+                android:text="@={authViewModel.password}"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#0060AA39"
                 android:hint="Password"
@@ -187,6 +192,7 @@
                 android:id="@+id/confPasswdEditSignup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="@={authViewModel.confPassword}"
                 android:backgroundTint="#0060AA39"
                 android:hint="Confirm Password"
                 android:inputType="textPassword"
@@ -200,7 +206,7 @@
             android:id="@+id/signupBtnSignup"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-
+            android:onClick="@{authViewModel::signupButtonClicked}"
             android:background="@drawable/all_buttons"
             android:padding="15sp"
             android:text="Sign in"
@@ -229,13 +235,13 @@
             android:id="@+id/signGoogleBtnSignup"
             android:layout_width="130dp"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@id/accountText"
+            app:layout_constraintBottom_toTopOf="@id/loginRedirectTextSignup"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/orTextSignup" />
 
         <TextView
-            android:id="@+id/accountText"
+            android:id="@+id/loginRedirectTextSignup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
