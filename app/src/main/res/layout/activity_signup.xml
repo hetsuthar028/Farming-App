@@ -12,7 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/authBack"
+        android:background="@drawable/authback"
         tools:context=".view.auth.SignupActivity">
 
         <TextView
@@ -63,7 +63,7 @@
                 android:id="@+id/nameEditSignup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#60AA39"
+                android:backgroundTint="#0060AA39"
                 android:hint="Full Name"
                 android:textColor="#fff"
                 android:textStyle="bold" />
@@ -85,7 +85,7 @@
                 android:id="@+id/numberEditSignup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#60AA39"
+                android:backgroundTint="#0060AA39"
                 android:hint="Mobile Number"
                 android:inputType="phone"
                 android:textColor="#fff"
@@ -106,7 +106,7 @@
                 android:id="@+id/emailEditSignup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#60AA39"
+                android:backgroundTint="#0060AA39"
                 android:hint="Email"
                 android:inputType="textEmailAddress"
                 android:textColor="#fff"
@@ -128,7 +128,7 @@
                 android:id="@+id/genderEditSignup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#60AA39"
+                android:backgroundTint="#0060AA39"
                 android:hint="Gender"
                 android:inputType="textPassword"
                 android:textColor="#fff"
@@ -153,7 +153,7 @@
                 android:id="@+id/passwdEditSignup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#60AA39"
+                android:backgroundTint="#0060AA39"
                 android:hint="Password"
                 android:inputType="textPassword"
                 android:textColor="#fff"
@@ -179,7 +179,7 @@
                 android:id="@+id/confPasswdEditSignup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#60AA39"
+                android:backgroundTint="#0060AA39"
                 android:hint="Confirm Password"
                 android:inputType="textPassword"
                 android:textColor="#fff"
