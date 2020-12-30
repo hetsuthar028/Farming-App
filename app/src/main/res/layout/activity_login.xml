@@ -63,7 +63,7 @@
                 android:layout_marginHorizontal="30dp"
                 android:layout_marginTop="120dp"
                 android:textColorHint="#60AA39"
-                app:layout_constraintBottom_toTopOf="@id/numberContSignup"
+                app:layout_constraintBottom_toTopOf="@id/passwordContLogin"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/guide2"
                 app:layout_constraintVertical_bias="0.0">
@@ -87,7 +87,7 @@
                 app:counterEnabled="false"
                 app:counterMaxLength="10"
                 app:passwordToggleTint="#fff"
-                app:layout_constraintBottom_toTopOf="@id/signupBtnSignup"
+                app:layout_constraintBottom_toTopOf="@id/loginBtnLogin"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/emailContLogin">
 
