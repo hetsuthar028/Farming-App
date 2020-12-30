@@ -1,8 +1,17 @@
 package com.project.farmingapp.viewmodel
 
+import android.content.Intent
+import android.provider.Settings.Global.getString
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.ViewModel
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
+import com.project.farmingapp.R
 import com.project.farmingapp.model.AuthRepository
+import com.project.farmingapp.view.auth.SignupActivity
 
 class AuthViewModel : ViewModel() {
 
@@ -12,8 +21,15 @@ class AuthViewModel : ViewModel() {
     var city: String? = null
     var password: String? = null
     var confPassword: String? = null
-    var userType:String? = "normal"
+    var userType: String? = "normal"
     var authListener: AuthListener? = null
+    lateinit var authRepository: AuthRepository
+    lateinit var googleSignInClient: GoogleSignInClient
+
+    companion object {
+        private const val TAG = "GoogleActivity"
+        private const val RC_SIGN_IN = 9001
+    }
 
     fun signupButtonClicked(view: View) {
         authListener!!.onStarted()
@@ -31,22 +47,30 @@ class AuthViewModel : ViewModel() {
             "userType" to userType
         )
         val authRepo = AuthRepository().signInWithEmail(email!!, password!!, data)
-
         authListener?.onSuccess(authRepo)
-
     }
 
-    fun googleSignupButtonClicked(view: View) {
-        //
+    fun returnActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        var data2 = hashMapOf(
+            "userType" to userType
+        )
+        if (requestCode == RC_SIGN_IN) {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            val exception = task.exception
+            if (task.isSuccessful) {
+                try {
+                    val account = task.getResult(ApiException::class.java)!!
+                    authRepository = AuthRepository()
+                    authRepository.signInToGoogle(
+                        account.idToken!!,
+                        account.email.toString(),
+                        data2
+                    )
+                } catch (e: ApiException) {
 
-//        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//            .requestIdToken(getString(R.string.default_web_client_id))
-//            .requestEmail()
-//            .build()
-//        googleSignInClient = GoogleSignIn.getClient(this, gso)
-
-
+                }
+            } else {
+            }
+        }
     }
-
-
 }
