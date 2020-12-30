@@ -51,6 +51,7 @@ class AuthViewModel : ViewModel() {
     }
 
     fun returnActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        authListener!!.onStarted()
         var data2 = hashMapOf(
             "userType" to userType
         )
@@ -61,13 +62,14 @@ class AuthViewModel : ViewModel() {
                 try {
                     val account = task.getResult(ApiException::class.java)!!
                     authRepository = AuthRepository()
-                    authRepository.signInToGoogle(
+                    var returned = authRepository.signInToGoogle(
                         account.idToken!!,
                         account.email.toString(),
                         data2
                     )
+                    authListener?.onSuccess(returned)
                 } catch (e: ApiException) {
-
+                    authListener!!.onFailure(e.message.toString())
                 }
             } else {
             }

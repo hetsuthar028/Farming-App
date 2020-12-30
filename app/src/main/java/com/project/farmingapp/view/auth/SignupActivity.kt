@@ -76,7 +76,9 @@ class SignupActivity : AppCompatActivity(), AuthListener {
         authRepo.observe(this, Observer {
             progressSignup.hide()
             if (it.toString() == "Success") {
-                toast("Account Created")
+                Intent(this, LoginActivity::class.java).also {
+                    startActivity(it)
+                }
             }
         })
     }

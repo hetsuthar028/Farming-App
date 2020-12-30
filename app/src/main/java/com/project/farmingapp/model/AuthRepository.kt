@@ -53,7 +53,7 @@ class AuthRepository {
         return data
     }
 
-    fun signInToGoogle(idToken: String, email: String, otherData: HashMap<String, String?>) {
+    fun signInToGoogle(idToken: String, email: String, otherData: HashMap<String, String?>) : LiveData<String> {
         firebaseDb = FirebaseFirestore.getInstance()
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         firebaseAuth!!.signInWithCredential(credential)
@@ -74,5 +74,7 @@ class AuthRepository {
                     data.value = "Failure"
                 }
             }
+
+        return data
     }
 }
