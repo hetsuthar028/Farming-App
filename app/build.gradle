@@ -75,6 +75,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.1.0-alpha05'
 
     implementation platform('com.google.firebase:firebase-bom:26.2.0')
-
+    implementation 'com.google.firebase:firebase-firestore:21.5.0'
+    implementation 'com.google.firebase:firebase-storage:19.1.1'
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
 }
