@@ -4,6 +4,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.ViewUtils
 import androidx.lifecycle.ViewModel
+import com.project.farmingapp.model.AuthRepository
 
 class AuthViewModel:  ViewModel() {
 
@@ -25,6 +26,8 @@ class AuthViewModel:  ViewModel() {
             return
         }
         // Success
+        val authRepo = AuthRepository()
+        authRepo.signInWithEmail(view.context, email!!, password!!)
         authListener!!.onSuccess()
     }
 
