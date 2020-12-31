@@ -23,6 +23,11 @@ class AuthViewModel : ViewModel() {
     var confPassword: String? = null
     var userType: String? = "normal"
     var authListener: AuthListener? = null
+
+    //login
+    var loginmail:String?=null
+    var loginpwd:String?=null
+
     lateinit var authRepository: AuthRepository
     lateinit var googleSignInClient: GoogleSignInClient
 
@@ -74,5 +79,23 @@ class AuthViewModel : ViewModel() {
             } else {
             }
         }
+    }
+
+
+
+
+
+    //login btn function
+    fun loginButtonClicked(view: View) {
+        authListener!!.onStarted()
+        if (loginmail.isNullOrEmpty() || loginpwd.isNullOrEmpty()) {
+            // Failure
+            authListener!!.onFailure("Error Occurred")
+            return
+        }
+        // Success
+
+        val authRepo = AuthRepository().logInWithEmail(loginmail!!, loginpwd!!)
+        authListener?.onSuccess(authRepo)
     }
 }

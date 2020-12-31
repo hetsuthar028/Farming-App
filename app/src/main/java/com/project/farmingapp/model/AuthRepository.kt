@@ -77,4 +77,35 @@ class AuthRepository {
 
         return data
     }
+
+
+
+
+
+
+ //login
+ fun logInWithEmail(
+     email: String,
+     password: String): LiveData<String> {
+
+     firebaseDb = FirebaseFirestore.getInstance()
+
+     val data = MutableLiveData<String>()
+     firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
+         if (it.isSuccessful) {
+          data.value="Success"
+
+         } else if (it.isCanceled) {
+             data.value = "Failure"
+         }
+
+     }.addOnFailureListener {
+         Log.d("AuthRepo", it.message)
+         data.value = it.message
+     }
+     return data
+ }
+
+
+
 }

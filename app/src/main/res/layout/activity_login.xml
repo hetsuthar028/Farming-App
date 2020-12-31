@@ -55,6 +55,16 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 app:layout_constraintGuide_percent="0.15" />
+            <ProgressBar
+                android:id="@+id/progressLogin"
+                android:visibility="invisible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/emailContLogin"
@@ -69,6 +79,7 @@
                 app:layout_constraintVertical_bias="0.0">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:text="@={authViewModel.loginmail}"
                     android:id="@+id/emailEditLogin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -92,6 +103,7 @@
                 app:layout_constraintTop_toBottomOf="@id/emailContLogin">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:text="@={authViewModel.loginpwd}"
                     android:id="@+id/passwordEditLogin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -100,10 +112,12 @@
                     android:inputType="phone"
                     android:textColor="#fff"
                     android:textStyle="bold" />
+
             </com.google.android.material.textfield.TextInputLayout>
 
 
             <com.google.android.material.button.MaterialButton
+                android:onClick="@{authViewModel::loginButtonClicked}"
                 android:id="@+id/loginBtnLogin"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
