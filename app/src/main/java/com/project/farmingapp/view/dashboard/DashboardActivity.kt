@@ -27,7 +27,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         toggle.syncState()
 
         navView.setNavigationItemSelectedListener(this)
-
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         weatherFragment = WeatherFragment()
         supportFragmentManager
             .beginTransaction()

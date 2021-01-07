@@ -82,9 +82,6 @@ class AuthViewModel : ViewModel() {
     }
 
 
-
-
-
     //login btn function
     fun loginButtonClicked(view: View) {
         authListener!!.onStarted()

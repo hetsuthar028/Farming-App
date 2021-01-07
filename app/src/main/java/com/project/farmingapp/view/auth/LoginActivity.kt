@@ -18,6 +18,7 @@ import com.project.farmingapp.databinding.ActivitySignupBinding
 import com.project.farmingapp.utilities.hide
 import com.project.farmingapp.utilities.show
 import com.project.farmingapp.utilities.toast
+import com.project.farmingapp.view.dashboard.DashboardActivity
 import com.project.farmingapp.viewmodel.AuthListener
 import com.project.farmingapp.viewmodel.AuthViewModel
 import kotlinx.android.synthetic.main.activity_login.*
@@ -70,15 +71,6 @@ class LoginActivity : AppCompatActivity(), AuthListener {
         private const val RC_SIGN_IN = 9001
     }
 
-
-
-
-
-
-
-
-
-
     override fun onStarted() {
         progressLogin.show()
     }
@@ -87,8 +79,9 @@ class LoginActivity : AppCompatActivity(), AuthListener {
         authRepo.observe(this, Observer {
             progressLogin.hide()
             if (it.toString() == "Success") {
+                toast("Logged In")
                 Toast.makeText(this,"login successful",Toast.LENGTH_LONG).show()
-               Intent(this, LoginActivity::class.java).also {
+               Intent(this, DashboardActivity::class.java).also {
                     startActivity(it)
                 }
             }
