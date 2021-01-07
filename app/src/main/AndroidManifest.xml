@@ -11,15 +11,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.auth.SignupActivity"
-            android:noHistory="true"><intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".view.dashboard.DashboardActivity"></activity>
+        <activity
+            android:name=".view.auth.SignupActivity"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter></activity>
-        <activity android:name=".view.auth.LoginActivity" android:noHistory="true">
-
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+        <activity
+            android:name=".view.auth.LoginActivity"
+            android:noHistory="true"></activity>
     </application>
 
 </manifest>

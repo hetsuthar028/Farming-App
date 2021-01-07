@@ -19,6 +19,7 @@ import com.project.farmingapp.databinding.ActivitySignupBinding
 import com.project.farmingapp.utilities.hide
 import com.project.farmingapp.utilities.show
 import com.project.farmingapp.utilities.toast
+import com.project.farmingapp.view.dashboard.DashboardActivity
 import com.project.farmingapp.viewmodel.AuthListener
 import com.project.farmingapp.viewmodel.AuthViewModel
 import kotlinx.android.synthetic.main.activity_signup.*
@@ -76,7 +77,7 @@ class SignupActivity : AppCompatActivity(), AuthListener {
         authRepo.observe(this, Observer {
             progressSignup.hide()
             if (it.toString() == "Success") {
-                Intent(this, LoginActivity::class.java).also {
+                Intent(this, DashboardActivity::class.java).also {
                     startActivity(it)
                 }
             }
