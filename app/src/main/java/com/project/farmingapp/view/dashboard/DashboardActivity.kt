@@ -13,7 +13,7 @@ import com.project.farmingapp.view.weather.WeatherFragment
 import kotlinx.android.synthetic.main.activity_dashboard.*
 
 class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-
+    lateinit var dashboardFragment: dashboardFragment
     lateinit var weatherFragment: WeatherFragment
     lateinit var navController: NavController
     lateinit var toggle: ActionBarDrawerToggle
@@ -28,10 +28,11 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
         navView.setNavigationItemSelectedListener(this)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        dashboardFragment=dashboardFragment()
         weatherFragment = WeatherFragment()
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.frame_layout, weatherFragment)
+            .replace(R.id.frame_layout, dashboardFragment)
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             .commit()
     }
