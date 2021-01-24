@@ -11,12 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.dashboard.DashboardActivity"></activity>
-        <activity
-            android:name=".view.auth.SignupActivity"
-            android:noHistory="true"
-            android:theme="@style/AppTheme2"
-            >
+        <activity android:name=".view.dashboard.DashboardActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,9 +19,18 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".view.auth.SignupActivity"
+            android:noHistory="true"
+            android:theme="@style/AppTheme2"
+            >
+
+        </activity>
+        <activity
             android:name=".view.auth.LoginActivity"
             android:theme="@style/AppTheme2"
-            android:noHistory="true"></activity>
+            android:noHistory="true">
+
+        </activity>
     </application>
 
 </manifest>

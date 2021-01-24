@@ -13,7 +13,6 @@ const val API_KEY ="63259e8886cbe4d575c24358fb860b1b"
 interface weatherInterface {
     @GET("data/2.5/forecast?appid=$API_KEY")
     fun getWeather(@Query("lat")lat:String, @Query("lon")lon:String): Call<WeatherRootList>
-
 }
 
 object WeatherApi {

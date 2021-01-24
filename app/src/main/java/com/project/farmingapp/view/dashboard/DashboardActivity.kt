@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.NavController
 import com.google.android.material.navigation.NavigationView
 import com.project.farmingapp.R
+import com.project.farmingapp.model.data.Weather
 import com.project.farmingapp.view.weather.WeatherFragment
 import kotlinx.android.synthetic.main.activity_dashboard.*
 
@@ -17,6 +18,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     lateinit var weatherFragment: WeatherFragment
     lateinit var navController: NavController
     lateinit var toggle: ActionBarDrawerToggle
+    lateinit var blankFragment1: WeatherFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +40,22 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        TODO("Not yet implemented")
+        when(item.itemId) {
+            R.id.miItem1 -> {
+                if (supportFragmentManager.findFragmentByTag("name") == null) {
+                    blankFragment1 = WeatherFragment()
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.frame_layout, blankFragment1, "name1")
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .setReorderingAllowed(true)
+                        .addToBackStack("name")
+                        .commit()
+                }
+            }
+        }
+        drawerLayout.closeDrawer(GravityCompat.START)
+        return true
     }
 
     override fun onBackPressed() {

@@ -1,47 +1,25 @@
 package com.project.farmingapp.viewmodel
 
-import android.util.Log
-import androidx.lifecycle.ViewModel
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.project.farmingapp.R
+import androidx.lifecycle.*
 import com.project.farmingapp.adapter.WeatherAdapter
-import com.project.farmingapp.model.WeatherApi
+import com.project.farmingapp.model.WeatherRepository
 import com.project.farmingapp.model.data.WeatherRootList
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class WeatherViewModel: ViewModel() {
     lateinit var Adapter: WeatherAdapter
-    private fun getWeather() {
-        val weather1: Call<WeatherRootList> =WeatherApi.weatherInstances.getWeather("27.2046","77.4977")
-        weather1.enqueue(object: Callback<WeatherRootList> {
-            override fun onFailure(call: Call<WeatherRootList>, t: Throwable) {
-                Log.d("bharat","fail ho gya",t)
+    lateinit var rootData: MutableLiveData<WeatherRootList>
+    var weatherListener: WeatherListener? = null
 
 
+    val _rootData1 = MutableLiveData<WeatherRootList>()
+    val rootData2: LiveData<WeatherRootList> = _rootData1
 
-            }
-
-            override fun onResponse(
-                call: Call<WeatherRootList>,
-                response: Response<WeatherRootList>
-            ) {
-
-                val rootdata:WeatherRootList? =response.body()
-                if (rootdata!=null)
-                {val RecyclerViewWE =R.id.rcylr_weather
-                    Adapter= WeatherAdapter(this@MainActivity,rootdata.list)
-                    RecyclerViewWE.adapter=Adapter
-                   RecyclerViewWE.layoutManager= LinearLayoutManager(this@MainActivity)
-
-                    //temp.text=rootdata.weather.main.toString()
-                    Log.d("bharat",rootdata.toString())
-                }
-            }
-
-        })
+    fun callWeatherRepository(){
+        val response = WeatherRepository().getWeather()
+//        val ss = response.value!!.list[0].dt_txt
+//        Log.d("ViewModel", ss)
+        weatherListener?.onSuccess(response)
     }
+
 
 }
