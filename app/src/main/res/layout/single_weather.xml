@@ -3,57 +3,115 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="60dp"
     android:background="@color/colorPrimaryDark"
     >
 
+<!--    <TextView-->
+<!--        android:id="@+id/weather_date"-->
+<!--        android:layout_marginLeft="5dp"-->
+<!--        android:layout_marginTop="5dp"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="18-02-2001"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textSize="20sp"-->
+<!--        app:layout_constraintStart_toStartOf="parent" />-->
+
+<!--    <ImageView-->
+<!--        android:id="@+id/weather_logo"-->
+<!--        android:layout_width="70dp"-->
+<!--        android:layout_height="70dp"-->
+<!--        android:layout_marginLeft="5dp"-->
+<!--        android:src="@drawable/dash_home"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/weather_date" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/weather_description"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="cloudy weather hai"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/weather_logo"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textSize="20sp"/>-->
+
+<!--    <TextView-->
+
+<!--        android:id="@+id/weather_main"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="cloudy"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textSize="20sp"-->
+<!--        android:layout_marginBottom="10dp"-->
+
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/weather_description"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/weather_description" />-->
+
+
     <TextView
-        android:id="@+id/weather_date"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="18-02-2001"
-        android:textColor="@color/white"
+        android:text="21/01/2020"
+        android:id="@+id/weatherDate"
+        android:textColor="#fff"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="10dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/weatherIcon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:textStyle="bold"
+
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent" />
+        />
 
     <ImageView
-        android:id="@+id/weather_logo"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_marginLeft="5dp"
-        android:src="@drawable/dash_home"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        app:layout_constraintStart_toEndOf="@id/weatherDate"
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/weatherIcon"
+
+        app:layout_constraintEnd_toStartOf="@id/weatherTemperature"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/weather_date" />
+        android:src="@drawable/ic_launcher_foreground"
+        />
+
+        <TextView
+            android:layout_width="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/weatherIcon"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="#fff"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@id/weatherDescription"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:text="26* C"
+            android:id="@+id/weatherTemperature"
+            />
 
     <TextView
-        android:id="@+id/weather_description"
+        android:id="@+id/weatherDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="cloudy weather hai"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:inputType="textCapSentences"
+        android:text="Cloudy Sky"
+        android:textColor="#fff"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/weather_logo"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textColor="@color/white"
-        android:textSize="20sp"/>
-
-    <TextView
-
-        android:id="@+id/weather_main"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="cloudy"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:layout_marginBottom="10dp"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/weather_description"
-        app:layout_constraintStart_toStartOf="@+id/weather_description" />
-
+        app:layout_constraintStart_toEndOf="@id/weatherTemperature"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

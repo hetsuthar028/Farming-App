@@ -20,15 +20,30 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-           
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Ahmedabad"
+               android:id="@+id/weatherCity"
+               app:layout_constraintTop_toTopOf="parent"
+               app:layout_constraintStart_toStartOf="parent"
+               android:layout_marginTop="15dp"
+               app:layout_constraintEnd_toEndOf="parent"
+               android:textSize="25sp"
+               android:textStyle="bold"
+               android:textColor="@color/colorPrimary"
+               app:layout_constraintBottom_toTopOf="@id/currentWeather_rcycl"
+               />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/currentWeather_rcycl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintBottom_toTopOf="@id/rcylr_weather"
+                app:layout_constraintTop_toTopOf="@id/weatherCity" />
             
 
             <androidx.recyclerview.widget.RecyclerView

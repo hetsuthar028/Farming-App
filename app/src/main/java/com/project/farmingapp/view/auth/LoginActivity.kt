@@ -36,6 +36,11 @@ class LoginActivity : AppCompatActivity(), AuthListener {
         binding.authViewModel = viewModel
         viewModel.authListener = this
 
+        if(firebaseAuth.currentUser !=null){
+            Intent(this, DashboardActivity::class.java).also {
+                startActivity(it)
+            }
+        }
 
         createaccountText.setOnClickListener {
             Intent(this, SignupActivity::class.java).also {

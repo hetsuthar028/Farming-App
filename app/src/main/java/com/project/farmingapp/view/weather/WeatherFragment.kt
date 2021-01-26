@@ -14,6 +14,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.project.farmingapp.R
+import com.project.farmingapp.adapter.CurrentWeatherAdapter
 import com.project.farmingapp.adapter.WeatherAdapter
 import com.project.farmingapp.databinding.FragmentWeatherBinding
 import com.project.farmingapp.model.WeatherApi
@@ -42,6 +43,7 @@ class WeatherFragment : Fragment(), WeatherListener {
     private var param1: String? = null
     private var param2: String? = null
     lateinit var Adapter: WeatherAdapter
+    lateinit var Adapter2: CurrentWeatherAdapter
 //    lateinit var viewModel: WeatherViewModel
 
 //    private val viewModel: WeatherViewModel? = null
@@ -135,9 +137,55 @@ class WeatherFragment : Fragment(), WeatherListener {
             ) {
                 if (response.isSuccessful) {
                     var data = response.body()!!
-                    Adapter = WeatherAdapter(activity!!.applicationContext, data.list)
+
+
+                    var firstDate = data.list[0].dt_txt.slice(8..9)
+                    var otherDates = firstDate
+                    var i = 1
+                    var data2 = mutableListOf<WeatherList>()
+                    while (otherDates == firstDate){
+
+
+
+                        data2!!.add(data.list[i-1])
+
+
+                        otherDates = data.list[i].dt_txt.slice(8..9)
+//                        Log.d("OtherDates", otherDates +" " +  i)
+                        i+=1
+                    }
+
+
+
+
+                    Log.d("Final OtherDates", data2.toString())
+//                    for (jj in data.list){
+//                        Log.d("List", jj.dt_txt.slice(8..9))
+//                    }
+                    Log.d("Fragment", data.list.size.toString())
+
+                    var data3 = mutableListOf<WeatherList>()
+
+                    for (a in i-1..39){
+                        if(data.list[a].dt_txt.slice(11..12) == "00"){
+                            Log.d("Something date", data.list[a].dt_txt)
+                            data3.add(data.list[a])
+
+                        }
+
+
+                    }
+
+                    Log.d("New List", data3.toString())
+
+                    Adapter = WeatherAdapter(activity!!.applicationContext, data3)
+                    Adapter2 = CurrentWeatherAdapter(activity!!.applicationContext, data2)
+
                     rcylr_weather.adapter = Adapter
                     rcylr_weather.layoutManager = LinearLayoutManager(activity!!.applicationContext)
+
+                    currentWeather_rcycl.adapter = Adapter2
+                    currentWeather_rcycl.layoutManager = LinearLayoutManager(activity!!.applicationContext, LinearLayoutManager.HORIZONTAL, false)
                     Log.d("bharat", data.toString())
 
                 } else {

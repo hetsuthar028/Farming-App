@@ -1,6 +1,7 @@
 package com.project.farmingapp.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,11 @@ class CurrentWeatherAdapter(val context: Context, val weatherrootdatas:List<Weat
         var Ctemp=itemView.findViewById<TextView>(R.id.temp)
         var Cwedesc=itemView.findViewById<TextView>(R.id.desc)
         var Cwelogo=itemView.findViewById<ImageView>(R.id.icon)
+        var CminTemp=itemView.findViewById<TextView>(R.id.minTemp)
+        var CmaxTemp=itemView.findViewById<TextView>(R.id.maxTemp)
+        var Chumidity=itemView.findViewById<TextView>(R.id.humidity)
+        var CtodayTitle=itemView.findViewById<TextView>(R.id.todayTitle)
+
     }
 
     override fun onCreateViewHolder(
@@ -27,10 +33,28 @@ class CurrentWeatherAdapter(val context: Context, val weatherrootdatas:List<Weat
     }
 
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+        return weatherrootdatas.size
     }
 
     override fun onBindViewHolder(holder: CurrentWeatherAdapter.CurrentWeatherViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        val weathernew =weatherrootdatas[position]
+        holder.Ctemp.text = (weathernew.main.temp - 273.15).toInt().toString()
+        holder.Cwedesc.text = weathernew.weather[0].description.toString()
+
+        holder.CtodayTitle.text = "Today " + weathernew.dt_txt.toString().slice(10..15)
+
+        Log.d("Something", weathernew.dt_txt.toString().slice(10..-1))
+
+//        var tempMin = ""
+//        for(a in weathernew.main.temp_min){
+//        }
+        var ss = weathernew.main.temp_min.length
+        holder.CminTemp.text = weathernew.main.temp_min.toString()
+
+        holder.CmaxTemp.text = weathernew.main.temp_max.toString()
+        holder.Chumidity.text = weathernew.main.humidity.toString()
+
+
+
     }
 }

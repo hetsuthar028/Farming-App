@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_marginHorizontal="30dp"
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
@@ -103,6 +104,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="2dp"
                 android:text="18*C"
+                android:id="@+id/minTemp"
                 android:textColor="#fff"
                 app:layout_constraintEnd_toEndOf="@id/icon2"
                 app:layout_constraintStart_toStartOf="@id/icon2"
@@ -123,6 +125,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="2dp"
+                android:id="@+id/maxTemp"
                 android:text="34*C"
                 android:textColor="#fff"
                 app:layout_constraintEnd_toEndOf="@id/icon3"
@@ -145,6 +148,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="2dp"
+                android:id="@+id/humidity"
                 android:text="70%"
                 android:textColor="#fff"
                 app:layout_constraintEnd_toEndOf="@id/icon4"
