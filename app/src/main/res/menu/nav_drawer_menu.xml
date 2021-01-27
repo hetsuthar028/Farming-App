@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/miItem1"
-        android:title="Articles" />
+        android:title="Weather" />
     <item
         android:id="@+id/miItem2"
         android:title="Ecommerce" />

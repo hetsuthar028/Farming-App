@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.project.farmingapp.R
 import com.project.farmingapp.model.data.WeatherList
 import java.text.SimpleDateFormat
@@ -51,7 +52,16 @@ class WeatherAdapter(val context: Context, val weatherrootdatas:List<WeatherList
         val we2=weathernew.main
         holder.wedate.text= outputDate
         holder.wedesc.text=we.description.capitalize()
-        val Temp=we2.temp-273.15
+        Log.d("weatherTemp", we2.temp.toString())
+        val Temp=we2.temp//-273.15
         holder.wemain.text= Temp.toInt().toString()
+
+        var iconcode=weathernew.weather[0].icon.toString()
+
+        var iconurl = "https://openweathermap.org/img/w/" + iconcode + ".png";
+        Log.d("weatherlogo", iconcode.toString())
+        Glide.with(holder.itemView.context)
+            .load(iconurl)
+            .into(holder.welogo)
     }
 }

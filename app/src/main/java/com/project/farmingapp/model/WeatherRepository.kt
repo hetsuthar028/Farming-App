@@ -14,7 +14,7 @@ class WeatherRepository {
     val data = MutableLiveData<WeatherRootList>()
 
     fun getWeather(): LiveData<String> {
-        val response : Call<WeatherRootList> = WeatherApi.weatherInstances.getWeather("27.0225", "72.5714")
+        val response : Call<WeatherRootList> = WeatherApi.weatherInstances.getWeather("23.0225", "72.5714")
 
         val weathRes = MutableLiveData<String>()
 

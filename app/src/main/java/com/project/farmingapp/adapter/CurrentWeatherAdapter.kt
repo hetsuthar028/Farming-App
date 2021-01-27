@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.project.farmingapp.R
 import com.project.farmingapp.model.data.WeatherList
 
@@ -38,7 +39,7 @@ class CurrentWeatherAdapter(val context: Context, val weatherrootdatas:List<Weat
 
     override fun onBindViewHolder(holder: CurrentWeatherAdapter.CurrentWeatherViewHolder, position: Int) {
         val weathernew =weatherrootdatas[position]
-        holder.Ctemp.text = (weathernew.main.temp - 273.15).toInt().toString()
+        holder.Ctemp.text = (weathernew.main.temp).toInt().toString()
         holder.Cwedesc.text = weathernew.weather[0].description.toString()
 
         holder.CtodayTitle.text = "Today " + weathernew.dt_txt.toString().slice(10..15)
@@ -53,7 +54,12 @@ class CurrentWeatherAdapter(val context: Context, val weatherrootdatas:List<Weat
 
         holder.CmaxTemp.text = weathernew.main.temp_max.toString()
         holder.Chumidity.text = weathernew.main.humidity.toString()
+        var iconcode=weathernew.weather[0].icon.toString()
+        var iconurl = "https://openweathermap.org/img/w/" + iconcode + ".png";
 
+        Glide.with(holder.itemView.context)
+            .load(iconurl)
+            .into(holder.Cwelogo)
 
 
     }

@@ -122,7 +122,7 @@ class WeatherFragment : Fragment(), WeatherListener {
 
     fun getWeather(){
         val response: Call<WeatherRootList> =
-            WeatherApi.weatherInstances.getWeather("27.2046", "77.4977")
+            WeatherApi.weatherInstances.getWeather("23.0225", "72.5714")
 
         var data: WeatherRootList? = null
 
