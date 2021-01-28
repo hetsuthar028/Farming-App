@@ -66,7 +66,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
 //        drawerLayout.navbarUserName.text = firebaseAuth.currentUser!!.displayName
 
-        Glide.with(this).load(firebaseAuth.currentUser!!.displayName).into(something.navbarUserImage)
+        Glide.with(this).load(firebaseAuth.currentUser!!.photoUrl).into(something.navbarUserImage)
 //        Picasso.with(context).load("http://i.imgur.com/DvpvklR.png").into(imageView);
 
 
@@ -77,16 +77,16 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.miItem1 -> {
-                if (supportFragmentManager.findFragmentByTag("name") == null) {
-                    blankFragment1 = WeatherFragment()
-                    supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.frame_layout, blankFragment1, "name1")
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                        .setReorderingAllowed(true)
-                        .addToBackStack("name")
-                        .commit()
-                }
+//                if (supportFragmentManager.findFragmentByTag("name") == null) {
+//                    blankFragment1 = WeatherFragment()
+//                    supportFragmentManager
+//                        .beginTransaction()
+//                        .replace(R.id.frame_layout, blankFragment1, "name1")
+//                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+//                        .setReorderingAllowed(true)
+//                        .addToBackStack("name")
+//                        .commit()
+//                }
             }
         }
         drawerLayout.closeDrawer(GravityCompat.START)

@@ -53,8 +53,8 @@ class WeatherAdapter(val context: Context, val weatherrootdatas:List<WeatherList
         holder.wedate.text= outputDate
         holder.wedesc.text=we.description.capitalize()
         Log.d("weatherTemp", we2.temp.toString())
-        val Temp=we2.temp//-273.15
-        holder.wemain.text= Temp.toInt().toString()
+        val Temp=we2.temp-273.15
+        holder.wemain.text= Temp.toInt().toString() + "\u2103"
 
         var iconcode=weathernew.weather[0].icon.toString()
 

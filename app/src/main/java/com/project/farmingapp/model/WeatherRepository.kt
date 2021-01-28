@@ -14,11 +14,12 @@ class WeatherRepository {
     val data = MutableLiveData<WeatherRootList>()
 
     fun getWeather(): LiveData<String> {
-        val response : Call<WeatherRootList> = WeatherApi.weatherInstances.getWeather("23.0225", "72.5714")
+        val response: Call<WeatherRootList> =
+            WeatherApi.weatherInstances.getWeather("23.0225", "72.5714")
 
         val weathRes = MutableLiveData<String>()
 
-        response.enqueue(object : Callback<WeatherRootList>{
+        response.enqueue(object : Callback<WeatherRootList> {
             override fun onFailure(call: Call<WeatherRootList>, t: Throwable) {
                 Log.d("WeatherRepository", "Error Occured")
             }
@@ -27,17 +28,14 @@ class WeatherRepository {
                 call: Call<WeatherRootList>,
                 response: Response<WeatherRootList>
             ) {
-                if(response.isSuccessful){
+                if (response.isSuccessful) {
                     data.value = response.body()
                     weathRes.value = "DONE"
                 } else {
                     weathRes.value = "FAILED"
                 }
-//                Log.d("WeatherRepository", data.value.toString())
             }
-
         })
         return weathRes
     }
-
 }
