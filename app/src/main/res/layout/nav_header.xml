@@ -28,10 +28,20 @@
             android:layout_height="80dp"
             android:background="#f00"
             android:scaleType="fitXY"
-
             />
+
     </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        app:layout_constraintStart_toEndOf="@id/circularRevealCardView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="gone"
+        />
 
     <TextView
         android:id="@+id/navbarUserEmail"
