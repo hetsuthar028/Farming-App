@@ -11,10 +11,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TableRow
-            android:id="@+id/tabla_cabecera"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></TableRow>
+
 
         <TableLayout
             android:id="@+id/tabla_cuerpo"
@@ -28,22 +25,22 @@
                 android:layout_weight="4">
 
                 <TextView
-                    android:id="@+id/textView1"
+                    android:id="@+id/marketTextApmc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/table_border"
+                    android:background="@drawable/table_lefttop_border"
                     android:padding="5dp"
-                    android:text="TextView"
+                    android:text="Market"
                     android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
 
                 <TextView
-                    android:id="@+id/textView1"
+                    android:id="@+id/marketValueTextApmc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_span="2"
                     android:layout_weight="2"
-                    android:background="@drawable/table_border"
+                    android:background="@drawable/table_righttop_border"
                     android:padding="5dp"
                     android:text="TextView"
                     android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
@@ -56,17 +53,17 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/textView1"
+                    android:id="@+id/locationTextApmc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/table_border"
                     android:padding="5dp"
-                    android:text="TextView"
+                    android:text="Location"
                     android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
 
                 <TextView
-                    android:id="@+id/textView1"
+                    android:id="@+id/locationValueTextApmc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_span="2"
@@ -86,18 +83,18 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/textView1"
+                    android:id="@+id/commodityTextApmc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/table_border"
                     android:padding="5dp"
-                    android:text="TextView"
+                    android:text="Commodity"
 
                     android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
 
                 <TextView
-                    android:id="@+id/textView1"
+                    android:id="@+id/commodityValueTextApmc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_span="2"
@@ -116,44 +113,54 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/textView1"
+                    android:id="@+id/minTextApmc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/table_border"
                     android:padding="5dp"
-                    android:text="TextView"
+                    android:text="Minimum"
                     android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
 
                 <TextView
-                    android:id="@+id/textView1"
+                    android:id="@+id/maxTextApmc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/table_border"
                     android:padding="5dp"
-                    android:text="TextView"
+                    android:text="Maximum"
                     android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
 
                 <TextView
-                    android:id="@+id/textView1"
+                    android:id="@+id/modalTextApmc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/table_border"
                     android:padding="5dp"
-                    android:text="TextView"
+                    android:text="Modal"
                     android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
 
             </TableRow>
 
             <TableRow
-                android:id="@+id/tableRow4"
+                android:id="@+id/tableRow54"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/textView1"
+                    android:id="@+id/minValueTextApmc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/table_leftbottom_border"
+                    android:padding="5dp"
+                    android:text="TextView"
+                    android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
+
+                <TextView
+                    android:id="@+id/maxValueTextApmc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -163,21 +170,11 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
 
                 <TextView
-                    android:id="@+id/textView1"
+                    android:id="@+id/modalValueTextApmc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/table_border"
-                    android:padding="5dp"
-                    android:text="TextView"
-                    android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
-
-                <TextView
-                    android:id="@+id/textView1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/table_border"
+                    android:background="@drawable/table_rightbottom_border"
                     android:padding="5dp"
                     android:text="TextView"
                     android:textAppearance="?android:attr/textAppearanceMedium"></TextView>

@@ -15,6 +15,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.project.farmingapp.R
 import com.project.farmingapp.model.data.Weather
+import com.project.farmingapp.view.apmc.ApmcFragment
 import com.project.farmingapp.view.weather.WeatherFragment
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.PicassoProvider
@@ -29,6 +30,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     lateinit var navController: NavController
     lateinit var toggle: ActionBarDrawerToggle
     lateinit var blankFragment1: WeatherFragment
+    lateinit var apmcFragment:ApmcFragment
 
     val firebaseAuth = FirebaseAuth.getInstance()
 
@@ -76,17 +78,17 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
-            R.id.miItem1 -> {
-//                if (supportFragmentManager.findFragmentByTag("name") == null) {
-//                    blankFragment1 = WeatherFragment()
-//                    supportFragmentManager
-//                        .beginTransaction()
-//                        .replace(R.id.frame_layout, blankFragment1, "name1")
-//                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-//                        .setReorderingAllowed(true)
-//                        .addToBackStack("name")
-//                        .commit()
-//                }
+            R.id.miItem4 -> {
+                if (supportFragmentManager.findFragmentByTag("name") == null) {
+                    apmcFragment = ApmcFragment()
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.frame_layout, apmcFragment, "name1")
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .setReorderingAllowed(true)
+                        .addToBackStack("name")
+                        .commit()
+                }
             }
         }
         drawerLayout.closeDrawer(GravityCompat.START)

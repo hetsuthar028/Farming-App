@@ -12,16 +12,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
+
         <androidx.appcompat.widget.SearchView
+            android:id="@+id/apmcSearchBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:id="@+id/apmcSearchBar"
-            app:layout_constraintTop_toTopOf="parent"
             android:layout_marginVertical="10dp"
             app:layout_constraintBottom_toTopOf="@id/hr1Apmc"
-            />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
         <View
@@ -35,7 +35,15 @@
             app:layout_constraintTop_toBottomOf="@id/apmcSearchBar"
             />
 
-
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycleAPMC"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+android:layout_margin="7dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/apmcSearchBar" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
