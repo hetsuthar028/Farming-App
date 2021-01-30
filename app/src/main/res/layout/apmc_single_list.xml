@@ -12,9 +12,9 @@
         android:orientation="vertical">
 
 
-
         <TableLayout
             android:id="@+id/tabla_cuerpo"
+
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -27,12 +27,14 @@
                 <TextView
                     android:id="@+id/marketTextApmc"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/table_lefttop_border"
                     android:padding="5dp"
+                    android:paddingStart="10dp"
                     android:text="Market"
-                    android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textStyle="bold"></TextView>
 
                 <TextView
                     android:id="@+id/marketValueTextApmc"
@@ -40,10 +42,12 @@
                     android:layout_height="wrap_content"
                     android:layout_span="2"
                     android:layout_weight="2"
+                    android:paddingStart="10dp"
                     android:background="@drawable/table_righttop_border"
                     android:padding="5dp"
                     android:text="TextView"
-                    android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textStyle="bold"></TextView>
 
             </TableRow>
 
@@ -55,12 +59,14 @@
                 <TextView
                     android:id="@+id/locationTextApmc"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/table_border"
+                    android:paddingStart="10dp"
                     android:padding="5dp"
                     android:text="Location"
-                    android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textStyle="bold"></TextView>
 
                 <TextView
                     android:id="@+id/locationValueTextApmc"
@@ -69,6 +75,7 @@
                     android:layout_span="2"
                     android:layout_weight="2"
                     android:background="@drawable/table_border"
+                    android:paddingStart="10dp"
                     android:padding="5dp"
                     android:text="TextView"
                     android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
@@ -85,13 +92,14 @@
                 <TextView
                     android:id="@+id/commodityTextApmc"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/table_border"
                     android:padding="5dp"
+                    android:paddingStart="10dp"
                     android:text="Commodity"
-
-                    android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textStyle="bold"></TextView>
 
                 <TextView
                     android:id="@+id/commodityValueTextApmc"
@@ -99,13 +107,24 @@
                     android:layout_height="wrap_content"
                     android:layout_span="2"
                     android:layout_weight="2"
+                    android:textStyle="bold"
+
                     android:background="@drawable/table_border"
                     android:padding="5dp"
+                    android:paddingStart="10dp"
                     android:text="TextView"
                     android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
 
 
             </TableRow>
+
+            <View
+                android:id="@+id/hr1Apmc"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimary"
+
+                />
 
             <TableRow
                 android:id="@+id/tableRow4"
@@ -115,32 +134,39 @@
                 <TextView
                     android:id="@+id/minTextApmc"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
+
                     android:background="@drawable/table_border"
                     android:padding="5dp"
                     android:text="Minimum"
-                    android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:paddingStart="10dp"
+                    android:textStyle="bold"></TextView>
 
                 <TextView
                     android:id="@+id/maxTextApmc"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/table_border"
+                    android:gravity="center"
                     android:padding="5dp"
                     android:text="Maximum"
-                    android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textStyle="bold"></TextView>
 
                 <TextView
                     android:id="@+id/modalTextApmc"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/table_border"
+                    android:gravity="center"
                     android:padding="5dp"
                     android:text="Modal"
-                    android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textStyle="bold"></TextView>
 
             </TableRow>
 
@@ -156,6 +182,8 @@
                     android:layout_weight="1"
                     android:background="@drawable/table_leftbottom_border"
                     android:padding="5dp"
+                    android:paddingStart="10dp"
+
                     android:text="TextView"
                     android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
 
@@ -165,6 +193,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/table_border"
+                    android:gravity="center"
                     android:padding="5dp"
                     android:text="TextView"
                     android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
@@ -175,11 +204,13 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/table_rightbottom_border"
+                    android:gravity="center"
                     android:padding="5dp"
                     android:text="TextView"
                     android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
 
             </TableRow>
+
         </TableLayout>
 
 
