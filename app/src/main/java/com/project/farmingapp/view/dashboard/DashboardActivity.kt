@@ -1,27 +1,41 @@
 package com.project.farmingapp.view.dashboard
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.NavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Glide.with
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.project.farmingapp.R
+import com.project.farmingapp.adapter.CurrentWeatherAdapter
+import com.project.farmingapp.adapter.WeatherAdapter
+import com.project.farmingapp.model.WeatherApi
 import com.project.farmingapp.model.data.Weather
+import com.project.farmingapp.model.data.WeatherList
+import com.project.farmingapp.model.data.WeatherRootList
 import com.project.farmingapp.view.apmc.ApmcFragment
+import com.project.farmingapp.view.auth.LoginActivity
 import com.project.farmingapp.view.weather.WeatherFragment
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.PicassoProvider
 import kotlinx.android.synthetic.main.activity_dashboard.*
+import kotlinx.android.synthetic.main.fragment_weather.*
 import kotlinx.android.synthetic.main.nav_header.*
 import kotlinx.android.synthetic.main.nav_header.view.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import retrofit2.Retrofit
 
 class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -30,9 +44,11 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     lateinit var navController: NavController
     lateinit var toggle: ActionBarDrawerToggle
     lateinit var blankFragment1: WeatherFragment
-    lateinit var apmcFragment:ApmcFragment
-
+    lateinit var apmcFragment: ApmcFragment
+    val firebaseFireStore = FirebaseFirestore.getInstance()
     val firebaseAuth = FirebaseAuth.getInstance()
+    var userName = ""
+    var data: WeatherRootList? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,11 +58,9 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
-
-
         navView.setNavigationItemSelectedListener(this)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        dashboardFragment=dashboardFragment()
+        dashboardFragment = dashboardFragment()
         weatherFragment = WeatherFragment()
         supportFragmentManager
             .beginTransaction()
@@ -56,28 +70,53 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
         val something = navView.getHeaderView(0);
 
-        something.navbarUserName.text = firebaseAuth.currentUser!!.displayName
+
+        val googleLoggedUserName = firebaseAuth.currentUser!!.displayName
+        if (googleLoggedUserName.isNullOrEmpty()) {
+            firebaseFireStore.collection("users").document(firebaseAuth.currentUser!!.email!!)
+                .get()
+                .addOnCompleteListener {
+                    val data = it.result
+                    userName = data!!.getString("name").toString()
+                    something.cityTextNavHeader.text = data!!.getString("city").toString()
+                    something.navbarUserName.text = userName
+                }
+        } else {
+            something.navbarUserName.text = googleLoggedUserName
+        }
         something.navbarUserEmail.text = firebaseAuth.currentUser!!.email
-//        something.navbarUserImage.setImageURI(firebaseAuth.currentUser!!.photoUrl)
-
-        Log.d("UserPhoto", firebaseAuth.currentUser!!.photoUrl.toString())
-
-        Toast.makeText(this, firebaseAuth.currentUser!!.displayName, Toast.LENGTH_LONG).show()
-        var currentUser = firebaseAuth.currentUser!!.displayName
-//        navbarUserName?.text = firebaseAuth.currentUser!!.displayName
-
-//        drawerLayout.navbarUserName.text = firebaseAuth.currentUser!!.displayName
-
         Glide.with(this).load(firebaseAuth.currentUser!!.photoUrl).into(something.navbarUserImage)
-//        Picasso.with(context).load("http://i.imgur.com/DvpvklR.png").into(imageView);
 
-
+//        getWeather()
     }
 
+//    fun getWeather() {
+//        val response: Call<WeatherRootList> =
+//            WeatherApi.weatherInstances.getWeather("23.0225", "72.5714")
+//
+//        var data: WeatherRootList? = null
+//
+//        response.enqueue(object : Callback<WeatherRootList> {
+//            override fun onFailure(call: Call<WeatherRootList>, t: Throwable) {
+//                Log.d("WeatherRepository", "Error Occured")
+//            }
+//
+//            override fun onResponse(
+//                call: Call<WeatherRootList>,
+//                response: Response<WeatherRootList>
+//            ) {
+//                if (response.isSuccessful) {
+//                    data = response.body()!!
+//                    Log.d("Dashboard", data.toString())
+//
+//                }
+//            }
+//        })
+//    }
 
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
+        when (item.itemId) {
             R.id.miItem4 -> {
                 if (supportFragmentManager.findFragmentByTag("name") == null) {
                     apmcFragment = ApmcFragment()
@@ -90,16 +129,33 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                         .commit()
                 }
             }
+            R.id.miItem8 -> {
+                val builder = AlertDialog.Builder(this)
+                builder.setTitle("Log Out")
+                    .setMessage("Do you want to logout?")
+                    .setPositiveButton("Yes") { dialogInterface, i ->
+                        firebaseAuth.signOut()
+                        Toast.makeText(this, "Logged Out", Toast.LENGTH_LONG).show()
+                        Intent(this, LoginActivity::class.java).also {
+                            startActivity(it)
+                        }
+                    }
+                    .setNegativeButton("No") { dialogInterface, i ->
+                    }
+                    .show()
+            }
+            R.id.miItem7 -> {
+
+            }
         }
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
 
     override fun onBackPressed() {
-        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START)
-        }
-        else {
+        } else {
             super.onBackPressed()
         }
     }

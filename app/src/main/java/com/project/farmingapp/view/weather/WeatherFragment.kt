@@ -1,11 +1,13 @@
 package com.project.farmingapp.view.weather
 
 import android.os.Bundle
+
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.Nullable
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
@@ -18,6 +20,7 @@ import com.project.farmingapp.adapter.CurrentWeatherAdapter
 import com.project.farmingapp.adapter.WeatherAdapter
 import com.project.farmingapp.databinding.FragmentWeatherBinding
 import com.project.farmingapp.model.WeatherApi
+import com.project.farmingapp.model.data.Weather
 import com.project.farmingapp.model.data.WeatherList
 import com.project.farmingapp.model.data.WeatherRootList
 import com.project.farmingapp.viewmodel.WeatherListener
@@ -61,13 +64,15 @@ class WeatherFragment : Fragment(), WeatherListener {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
-        // init ViewModel
 
         // init ViewModel
         val viewModel = ViewModelProviders.of(requireActivity())
             .get<WeatherViewModel>(WeatherViewModel::class.java)
 
-
+        val bundle = this.arguments
+        if (bundle != null) {
+            Log.d("WeatherFrag Bundle", bundle.getString("key"))
+        }
     }
 
     override fun onCreateView(
@@ -99,8 +104,8 @@ class WeatherFragment : Fragment(), WeatherListener {
 //            WeatherViewModel::class.java
 //        )
 
-        val resp = getWeather()
-        Log.d("Fragment123", resp.toString())
+//        val resp = getWeather()
+//        Log.d("Fragment123", resp.toString())
 
 //        viewModel!!.callWeatherRepository()
 //        WeatherViewModel().callWeatherRepository()
@@ -118,65 +123,37 @@ class WeatherFragment : Fragment(), WeatherListener {
 //        rcylr_weather.layoutManager= LinearLayoutManager(this.context!!)
 //        Log.d("bharat",data.toString())
 
-    }
+        viewModel = ViewModelProviders.of(requireActivity())
+            .get<WeatherViewModel>(WeatherViewModel::class.java)
+        viewModel.getMessageB()
+            .observe(viewLifecycleOwner, object : Observer<WeatherRootList?> {
+                override fun onChanged(t: WeatherRootList?) {
+                    Log.d("DashFrag Data Changed B", t.toString())
 
-    fun getWeather(){
-        val response: Call<WeatherRootList> =
-            WeatherApi.weatherInstances.getWeather("23.0225", "72.5714")
-
-        var data: WeatherRootList? = null
-
-        response.enqueue(object : Callback<WeatherRootList> {
-            override fun onFailure(call: Call<WeatherRootList>, t: Throwable) {
-                Log.d("WeatherRepository", "Error Occured")
-            }
-
-            override fun onResponse(
-                call: Call<WeatherRootList>,
-                response: Response<WeatherRootList>
-            ) {
-                if (response.isSuccessful) {
-                    var data = response.body()!!
-
-
-                    var firstDate = data.list[0].dt_txt.slice(8..9)
+                    var data: WeatherRootList? = t
+                    var firstDate = data!!.list[0].dt_txt.slice(8..9)
                     var otherDates = firstDate
                     var i = 1
                     var data2 = mutableListOf<WeatherList>()
-                    while (otherDates == firstDate){
 
-
-
-                        data2!!.add(data.list[i-1])
-
-
+                    while (otherDates == firstDate) {
+                        data2!!.add(data.list[i - 1])
                         otherDates = data.list[i].dt_txt.slice(8..9)
-//                        Log.d("OtherDates", otherDates +" " +  i)
-                        i+=1
+                        i += 1
                     }
 
-
-
-
-                    Log.d("Final OtherDates", data2.toString())
-//                    for (jj in data.list){
-//                        Log.d("List", jj.dt_txt.slice(8..9))
-//                    }
-                    Log.d("Fragment", data.list.size.toString())
+//                    Log.d("Final OtherDates", data2.toString())
+//                    Log.d("Fragment", data.list.size.toString())
 
                     var data3 = mutableListOf<WeatherList>()
-
-                    for (a in i-1..39){
-                        if(data.list[a].dt_txt.slice(11..12) == "00"){
+                    for (a in i - 1..39) {
+                        if (data.list[a].dt_txt.slice(11..12) == "12") {
                             Log.d("Something date", data.list[a].dt_txt)
                             data3.add(data.list[a])
-
                         }
-
-
                     }
 
-                    Log.d("New List", data3.toString())
+//                    Log.d("New List", data3.toString())
 
                     Adapter = WeatherAdapter(activity!!.applicationContext, data3)
                     Adapter2 = CurrentWeatherAdapter(activity!!.applicationContext, data2)
@@ -185,15 +162,86 @@ class WeatherFragment : Fragment(), WeatherListener {
                     rcylr_weather.layoutManager = LinearLayoutManager(activity!!.applicationContext)
 
                     currentWeather_rcycl.adapter = Adapter2
-                    currentWeather_rcycl.layoutManager = LinearLayoutManager(activity!!.applicationContext, LinearLayoutManager.HORIZONTAL, false)
-                    Log.d("bharat", data.toString())
+                    currentWeather_rcycl.layoutManager = LinearLayoutManager(
+                        activity!!.applicationContext,
+                        LinearLayoutManager.HORIZONTAL,
+                        false
+                    )
+//                    Log.d("bharat", data.toString())
+                }
+            })
+    }
+
+    fun getWeather() {
+        val response: retrofit2.Call<WeatherRootList> =
+            WeatherApi.weatherInstances.getWeather("23.0225", "72.5714")
+
+        var data: WeatherRootList? = null
+
+        response.enqueue(object : Callback<WeatherRootList> {
+            override fun onFailure(call: retrofit2.Call<WeatherRootList>, t: Throwable) {
+                Log.d("WeatherRepository", "Error Occured")
+            }
+
+            override fun onResponse(
+                call: retrofit2.Call<WeatherRootList>,
+                response: Response<WeatherRootList>
+            ) {
+                if (response.isSuccessful) {
+                    var data = response.body()!!
+
+
+//                    var firstDate = data.list[0].dt_txt.slice(8..9)
+//                    var otherDates = firstDate
+//                    var i = 1
+//                    var data2 = mutableListOf<WeatherList>()
+//                    while (otherDates == firstDate){
+//
+//
+//
+//                        data2!!.add(data.list[i-1])
+//
+//
+//                        otherDates = data.list[i].dt_txt.slice(8..9)
+////                        Log.d("OtherDates", otherDates +" " +  i)
+//                        i+=1
+//                    }
+//
+//
+//
+//
+//                    Log.d("Final OtherDates", data2.toString())
+////                    for (jj in data.list){
+////                        Log.d("List", jj.dt_txt.slice(8..9))
+////                    }
+//                    Log.d("Fragment", data.list.size.toString())
+//
+//                    var data3 = mutableListOf<WeatherList>()
+//
+//                    for (a in i-1..39){
+//                        if(data.list[a].dt_txt.slice(11..12) == "12"){
+//                            Log.d("Something date", data.list[a].dt_txt)
+//                            data3.add(data.list[a])
+//                        }
+//                    }
+//
+//                    Log.d("New List", data3.toString())
+//
+//                    Adapter = WeatherAdapter(activity!!.applicationContext, data3)
+//                    Adapter2 = CurrentWeatherAdapter(activity!!.applicationContext, data2)
+//
+//                    rcylr_weather.adapter = Adapter
+//                    rcylr_weather.layoutManager = LinearLayoutManager(activity!!.applicationContext)
+//
+//                    currentWeather_rcycl.adapter = Adapter2
+//                    currentWeather_rcycl.layoutManager = LinearLayoutManager(activity!!.applicationContext, LinearLayoutManager.HORIZONTAL, false)
+//                    Log.d("bharat", data.toString())
 
                 } else {
 
                 }
             }
         })
-
     }
 
     companion object {
@@ -216,14 +264,10 @@ class WeatherFragment : Fragment(), WeatherListener {
             }
     }
 
-
     override fun onSuccess(authRepo: LiveData<String>) {
         authRepo.observe(this, Observer {
             Log.d("Frag", authRepo.value.toString())
         })
-
         Toast.makeText(this.context, "SS", Toast.LENGTH_LONG).show()
     }
-
-
 }

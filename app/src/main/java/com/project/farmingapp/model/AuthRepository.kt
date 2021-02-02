@@ -45,7 +45,6 @@ class AuthRepository {
             } else if (it.isCanceled) {
                 data.value = "Failure"
             }
-
         }.addOnFailureListener {
             Log.d("AuthRepo", it.message)
             data.value = it.message

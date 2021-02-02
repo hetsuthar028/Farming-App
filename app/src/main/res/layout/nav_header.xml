@@ -26,7 +26,7 @@
             android:id="@+id/navbarUserImage"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:background="#f00"
+            android:background="@drawable/ic_user_profile"
             android:scaleType="fitXY"
             />
 
@@ -68,13 +68,13 @@
         android:textSize="20sp"
         android:textStyle="bold"
 
-        app:layout_constraintBottom_toTopOf="@id/textView33"
+        app:layout_constraintBottom_toTopOf="@id/cityTextNavHeader"
         app:layout_constraintStart_toEndOf="@+id/circularRevealCardView"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
 
-        android:id="@+id/textView33"
+        android:id="@+id/cityTextNavHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginVertical="10dp"
@@ -97,6 +97,6 @@
         android:textColor="#fff"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@+id/circularRevealCardView"
-        app:layout_constraintStart_toStartOf="@+id/textView33" />
+        app:layout_constraintStart_toStartOf="@+id/cityTextNavHeader" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
