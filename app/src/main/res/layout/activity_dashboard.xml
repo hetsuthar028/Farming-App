@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/drawerLayout"
+    tools:openDrawer="start"
+
     tools:context=".view.dashboard.DashboardActivity">
 
     <include
@@ -19,6 +21,7 @@
         android:layout_gravity="start"
         android:background="#fff"
         android:fitsSystemWindows="true"
+        
         app:headerLayout="@layout/nav_header"
         app:menu="@menu/nav_drawer_menu" />
 </androidx.drawerlayout.widget.DrawerLayout>

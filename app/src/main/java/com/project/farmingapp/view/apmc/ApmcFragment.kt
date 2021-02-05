@@ -12,6 +12,7 @@ import com.project.farmingapp.R
 import com.project.farmingapp.adapter.ApmcAdapter
 import com.project.farmingapp.model.APMCApi
 import com.project.farmingapp.model.data.APMCMain
+import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.fragment_apmc.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -50,6 +51,7 @@ class ApmcFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
 
+//        bottomNav.selectedItemId = R.id.bottomNavAPMC
 
         getApmc()
         return inflater.inflate(R.layout.fragment_apmc, container, false)
@@ -57,6 +59,9 @@ class ApmcFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+
         var states = arrayOf(
             "All states",
             "Andhra Pradesh",
