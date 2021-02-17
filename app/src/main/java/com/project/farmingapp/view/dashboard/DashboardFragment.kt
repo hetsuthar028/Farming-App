@@ -15,6 +15,8 @@ import com.bumptech.glide.Glide
 import com.project.farmingapp.R
 import com.project.farmingapp.model.WeatherApi
 import com.project.farmingapp.model.data.WeatherRootList
+import com.project.farmingapp.view.articles.ArticleListFragment
+import com.project.farmingapp.view.articles.FruitsFragment
 import com.project.farmingapp.view.weather.WeatherFragment
 import com.project.farmingapp.viewmodel.WeatherViewModel
 import kotlinx.android.synthetic.main.fragment_dashboard.*
@@ -37,6 +39,8 @@ class dashboardFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     lateinit var weatherFragment: WeatherFragment
+    lateinit var fruitsFragment: FruitsFragment
+    lateinit var articleListFragment: ArticleListFragment
     private lateinit var viewModel: WeatherViewModel
     var data: WeatherRootList? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,6 +49,8 @@ class dashboardFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
+
     }
 
     override fun onCreateView(
@@ -85,6 +91,21 @@ class dashboardFragment : Fragment() {
 //        articlesTitle.setOnClickListener {
 //            viewModel.messageToB()
 //        }
+
+        cat4.setOnClickListener {
+//            fruitsFragment = FruitsFragment()
+
+            articleListFragment = ArticleListFragment()
+            if (activity!!.supportFragmentManager.findFragmentByTag("name3") == null) {
+                val transaction = activity!!.supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.frame_layout, articleListFragment, "name3")
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .setReorderingAllowed(true)
+                    .addToBackStack("name3")
+                    .commit()
+            }
+        }
     }
 
     companion object {

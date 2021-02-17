@@ -1,22 +1,325 @@
 <?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.articles.FruitsFragment">
 
-
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".view.articles.FruitsFragment">
+        android:layout_height="match_parent">
 
-        <!-- TODO: Update blank fragment layout -->
-        <TextView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment" />
+            android:layout_margin="14dp">
 
-        <Button
-            android:id="@+id/randomFruit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/titleTextFruitFragArt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="7dp"
+                android:text="ABC"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/monthTitleTextFruitFragArt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="7dp"
+                android:text="Month: "
+                android:textStyle="italic|bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/titleTextFruitFragArt" />
+
+            <TextView
+                android:id="@+id/monthTextFruitFragArt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="January-February"
+                app:layout_constraintBottom_toBottomOf="@id/monthTitleTextFruitFragArt"
+                app:layout_constraintStart_toEndOf="@id/monthTitleTextFruitFragArt"
+                app:layout_constraintTop_toTopOf="@id/monthTitleTextFruitFragArt" />
 
 
-    </FrameLayout>
+            <TextView
+                android:id="@+id/tempTitleTextFruitFragArt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="7dp"
+                android:text="Temperature: "
+                android:textStyle="italic|bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/monthTextFruitFragArt" />
+
+            <TextView
+                android:id="@+id/tempTextFruitFragArt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="26*C - 27*C"
+                app:layout_constraintBottom_toBottomOf="@id/tempTitleTextFruitFragArt"
+                app:layout_constraintStart_toEndOf="@id/tempTitleTextFruitFragArt"
+                app:layout_constraintTop_toTopOf="@id/tempTitleTextFruitFragArt" />
+
+            <TextView
+                android:id="@+id/descTextTitleFruitFragArt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="7dp"
+                android:text="Description"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/descTextValueFruitFragArt"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tempTextFruitFragArt" />
+
+            <ImageButton
+                android:id="@+id/descToggleBtnFruitFragArt"
+                android:layout_width="15dp"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="14dp"
+                android:background="#fff"
+                android:scaleX="1.2"
+                android:scaleY="1.2"
+                android:src="@drawable/ic__keyboard_arrow_down"
+                app:layout_constraintBottom_toBottomOf="@+id/descTextTitleFruitFragArt"
+                app:layout_constraintStart_toEndOf="@id/descTextTitleFruitFragArt"
+                 />
+
+                <ImageView
+                android:id="@+id/shareIconFruitFragArt"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/share1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/colorPrimary" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardImageFruitFragArt"
+                android:layout_width="100dp"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="21dp"
+                app:cardCornerRadius="100dp"
+                app:layout_constraintBottom_toTopOf="@id/descTextTitleFruitFragArt"
+                app:layout_constraintEnd_toStartOf="@id/shareIconFruitFragArt"
+                app:layout_constraintTop_toTopOf="@id/titleTextFruitFragArt">
+
+                <ImageView
+                    android:id="@+id/imageFruitFragArt"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorPrimary"
+                    android:scaleType="fitXY" />
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/descTextValueFruitFragArt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="7dp"
+                android:gravity="fill_horizontal"
+                android:ellipsize="end"
+                android:justificationMode="inter_word"
+                android:maxLines="5"
+                android:text="Lorem Impsum"
+
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/descTextTitleFruitFragArt" />
+
+            <ImageView
+                android:id="@+id/attr1FruitFragArt"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginVertical="14dp"
+                android:src="@drawable/timbangan"
+                app:layout_constraintEnd_toStartOf="@id/attr2FruitFragArt"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/descTextValueFruitFragArt" />
+
+            <TextView
+                android:id="@+id/attr1ValueFruitFragArt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="7dp"
+                android:text="Avg. Weight"
+                app:layout_constraintEnd_toEndOf="@id/attr1FruitFragArt"
+                app:layout_constraintStart_toStartOf="@id/attr1FruitFragArt"
+                app:layout_constraintTop_toBottomOf="@id/attr1FruitFragArt" />
+
+            <ImageView
+                android:id="@+id/attr2FruitFragArt"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginVertical="7dp"
+                android:src="@drawable/vitamin"
+                app:layout_constraintBottom_toBottomOf="@id/attr1FruitFragArt"
+                app:layout_constraintEnd_toStartOf="@id/attr3FruitFragArt"
+                app:layout_constraintStart_toEndOf="@id/attr1FruitFragArt"
+                app:layout_constraintTop_toTopOf="@id/attr1FruitFragArt"
+                app:tint="@color/colorPrimary" />
+
+            <TextView
+                android:id="@+id/attr2ValueFruitFragArt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="7dp"
+                android:text="Avg. Weight"
+                app:layout_constraintEnd_toEndOf="@id/attr2FruitFragArt"
+                app:layout_constraintStart_toStartOf="@id/attr2FruitFragArt"
+                app:layout_constraintTop_toBottomOf="@id/attr2FruitFragArt" />
+
+            <ImageView
+                android:id="@+id/attr3FruitFragArt"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginVertical="7dp"
+                android:src="@drawable/circlecropped1"
+                app:layout_constraintBottom_toBottomOf="@id/attr1FruitFragArt"
+                app:layout_constraintEnd_toEndOf="@id/attr4FruitFragArt"
+                app:layout_constraintStart_toEndOf="@id/attr2FruitFragArt"
+                app:layout_constraintTop_toTopOf="@id/attr1FruitFragArt"
+                 />
+
+            <TextView
+                android:id="@+id/attr3ValueFruitFragArt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="7dp"
+                android:text="Avg. Weight"
+                app:layout_constraintEnd_toEndOf="@id/attr3FruitFragArt"
+                app:layout_constraintStart_toStartOf="@id/attr3FruitFragArt"
+                app:layout_constraintTop_toBottomOf="@id/attr2FruitFragArt" />
+
+            <ImageView
+                android:id="@+id/attr4FruitFragArt"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginVertical="7dp"
+                android:src="@drawable/c2"
+                app:layout_constraintBottom_toBottomOf="@id/attr1FruitFragArt"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/attr3FruitFragArt"
+                app:layout_constraintTop_toTopOf="@id/attr1FruitFragArt"
+                app:tint="@color/colorPrimary" />
+
+            <TextView
+                android:id="@+id/attr4ValueFruitFragArt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="7dp"
+                android:text="Avg. Weight"
+                app:layout_constraintEnd_toEndOf="@id/attr4FruitFragArt"
+                app:layout_constraintStart_toStartOf="@id/attr4FruitFragArt"
+                app:layout_constraintTop_toBottomOf="@id/attr3FruitFragArt" />
+
+            <ImageButton
+                android:id="@+id/carouselFruitFragArt"
+                android:layout_width="match_parent"
+                android:layout_height="175dp"
+                android:layout_marginVertical="7dp"
+                app:layout_constraintBottom_toTopOf="@id/soilTextTitleFruitFragArt"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/attr1ValueFruitFragArt" />
+
+
+            <TextView
+                android:id="@+id/soilTextTitleFruitFragArt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="7dp"
+                android:text="Soil:"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/carouselFruitFragArt" />
+
+            <TextView
+                android:id="@+id/soilTextValueFruitFragArt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="7dp"
+                android:justificationMode="inter_word"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/soilTextTitleFruitFragArt" />
+
+            <TextView
+                android:id="@+id/processTextTitleFruitFragArt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="7dp"
+                android:text="Process:"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/soilTextValueFruitFragArt" />
+
+            <TextView
+                android:id="@+id/processTextValueFruitFragArt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="7dp"
+                android:justificationMode="inter_word"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/processTextTitleFruitFragArt" />
+
+            <TextView
+                android:id="@+id/diseaseTextTitleFruitFragArt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="7dp"
+                android:text="Diseases:"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/processTextValueFruitFragArt" />
+
+            <TextView
+                android:id="@+id/diseaseTextValueFruitFragArt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="7dp"
+                android:justificationMode="inter_word"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/diseaseTextTitleFruitFragArt" />
+
+            <TextView
+                android:id="@+id/stateTextTitleFruitFragArt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="7dp"
+                android:text="State:"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/diseaseTextValueFruitFragArt" />
+
+            <TextView
+                android:id="@+id/stateTextValueFruitFragArt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="7dp"
+                android:justificationMode="inter_word"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/stateTextTitleFruitFragArt" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/stateTextValueFruitFragArt" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+</FrameLayout>

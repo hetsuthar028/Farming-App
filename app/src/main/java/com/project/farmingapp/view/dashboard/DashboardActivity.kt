@@ -65,9 +65,6 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
-//        val toolBar: Toolbar = findViewById(R.id.)
-
-
         navView.setNavigationItemSelectedListener(this)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
@@ -81,7 +78,6 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         bottomNav.selectedItemId = R.id.bottomNavHome
 
         val something = navView.getHeaderView(0);
-
 
         if(dashboardFragment.isVisible){
             bottomNav.selectedItemId = R.id.bottomNavHome
@@ -137,40 +133,13 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         toggle.syncState()
     }
 
-//    fun getWeather() {
-//        val response: Call<WeatherRootList> =
-//            WeatherApi.weatherInstances.getWeather("23.0225", "72.5714")
-//
-//        var data: WeatherRootList? = null
-//
-//        response.enqueue(object : Callback<WeatherRootList> {
-//            override fun onFailure(call: Call<WeatherRootList>, t: Throwable) {
-//                Log.d("WeatherRepository", "Error Occured")
-//            }
-//
-//            override fun onResponse(
-//                call: Call<WeatherRootList>,
-//                response: Response<WeatherRootList>
-//            ) {
-//                if (response.isSuccessful) {
-//                    data = response.body()!!
-//                    Log.d("Dashboard", data.toString())
-//
-//                }
-//            }
-//        })
-//    }
-
-
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         bottomNav.selectedItemId = R.id.bottomNavHome
         when (item.itemId) {
 
             R.id.miItem1 -> {
                 if (supportFragmentManager.findFragmentByTag("name") == null) {
-//                    apmcFragment = ApmcFragment()
                     fruitsFragment = FruitsFragment()
-//                    bottomNav.selectedItemId = R.id.bottomNavAPMC
                     supportFragmentManager
                         .beginTransaction()
                         .replace(R.id.frame_layout, fruitsFragment, "article")
