@@ -214,8 +214,6 @@ class ApmcFragment : Fragment() {
         apmc1.enqueue(object : Callback<APMCMain> {
             override fun onFailure(call: Call<APMCMain>, t: Throwable) {
                 Log.d("bharat222", "fail ho gya", t)
-
-
             }
 
             override fun onResponse(
