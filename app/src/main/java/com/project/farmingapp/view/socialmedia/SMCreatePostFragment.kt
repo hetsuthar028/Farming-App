@@ -133,7 +133,15 @@ class SMCreatePostFragment : Fragment() {
         }
 
         createPostBtnSM.setOnClickListener {
-            uploadImage().setImageBitmap(bitmap)
+
+            if(postTitleSM.text.toString().isNullOrEmpty())
+            {
+                Toast.makeText(activity!!.applicationContext,"Please enter title",Toast.LENGTH_SHORT).show()
+            }
+            else
+            {
+                uploadImage().setImageBitmap(bitmap)
+            }
         }
 
 
@@ -159,7 +167,8 @@ class SMCreatePostFragment : Fragment() {
         }
     }
 
-    private fun uploadImage() { if (filePath != null) {
+    private fun uploadImage() {
+        if (filePath != null) {
             postID = UUID.randomUUID()
             val ref = storageReference?.child("posts/" + postID.toString())
             val uploadTask = ref?.putFile(filePath!!)
@@ -183,6 +192,7 @@ class SMCreatePostFragment : Fragment() {
 
                 }
         } else {
+            data2["uploadType"]=""
             addUploadRecordWithImageToDb(null, null)
         }
     }

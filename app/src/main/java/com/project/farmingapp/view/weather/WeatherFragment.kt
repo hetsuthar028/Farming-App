@@ -15,6 +15,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.azoft.carousellayoutmanager.CarouselLayoutManager
+import com.azoft.carousellayoutmanager.CarouselZoomPostLayoutListener
+import com.azoft.carousellayoutmanager.CenterScrollListener
+import com.littlemango.stacklayoutmanager.StackLayoutManager
 import com.project.farmingapp.R
 import com.project.farmingapp.adapter.CurrentWeatherAdapter
 import com.project.farmingapp.adapter.WeatherAdapter
@@ -156,15 +161,22 @@ class WeatherFragment : Fragment(), WeatherListener {
         Adapter = WeatherAdapter(activity!!.applicationContext, data3)
         Adapter2 = CurrentWeatherAdapter(activity!!.applicationContext, data2)
 
-        rcylr_weather.adapter = Adapter
+      rcylr_weather.adapter = Adapter
         rcylr_weather.layoutManager = LinearLayoutManager(activity!!.applicationContext)
 
+//        currentWeather_rcycl.adapter = Adapter2
+//        currentWeather_rcycl.layoutManager = LinearLayoutManager(
+//            activity!!.applicationContext,
+//            LinearLayoutManager.HORIZONTAL,
+//            false
+//        )
         currentWeather_rcycl.adapter = Adapter2
-        currentWeather_rcycl.layoutManager = LinearLayoutManager(
-            activity!!.applicationContext,
-            LinearLayoutManager.HORIZONTAL,
-            false
-        )
+        val manager: CarouselLayoutManager= CarouselLayoutManager(CarouselLayoutManager.HORIZONTAL)
+        manager.maxVisibleItems=3
+        manager.setPostLayoutListener(CarouselZoomPostLayoutListener())
+        currentWeather_rcycl.layoutManager=manager
+        currentWeather_rcycl.hasFixedSize(true)
+       currentWeather_rcycl.addOnScrollListener( CenterScrollListener())
 
 
 //        viewModel.getMessageB()
@@ -312,4 +324,8 @@ class WeatherFragment : Fragment(), WeatherListener {
         })
         Toast.makeText(this.context, "SS", Toast.LENGTH_LONG).show()
     }
+}
+
+private fun RecyclerView.hasFixedSize(b: Boolean) {
+
 }

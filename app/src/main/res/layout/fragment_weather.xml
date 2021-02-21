@@ -17,6 +17,7 @@
         tools:context=".view.weather.WeatherFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+android:background="@drawable/bbc"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -38,7 +39,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/currentWeather_rcycl"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="300dp"
                 android:layout_marginHorizontal="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -47,10 +48,11 @@
             
 
             <androidx.recyclerview.widget.RecyclerView
+android:paddingVertical="14dp"
                 android:id="@+id/rcylr_weather"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:background="@color/white"
+                android:background="@drawable/weather_rcyclr_bg"
                 android:layout_marginTop="40dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
