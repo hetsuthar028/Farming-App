@@ -235,7 +235,6 @@ class FruitsFragment : Fragment(), ArticleListener {
         }
 
 
-
         // New
 
         val newData = viewModel.message3.value
@@ -243,15 +242,15 @@ class FruitsFragment : Fragment(), ArticleListener {
         Log.d("New data length", newData!!.size.toString())
         val newDataLength = newData!!.size
 
-        for (a in 0 until newDataLength){
-            if (newData[a].data!!.get("title") == this.tag){
-
+        for (a in 0 until newDataLength) {
+            if (newData[a].data!!.get("title") == this.tag) {
 
 
                 var data = newData[a].data
 
 
-                val attributes: Map<String, String> = data!!.get("attributes") as Map<String, String>
+                val attributes: Map<String, String> =
+                    data!!.get("attributes") as Map<String, String>
                 val desc = data!!.get("description").toString()
                 Log.d("I'm Called3", attributes.get("Temperature").toString())
 
@@ -259,7 +258,7 @@ class FruitsFragment : Fragment(), ArticleListener {
                 val diseases: List<String> = data!!.get("diseases") as List<String>
 //            Log.d("Diseases", diseases.toString())
                 Log.d("Diseases2", data!!.get("diseases").toString())
-                tempTextFruitFragArt.text = "s"
+                tempTextFruitFragArt.text = attributes.get("Temperature").toString()
                 monthTextFruitFragArt.text = attributes.get("Time").toString()
 
                 titleTextFruitFragArt.text = data!!.get("title").toString()

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="7dp"
+    android:layout_marginVertical="14dp">
+
+    <!--    <androidx.cardview.widget.CardView-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_margin="7dp"-->
+    <!--        app:cardCornerRadius="7dp"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent">-->
+
+    <!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:padding="7dp">-->
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/userProfileImageCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/userProfileImagePost"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_user_profile" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/userNamePostSM"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="14dp"
+        android:text="Het Suthar"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/userProfileImageCard"
+        app:layout_constraintStart_toEndOf="@id/userProfileImageCard"
+        app:layout_constraintTop_toTopOf="@id/userProfileImageCard" />
+
+    <TextView
+        android:id="@+id/userPostUploadTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:gravity="end"
+        android:text="2 Minutes Ago"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@id/userProfileImageCard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/userProfileImageCard" />
+
+
+    <ImageView
+        android:id="@+id/postImageSM"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_marginVertical="7dp"
+        android:background="@color/colorPrimary"
+        android:scaleType="fitXY"
+        app:layout_constraintTop_toBottomOf="@id/userProfileImageCard"
+        app:layout_constraintBottom_toTopOf="@id/userPostTitleValue"/>
+
+    <WebView
+        android:id="@+id/postVideoSM"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:scaleType="fitXY"
+        android:layout_marginVertical="7dp"
+        app:layout_constraintBottom_toTopOf="@id/userPostTitleValue"
+        app:layout_constraintTop_toBottomOf="@id/userProfileImageCard"
+        tools:ignore="WebViewLayout" />
+
+    <!--    <VideoView-->
+    <!--        android:id="@+id/postVideoSM"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="250dp"-->
+    <!--        android:layout_marginVertical="7dp"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/userProfileImageCard" />-->
+
+
+    <TextView
+        android:id="@+id/userPostTitleValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="7dp"
+        android:text="This is the title."
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/postImageSM" />
+
+    <TextView
+        android:id="@+id/userPostDescValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:gravity="fill_horizontal"
+        android:justificationMode="inter_word"
+        android:maxLines="3"
+        android:text="This is the Description."
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/userPostTitleValue" />
+
+</androidx.constraintlayout.widget.ConstraintLayout><!--    </androidx.cardview.widget.CardView>-->
+
+    <!--</androidx.constraintlayout.widget.ConstraintLayout>-->

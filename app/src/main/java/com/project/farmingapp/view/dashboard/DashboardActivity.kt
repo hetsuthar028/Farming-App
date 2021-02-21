@@ -31,6 +31,7 @@ import com.project.farmingapp.model.data.WeatherRootList
 import com.project.farmingapp.view.apmc.ApmcFragment
 import com.project.farmingapp.view.articles.FruitsFragment
 import com.project.farmingapp.view.auth.LoginActivity
+import com.project.farmingapp.view.socialmedia.SocialMediaPostsFragment
 import com.project.farmingapp.view.weather.WeatherFragment
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.PicassoProvider
@@ -52,6 +53,8 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     lateinit var blankFragment1: WeatherFragment
     lateinit var apmcFragment: ApmcFragment
     lateinit var fruitsFragment: FruitsFragment
+    lateinit var socialMediaPostFragment: SocialMediaPostsFragment
+
     val firebaseFireStore = FirebaseFirestore.getInstance()
     val firebaseAuth = FirebaseAuth.getInstance()
     var userName = ""
@@ -101,7 +104,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
 //        getWeather()
         apmcFragment = ApmcFragment()
-
+        socialMediaPostFragment = SocialMediaPostsFragment()
 
 
         bottomNav.setOnNavigationItemSelectedListener {
@@ -109,7 +112,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 R.id.bottomNavAPMC -> setCurrentFragment(apmcFragment)
                 R.id.bottomNavHome -> setCurrentFragment(dashboardFragment)
                 R.id.bottomNavEcomm -> setCurrentFragment(dashboardFragment)
-                R.id.bottomNavPost -> setCurrentFragment(dashboardFragment)
+                R.id.bottomNavPost -> setCurrentFragment(socialMediaPostFragment)
             }
             true
         }

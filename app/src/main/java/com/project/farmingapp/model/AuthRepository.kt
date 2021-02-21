@@ -1,18 +1,13 @@
 package com.project.farmingapp.model
 
-import android.content.Intent
 import android.util.Log
-import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
-import com.project.farmingapp.view.auth.LoginActivity
-import com.project.farmingapp.view.auth.SignupActivity
+import java.io.Serializable
 
 class AuthRepository {
 
@@ -23,7 +18,7 @@ class AuthRepository {
     fun signInWithEmail(
         email: String,
         password: String,
-        otherData: HashMap<String, String?>
+        otherData: HashMap<String, Serializable?>
     ): LiveData<String> {
 
         firebaseDb = FirebaseFirestore.getInstance()
@@ -55,7 +50,7 @@ class AuthRepository {
     fun signInToGoogle(
         idToken: String,
         email: String,
-        otherData: HashMap<String, String?>
+        otherData: HashMap<String, Serializable?>
     ): LiveData<String> {
         firebaseDb = FirebaseFirestore.getInstance()
         val credential = GoogleAuthProvider.getCredential(idToken, null)

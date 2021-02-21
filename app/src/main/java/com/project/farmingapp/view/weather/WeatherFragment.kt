@@ -20,6 +20,7 @@ import com.project.farmingapp.adapter.CurrentWeatherAdapter
 import com.project.farmingapp.adapter.WeatherAdapter
 import com.project.farmingapp.databinding.FragmentWeatherBinding
 import com.project.farmingapp.model.WeatherApi
+import com.project.farmingapp.databinding.FragmentWeatherBindingImpl
 import com.project.farmingapp.model.data.Weather
 import com.project.farmingapp.model.data.WeatherList
 import com.project.farmingapp.model.data.WeatherRootList

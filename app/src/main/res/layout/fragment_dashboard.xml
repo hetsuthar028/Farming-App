@@ -51,7 +51,7 @@
                         android:layout_height="wrap_content"
                         android:text="Ahmedabad"
                         android:textColor="#fff"
-                        android:textSize="25sp"
+                        android:textSize="21sp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toTopOf="@id/windTextWeathFrag"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -65,9 +65,10 @@
                         android:layout_marginStart="20dp"
                         android:text="27* C"
                         android:textColor="#fff"
-                        android:textSize="25sp"
+                        android:textSize="21sp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/windTextWeathFrag"
                         app:layout_constraintStart_toEndOf="@id/weathIconImageWeathFrag"
                         app:layout_constraintTop_toBottomOf="@id/weatherCityTitle" />
 
@@ -77,6 +78,7 @@
                         android:layout_height="wrap_content"
                         android:text="Wind : 15km/h"
                         android:textColor="#fff"
+                        android:textSize="14sp"
                         app:layout_constraintBottom_toTopOf="@id/humidityTextWeathFrag"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/weathTempTextWeathFrag"
@@ -88,6 +90,7 @@
                         android:layout_height="wrap_content"
                         android:text="Wind : 15km/h"
                         android:textColor="#fff"
+                        android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="@id/windTextWeathFrag"
                         app:layout_constraintTop_toBottomOf="@id/windTextWeathFrag" />
@@ -99,9 +102,9 @@
                 android:id="@+id/articlesTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="20dp"
+                android:layout_marginVertical="7dp"
                 android:text="Articles"
-                android:textSize="25sp"
+                android:textSize="21sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/weatherCard" />
@@ -140,7 +143,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:text="Seeds"
-                                android:textSize="20sp"
+                                android:textSize="14sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
@@ -168,7 +171,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:text="Plants"
-                                android:textSize="20sp"
+                                android:textSize="14sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
@@ -195,7 +198,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:text="Methods"
-                                android:textSize="20sp"
+                                android:textSize="14sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
@@ -221,7 +224,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:text="Diseases"
-                                android:textSize="20sp"
+                                android:textSize="14sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
@@ -249,7 +252,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:text="Fruits"
-                                android:textSize="20sp"
+                                android:textSize="14sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
@@ -271,7 +274,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="10dp"
                 android:text="Products"
-                android:textSize="25sp"
+                android:textSize="21sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/carousel" />
@@ -307,7 +310,8 @@
                         android:layout_height="wrap_content"
                         android:paddingHorizontal="10dp"
                         android:text="TVC Tractor"
-                        android:textSize="17sp"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toTopOf="@id/someID"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/ecommIcon1" />
@@ -316,8 +320,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingHorizontal="10dp"
+                        android:id="@+id/someID"
                         android:text="$994"
                         android:textColor="@color/colorPrimary"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/ecommName1" />
 
@@ -356,7 +362,7 @@
                         android:layout_height="wrap_content"
                         android:paddingHorizontal="10dp"
                         android:text="TVC Tractor"
-                        android:textSize="17sp"
+                        android:textSize="14sp"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/ecommIcon2" />
@@ -405,7 +411,7 @@
                         android:layout_height="wrap_content"
                         android:paddingHorizontal="10dp"
                         android:text="TVC Tractor"
-                        android:textSize="17sp"
+                        android:textSize="14sp"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/ecommIcon3" />
@@ -454,7 +460,7 @@
                         android:layout_height="wrap_content"
                         android:paddingHorizontal="10dp"
                         android:text="TVC Tractor"
-                        android:textSize="17sp"
+                        android:textSize="14sp"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/ecommIcon4" />
