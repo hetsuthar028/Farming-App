@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -37,6 +38,8 @@ class SMPostListAdapter(val context: Context, val postListData : List<DocumentSn
 
     override fun onBindViewHolder(holder: SMPostListViewModel, position: Int) {
         val currentPost = postListData[position]
+
+
 
         holder.itemView.userNamePostSM.text = currentPost.get("name").toString()
         holder.itemView.userPostTitleValue.text = currentPost.get("title").toString()
@@ -87,14 +90,17 @@ class SMPostListAdapter(val context: Context, val postListData : List<DocumentSn
 
             holder.itemView.postVideoSM.loadUrl(currentPost.get("imageUrl").toString())
 //            holder.itemView.postVideoSM.stopLoading()
+            holder.itemView.postImageSM.visibility = View.GONE
+            holder.itemView.postVideoSM.visibility = View.VISIBLE
 
 
         } else if (uploadType == "image"){
             Glide.with(context).load(currentPost.get("imageUrl")).into(holder.itemView.postImageSM)
             holder.itemView.postVideoSM.visibility = View.GONE
+
             holder.itemView.postImageSM.visibility = View.VISIBLE
             Log.d("Upload Type 2 ", uploadType)
-        }else if (imageUrl == null){
+        }else if (uploadType.isEmpty() ){
             Log.d("Post without Image2", imageUrl.toString())
             holder.itemView.postImageSM.visibility = View.GONE
             holder.itemView.postVideoSM.visibility = View.GONE
@@ -103,7 +109,11 @@ class SMPostListAdapter(val context: Context, val postListData : List<DocumentSn
 
         firebaseAuth = FirebaseAuth.getInstance()
 
+        holder.itemView.userProfileImageCard.animation = AnimationUtils.loadAnimation(context, R.anim.fade_transition)
+        holder.itemView.post_container.animation = AnimationUtils.loadAnimation(context, R.anim.fade_transition)
 
+
+        holder.itemView.post_container.animation = AnimationUtils.loadAnimation(context, R.anim.fade_transition)
 //        Glide.with(context).load(firebaseAuth.currentUser!!.photoUrl.toString()).into(holder.itemView.userProfileImagePost)
         holder.itemView.userPostDescValue.setOnClickListener {
             holder.itemView.userPostDescValue.maxLines = Int.MAX_VALUE

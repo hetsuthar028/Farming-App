@@ -4,56 +4,52 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="weatherViewModel"
             type="com.project.farmingapp.viewmodel.WeatherViewModel" />
     </data>
-        
-        
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         tools:context=".view.weather.WeatherFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-android:background="@drawable/bbc"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@drawable/bbc">
 
-           <TextView
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:text="Ahmedabad"
-               android:id="@+id/weatherCity"
-               app:layout_constraintTop_toTopOf="parent"
-               app:layout_constraintStart_toStartOf="parent"
-               android:layout_marginTop="15dp"
-               app:layout_constraintEnd_toEndOf="parent"
-               android:textSize="25sp"
-               android:textStyle="bold"
-               android:textColor="@color/colorPrimary"
-               app:layout_constraintBottom_toTopOf="@id/currentWeather_rcycl"
-               />
+            <TextView
+                android:id="@+id/weatherCity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="21dp"
+                android:text="Ahmedabad"
+                android:textColor="@color/fontColor"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/currentWeather_rcycl"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/currentWeather_rcycl"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:layout_marginHorizontal="10dp"
+                app:layout_constraintBottom_toTopOf="@id/rcylr_weather"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/rcylr_weather"
-                app:layout_constraintTop_toTopOf="@id/weatherCity" />
-            
+                app:layout_constraintTop_toBottomOf="@id/weatherCity" />
 
             <androidx.recyclerview.widget.RecyclerView
-android:paddingVertical="14dp"
                 android:id="@+id/rcylr_weather"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:background="@drawable/weather_rcyclr_bg"
-                android:layout_marginTop="40dp"
+                android:paddingVertical="7dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

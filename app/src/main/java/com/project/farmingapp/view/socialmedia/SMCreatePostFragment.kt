@@ -97,25 +97,23 @@ class SMCreatePostFragment : Fragment() {
         data2["uploadType"] = ""
         uploadImageButton.setOnClickListener {
             val intent = Intent()
-            intent.type = "image/*"
-            intent.action = Intent.ACTION_GET_CONTENT
+            intent.type = "image/* video/*"
+            intent.action = Intent.ACTION_PICK
             startActivityForResult(
                 Intent.createChooser(intent, "Select Picture"),
                 PICK_IMAGE_REQUEST
             )
-            data2["uploadType"] = "image"
         }
 
-        uploadVideoButton.setOnClickListener {
-            val intent = Intent()
-            intent.type = "video/*"
-            intent.action = Intent.ACTION_GET_CONTENT
-            startActivityForResult(
-                Intent.createChooser(intent, "Select Video"),
-                PICK_IMAGE_REQUEST
-            )
-            data2["uploadType"] = "video"
-        }
+//        uploadVideoButton.setOnClickListener {
+//            val intent = Intent()
+//            intent.type = "video/*"
+//            intent.action = Intent.ACTION_GET_CONTENT
+//            startActivityForResult(
+//                Intent.createChooser(intent, "Select Video"),
+//                PICK_IMAGE_REQUEST
+//            )
+//        }
 
         val googleLoggedUser = authUser!!.currentUser!!.displayName
         if (googleLoggedUser.isNullOrEmpty()) {
@@ -126,25 +124,23 @@ class SMCreatePostFragment : Fragment() {
                     data2["name"] = data!!.getString("name").toString()
                     Log.d("Google User", data!!.getString("name"))
                 }
-        }
-        else {
+        } else {
             data2["name"] = googleLoggedUser.toString()
             Log.d("Normal User", googleLoggedUser)
         }
 
         createPostBtnSM.setOnClickListener {
 
-            if(postTitleSM.text.toString().isNullOrEmpty())
-            {
-                Toast.makeText(activity!!.applicationContext,"Please enter title",Toast.LENGTH_SHORT).show()
-            }
-            else
-            {
+            if (postTitleSM.text.toString().isNullOrEmpty()) {
+                Toast.makeText(
+                    activity!!.applicationContext,
+                    "Please enter title",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
                 uploadImage().setImageBitmap(bitmap)
             }
         }
-
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -157,8 +153,19 @@ class SMCreatePostFragment : Fragment() {
 
             filePath = data.data
             try {
-                bitmap = MediaStore.Images.Media.getBitmap(activity!!.contentResolver, filePath)
+                val lastIndex = filePath.toString().length - 1
+                val type =
+                    filePath.toString().slice((filePath.toString().lastIndexOf(".") + 1)..lastIndex)
 
+                Log.d("File Type", filePath.toString())
+
+                if (type == "jpg" || type == "png" || type == "jpeg") {
+                    data2["uploadType"] = "image"
+                } else if (type == "mp4") {
+                    data2["uploadType"] = "video"
+                }
+
+                bitmap = MediaStore.Images.Media.getBitmap(activity!!.contentResolver, filePath)
 
 //                uploadImage().setImageBitmap(bitmap)
             } catch (e: IOException) {
@@ -192,7 +199,7 @@ class SMCreatePostFragment : Fragment() {
 
                 }
         } else {
-            data2["uploadType"]=""
+            data2["uploadType"] = ""
             addUploadRecordWithImageToDb(null, null)
         }
     }

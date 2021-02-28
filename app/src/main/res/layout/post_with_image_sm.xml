@@ -4,23 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+
+    android:id="@+id/post_container"
     android:layout_marginHorizontal="7dp"
-    android:layout_marginVertical="14dp">
+    android:layout_marginVertical="7dp">
 
-    <!--    <androidx.cardview.widget.CardView-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_margin="7dp"-->
-    <!--        app:cardCornerRadius="7dp"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        <androidx.cardview.widget.CardView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
 
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent">-->
 
-    <!--        <androidx.constraintlayout.widget.ConstraintLayout-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:padding="7dp">-->
+<!--            app:cardCornerRadius="7dp"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent">-->
+
+<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:background="@color/secondary"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:padding="7dp">-->
 
     <androidx.cardview.widget.CardView
         android:id="@+id/userProfileImageCard"
@@ -115,6 +119,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/userPostTitleValue" />
 
-</androidx.constraintlayout.widget.ConstraintLayout><!--    </androidx.cardview.widget.CardView>-->
+</androidx.constraintlayout.widget.ConstraintLayout>
+<!--        </androidx.cardview.widget.CardView>-->
 
-    <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
+<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->

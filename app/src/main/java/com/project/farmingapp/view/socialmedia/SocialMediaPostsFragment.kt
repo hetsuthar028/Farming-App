@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.google.android.material.behavior.SwipeDismissBehavior
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.project.farmingapp.R
@@ -18,6 +20,8 @@ import com.project.farmingapp.viewmodel.ArticleViewModel
 import com.project.farmingapp.viewmodel.SocialMediaViewModel
 import kotlinx.android.synthetic.main.fragment_social_media_posts.*
 import kotlinx.android.synthetic.main.fragment_weather.*
+
+import com.project.farmingapp.adapter.PaginationListener.Companion.PAGE_START
 import kotlin.coroutines.EmptyCoroutineContext
 
 // TODO: Rename parameter arguments, choose names that match
@@ -35,6 +39,7 @@ class SocialMediaPostsFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+
     lateinit var smCreatePostFragment: SMCreatePostFragment
     private var adapter : SMPostListAdapter? = null
 
@@ -109,4 +114,6 @@ class SocialMediaPostsFragment : Fragment() {
                 .commit()
         }
     }
+
+
 }

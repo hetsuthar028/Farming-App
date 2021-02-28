@@ -1,13 +1,16 @@
 package com.project.farmingapp.view.weather
 
+import android.os.Build
 import android.os.Bundle
 
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.annotation.Nullable
+import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
@@ -101,6 +104,7 @@ class WeatherFragment : Fragment(), WeatherListener {
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 //        val binding = FragmentWeatherBinding.bind(view)
@@ -161,7 +165,7 @@ class WeatherFragment : Fragment(), WeatherListener {
         Adapter = WeatherAdapter(activity!!.applicationContext, data3)
         Adapter2 = CurrentWeatherAdapter(activity!!.applicationContext, data2)
 
-      rcylr_weather.adapter = Adapter
+        rcylr_weather.adapter = Adapter
         rcylr_weather.layoutManager = LinearLayoutManager(activity!!.applicationContext)
 
 //        currentWeather_rcycl.adapter = Adapter2
@@ -171,12 +175,24 @@ class WeatherFragment : Fragment(), WeatherListener {
 //            false
 //        )
         currentWeather_rcycl.adapter = Adapter2
-        val manager: CarouselLayoutManager= CarouselLayoutManager(CarouselLayoutManager.HORIZONTAL)
-        manager.maxVisibleItems=3
-        manager.setPostLayoutListener(CarouselZoomPostLayoutListener())
-        currentWeather_rcycl.layoutManager=manager
-        currentWeather_rcycl.hasFixedSize(true)
-       currentWeather_rcycl.addOnScrollListener( CenterScrollListener())
+        currentWeather_rcycl.layoutManager = LinearLayoutManager(activity!!.applicationContext, LinearLayoutManager.HORIZONTAL, false)
+
+
+//        currentWeather_rcycl.setOnFocusChangeListener { view, b ->
+//            view.animation = AnimationUtils.loadAnimation(context, R.anim.fade_scale)
+//        }
+
+//        currentWeather_rcycl.setOnScrollChangeListener { view, i, i2, i3, i4 ->
+//            view.animation = AnimationUtils.loadAnimation(context, R.anim.fade_scale)
+//        }
+
+//        val manager: CarouselLayoutManager = CarouselLayoutManager(CarouselLayoutManager.HORIZONTAL)
+//        manager.maxVisibleItems = 3
+//
+//        manager.setPostLayoutListener(CarouselZoomPostLayoutListener())
+//        currentWeather_rcycl.layoutManager = manager
+//        currentWeather_rcycl.hasFixedSize(true)
+//        currentWeather_rcycl.addOnScrollListener(CenterScrollListener())
 
 
 //        viewModel.getMessageB()
