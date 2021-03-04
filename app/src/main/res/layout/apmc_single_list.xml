@@ -3,219 +3,191 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="10dp"
+    android:layout_marginVertical="7dp">
 
-    android:layout_marginVertical="10dp">
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_margin="7dp"
+        app:cardCornerRadius="7dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:cardElevation="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-
-        <TableLayout
-            android:id="@+id/tabla_cuerpo"
-
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
+            android:background="@drawable/apmc_card_bg"
             android:layout_height="match_parent">
 
-            <TableRow
-                android:id="@+id/tableRow1"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/apmcDetailsTopCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="4">
+                android:layout_margin="7dp"
+                app:cardElevation="1dp"
+                app:cardCornerRadius="7dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                >
 
-                <TextView
-                    android:id="@+id/marketTextApmc"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/table_lefttop_border"
-                    android:padding="5dp"
-                    android:paddingStart="10dp"
-                    android:text="Market"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textStyle="bold"></TextView>
-
-                <TextView
-                    android:id="@+id/marketValueTextApmc"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_span="2"
-                    android:layout_weight="2"
-                    android:paddingStart="10dp"
-                    android:background="@drawable/table_righttop_border"
-                    android:padding="5dp"
-                    android:text="TextView"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textStyle="bold"></TextView>
-
-            </TableRow>
-
-            <TableRow
-                android:id="@+id/tableRow2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/locationTextApmc"
-                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/table_border"
-                    android:paddingStart="10dp"
-                    android:padding="5dp"
-                    android:text="Location"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textStyle="bold"></TextView>
+                    android:background="@color/secondary"
 
-                <TextView
-                    android:id="@+id/locationValueTextApmc"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_span="2"
-                    android:layout_weight="2"
-                    android:background="@drawable/table_border"
-                    android:paddingStart="10dp"
-                    android:padding="5dp"
-                    android:text="TextView"
-                    android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
+                    android:padding="7dp">
 
+                    <TextView
+                        android:id="@+id/apmcNameValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Dhanbad APMC"
+                        android:textColor="@color/fontColor"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-            </TableRow>
+                    <ImageView
+                        android:id="@+id/locationImage"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:src="@drawable/location"
+                        app:layout_constraintBottom_toBottomOf="@id/apmcLocationValue"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/apmcLocationValue" />
 
-            <TableRow
-                android:id="@+id/tableRow3"
+                    <TextView
+                        android:id="@+id/apmcLocationValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="7dp"
+                        android:layout_marginStart="7dp"
+                        android:text="Dhanbad APMC"
+                        android:textColor="@color/fontColor"
+                        android:textSize="12sp"
+                        app:layout_constraintStart_toEndOf="@id/locationImage"
+                        app:layout_constraintTop_toBottomOf="@id/apmcNameValue" />
 
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
 
-                <TextView
-                    android:id="@+id/commodityTextApmc"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/table_border"
-                    android:padding="5dp"
-                    android:paddingStart="10dp"
-                    android:text="Commodity"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textStyle="bold"></TextView>
+            <TextView
+                android:id="@+id/comodity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:layout_marginStart="14dp"
 
-                <TextView
-                    android:id="@+id/commodityValueTextApmc"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_span="2"
-                    android:layout_weight="2"
-                    android:textStyle="bold"
+                android:text="Commodities:"
+                android:textColor="@color/fontColor"
+                android:textSize="16sp"
+                android:textStyle="bold"
 
-                    android:background="@drawable/table_border"
-                    android:padding="5dp"
-                    android:paddingStart="10dp"
-                    android:text="TextView"
-                    android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/apmcDetailsTopCard" />
 
+            <TextView
+                android:id="@+id/min"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="7dp"
+                android:layout_marginEnd="7dp"
+                android:text="Min:"
+                android:textColor="@color/fontColor"
+                android:textSize="16sp"
+                android:textStyle="bold"
 
-            </TableRow>
+                app:layout_constraintEnd_toStartOf="@id/minimg"
+                app:layout_constraintTop_toBottomOf="@id/apmcDetailsTopCard" />
 
-            <View
-                android:id="@+id/hr1Apmc"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorPrimary"
+            <ImageView
+                android:id="@+id/minimg"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginEnd="21dp"
+                android:src="@drawable/low_price"
+                app:layout_constraintBottom_toBottomOf="@id/min"
+                app:layout_constraintEnd_toStartOf="@+id/max"
+                app:layout_constraintTop_toTopOf="@id/min" />
 
-                />
+            <TextView
+                android:id="@+id/max"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="7dp"
+                android:layout_marginEnd="7dp"
+                android:text="Max:"
+                android:textColor="@color/fontColor"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@id/maximg"
+                app:layout_constraintTop_toBottomOf="@id/apmcDetailsTopCard" />
 
-            <TableRow
-                android:id="@+id/tableRow4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/maximg"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginEnd="7dp"
+                android:src="@drawable/max_price"
+                app:layout_constraintBottom_toBottomOf="@id/max"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/max" />
 
-                <TextView
-                    android:id="@+id/minTextApmc"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-
-                    android:background="@drawable/table_border"
-                    android:padding="5dp"
-                    android:text="Minimum"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:paddingStart="10dp"
-                    android:textStyle="bold"></TextView>
-
-                <TextView
-                    android:id="@+id/maxTextApmc"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/table_border"
-                    android:gravity="center"
-                    android:padding="5dp"
-                    android:text="Maximum"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textStyle="bold"></TextView>
-
-                <TextView
-                    android:id="@+id/modalTextApmc"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/table_border"
-                    android:gravity="center"
-                    android:padding="5dp"
-                    android:text="Modal"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textStyle="bold"></TextView>
-
-            </TableRow>
-
-            <TableRow
-                android:id="@+id/tableRow54"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/minValueTextApmc"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/table_leftbottom_border"
-                    android:padding="5dp"
-                    android:paddingStart="10dp"
-
-                    android:text="TextView"
-                    android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
-
-                <TextView
-                    android:id="@+id/maxValueTextApmc"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/table_border"
-                    android:gravity="center"
-                    android:padding="5dp"
-                    android:text="TextView"
-                    android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
-
-                <TextView
-                    android:id="@+id/modalValueTextApmc"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/table_rightbottom_border"
-                    android:gravity="center"
-                    android:padding="5dp"
-                    android:text="TextView"
-                    android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
+            <TextView
+                android:id="@+id/comodityname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:lineSpacingExtra="4dp"
+                android:textSize="14sp"
+                android:textColor="@color/fontColor"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="7dp"
+                android:gravity="left"
+                android:layout_marginTop="7dp"
+                app:layout_constraintStart_toStartOf="@id/comodity"
+                app:layout_constraintTop_toBottomOf="@id/comodity" />
 
 
-            </TableRow>
+            <TextView
+                android:id="@+id/minvalue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="7dp"
+                android:text=""
+                android:textColor="@color/fontColor"
+                android:textSize="14sp"
+                android:gravity="center_horizontal"
+                android:lineSpacingExtra="4dp"
+                app:layout_constraintBottom_toBottomOf="parent"
 
-        </TableLayout>
+                app:layout_constraintEnd_toEndOf="@id/minimg"
+                app:layout_constraintStart_toStartOf="@id/min"
+                app:layout_constraintTop_toBottomOf="@id/min" />
+
+            <TextView
+                android:id="@+id/maxvalue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="7dp"
+                android:text=""
+                android:textColor="@color/fontColor"
+                android:textSize="14sp"
+                android:layout_marginTop="7dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:lineSpacingExtra="4dp"
+                app:layout_constraintEnd_toEndOf="@id/maximg"
+                app:layout_constraintStart_toStartOf="@id/max"
+                android:gravity="center_horizontal"
+                app:layout_constraintTop_toBottomOf="@id/max" />
 
 
-    </LinearLayout>
-
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
+

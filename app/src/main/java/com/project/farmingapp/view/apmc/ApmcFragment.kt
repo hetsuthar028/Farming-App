@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.project.farmingapp.R
 import com.project.farmingapp.adapter.ApmcAdapter
 import com.project.farmingapp.model.APMCApi
+import com.project.farmingapp.model.data.APMCCustomRecords
 import com.project.farmingapp.model.data.APMCMain
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.fragment_apmc.*
@@ -21,6 +22,7 @@ import java.lang.reflect.Field
 import java.text.SimpleDateFormat
 import java.time.OffsetDateTime
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -39,9 +41,9 @@ class ApmcFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     lateinit var adapter: ApmcAdapter
-    var indexSpinner1 : Int? = null
-    var indexSpinner2 : Int? = null
-    var someMap : Map<Any, Array<String>>? = null
+    var indexSpinner1: Int? = null
+    var indexSpinner2: Int? = null
+    var someMap: Map<Any, Array<String>>? = null
     var states: Array<String>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,7 +70,7 @@ class ApmcFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val sdf = SimpleDateFormat("dd/MM/yyyy")
-        dateValueTextApmc.text =  sdf.format(Date()).toString()
+        dateValueTextApmc.text = sdf.format(Date()).toString()
 
 
 
@@ -258,7 +260,11 @@ class ApmcFragment : Fragment() {
 //        spinner2.setSelection(0, false)
 
 
-        someMap = mapOf("Chandigarh" to citiesInMaha, "Gujarat" to citiesInGujarat, "Maharashtra" to citiesInMaha)
+        someMap = mapOf(
+            "Chandigarh" to citiesInMaha,
+            "Gujarat" to citiesInGujarat,
+            "Maharashtra" to citiesInMaha
+        )
 
 
         spinner1.onItemSelectedListener = object :
@@ -308,7 +314,7 @@ class ApmcFragment : Fragment() {
                     textAPMCWarning.visibility = View.VISIBLE
                 } else {
 
-                    if (p2!=0){
+                    if (p2 != 0) {
                         getApmc("${someMap!![states!![indexSpinner1!!]]!![p2]}")
                     }
                     indexSpinner2 = p2
@@ -354,7 +360,7 @@ class ApmcFragment : Fragment() {
     private fun getApmc(district: String) {
         val apmc1: Call<APMCMain> = APMCApi.apmcInstances.getapmc(20)
         var apmc2: Call<APMCMain>? = null
-        if (indexSpinner2 !=0) {
+        if (indexSpinner2 != 0) {
 
 //            apmc2 = APMCApi.apmcInstances.getSomeData(someMap!![states!![indexSpinner1?]]!)
 
@@ -388,15 +394,76 @@ class ApmcFragment : Fragment() {
 
 
                         dateValueTextApmc.text = "$updatedDate/$updatedMonth/$updatedYear"
-                        if(apmcdata.records.size == 0){
+                        if (apmcdata.records.size == 0) {
                             textAPMCWarning.visibility = View.VISIBLE
                             recycleAPMC.visibility = View.GONE
                             textAPMCWarning.text = "No records found!"
-                        } else{
+                        } else {
                             textAPMCWarning.visibility = View.GONE
                             recycleAPMC.visibility = View.VISIBLE
                             Log.d("APMCFrag", apmcdata.records.toString())
-                            adapter = ApmcAdapter(activity!!.applicationContext, apmcdata.records)
+
+                            val totalRecords = apmcdata.records.size
+                            var firstMarket = ""
+                            if (!apmcdata.records[0].market.isNullOrEmpty()) {
+                                firstMarket = apmcdata.records[0].market.toString()
+                            }
+
+                            val customRecords = ArrayList<APMCCustomRecords>()
+
+                            val list1 = mutableListOf<String>()
+                            val list2 = mutableListOf<String>()
+                            val list3 = mutableListOf<String>()
+                            list1.add(apmcdata.records[0].commodity)
+                            list2.add(apmcdata.records[0].min_price)
+                            list3.add(apmcdata.records[0].max_price)
+
+                            var previousRecord = APMCCustomRecords(
+                                apmcdata.records[0].state,
+                                apmcdata.records[0].district,
+                                apmcdata.records[0].market,
+                                list1,
+                                list2,
+                                list3
+                            )
+
+                            val ss = apmcdata.records[0].market
+
+
+//                            var gettingUpdatedRecords: APMCCustomRecords? = null
+                            if (totalRecords==1){
+                                customRecords.add(previousRecord)
+                            } else{
+                                for (i in 1..totalRecords-1) {
+//                                var firstMarket2 = ""
+                                    if (apmcdata.records[i].market == previousRecord.market) {
+                                        previousRecord.commodity.add(apmcdata.records[i].commodity)
+                                        previousRecord.min_price.add(apmcdata.records[i].min_price)
+                                        previousRecord.max_price.add(apmcdata.records[i].max_price)
+//                                    list1.add(apmcdata.records[i].commodity)
+//                                    list2.add(apmcdata.records[i].min_price)
+//                                    list3.add(apmcdata.records[i].max_price)
+                                    } else {
+                                        customRecords.add(previousRecord)
+                                        list1.add(apmcdata.records[i].commodity)
+                                        list2.add(apmcdata.records[i].min_price)
+                                        list3.add(apmcdata.records[i].max_price)
+                                        previousRecord = APMCCustomRecords(
+                                            apmcdata.records[i].state,
+                                            apmcdata.records[i].district,
+                                            apmcdata.records[i].market,
+                                            list1,
+                                            list2,
+                                            list3
+                                        )
+                                    }
+                                }
+                            }
+
+                            Log.d("New APMC Data", customRecords.toString())
+                            Log.d("Old APMC Data", apmcdata.toString())
+
+                            adapter = ApmcAdapter(activity!!.applicationContext, customRecords)
                             recycleAPMC.adapter = adapter
                             recycleAPMC.layoutManager =
                                 LinearLayoutManager(activity!!.applicationContext)
