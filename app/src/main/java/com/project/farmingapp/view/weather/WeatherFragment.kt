@@ -19,10 +19,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.azoft.carousellayoutmanager.CarouselLayoutManager
-import com.azoft.carousellayoutmanager.CarouselZoomPostLayoutListener
-import com.azoft.carousellayoutmanager.CenterScrollListener
-import com.littlemango.stacklayoutmanager.StackLayoutManager
 import com.project.farmingapp.R
 import com.project.farmingapp.adapter.CurrentWeatherAdapter
 import com.project.farmingapp.adapter.WeatherAdapter

@@ -103,6 +103,10 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         Glide.with(this).load(firebaseAuth.currentUser!!.photoUrl).into(something.navbarUserImage)
 
 //        getWeather()
+
+        something.setOnClickListener {
+            Toast.makeText(this, "You Clicked Slider", Toast.LENGTH_LONG).show()
+        }
         apmcFragment = ApmcFragment()
         socialMediaPostFragment = SocialMediaPostsFragment()
 

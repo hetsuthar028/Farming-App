@@ -53,6 +53,5 @@ class ApmcAdapter(val context: Context, val data: List<APMCCustomRecords>) :
         holder.max.text = holder.max.text.toString().trimEnd()
 
 //        holder.modal.text=mainData.modal_price
-
     }
 }
