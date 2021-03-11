@@ -159,12 +159,19 @@ class SMCreatePostFragment : Fragment() {
 
                 Log.d("File Type", filePath.toString())
 
-                if (type == "jpg" || type == "png" || type == "jpeg") {
+                if (filePath.toString().contains("png") || filePath.toString().contains("jpg") || filePath.toString().contains("jpeg") || filePath.toString().contains("image") || filePath.toString().contains("images")){
                     data2["uploadType"] = "image"
-                } else if (type == "mp4") {
+                } else if(filePath.toString().contains("videos") || filePath.toString().contains("video") || filePath.toString().contains("mp4")){
                     data2["uploadType"] = "video"
                 }
+//
+//                if (type == "jpg" || type == "png" || type == "jpeg") {
+//
+//                } else if (type == "mp4") {
+//
+//                }
 
+                Log.d("File Type 3", data2["uploadType"].toString())
                 bitmap = MediaStore.Images.Media.getBitmap(activity!!.contentResolver, filePath)
 
 //                uploadImage().setImageBitmap(bitmap)
@@ -201,6 +208,7 @@ class SMCreatePostFragment : Fragment() {
         } else {
             data2["uploadType"] = ""
             addUploadRecordWithImageToDb(null, null)
+            Log.d("File Type 2", "Null")
         }
     }
 
