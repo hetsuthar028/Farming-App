@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="wrap_content">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:padding="7dp"
+        >
+            <ImageView
+                android:id="@+id/userPostImageUserProfileFrag"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@color/fontColor"
+                android:layout_width="50dp"
+                android:scaleType="fitXY"
+                android:layout_height="50dp"
+                />
+
+            <TextView
+                android:id="@+id/userPostTitleUserProfileFrag"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="14sp"
+                android:ellipsize="end"
+                android:foregroundGravity="left"
+                android:gravity="fill_horizontal"
+                android:justificationMode="inter_word"
+
+                android:maxLines="2"
+                android:text="This is the title"
+                android:layout_marginEnd="12dp"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/userPostUploadTimeUserProfileFrag"
+                app:layout_constraintStart_toEndOf="@id/userPostImageUserProfileFrag"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/userPostUploadTimeUserProfileFrag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2 Hours Ago"
+                android:textSize="8sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/userPostTitleUserProfileFrag"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+<!--            <ImageView-->
+<!--                android:layout_width="20dp"-->
+<!--                android:src="@color/fontColor"-->
+<!--                android:layout_height="20dp"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                />-->
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

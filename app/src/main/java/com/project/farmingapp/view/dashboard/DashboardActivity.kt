@@ -32,6 +32,7 @@ import com.project.farmingapp.view.apmc.ApmcFragment
 import com.project.farmingapp.view.articles.FruitsFragment
 import com.project.farmingapp.view.auth.LoginActivity
 import com.project.farmingapp.view.socialmedia.SocialMediaPostsFragment
+import com.project.farmingapp.view.user.UserFragment
 import com.project.farmingapp.view.weather.WeatherFragment
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.PicassoProvider
@@ -53,6 +54,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     lateinit var blankFragment1: WeatherFragment
     lateinit var apmcFragment: ApmcFragment
     lateinit var fruitsFragment: FruitsFragment
+    lateinit var userFragment: UserFragment
     lateinit var socialMediaPostFragment: SocialMediaPostsFragment
 
     val firebaseFireStore = FirebaseFirestore.getInstance()
@@ -82,7 +84,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
         val something = navView.getHeaderView(0);
 
-        if(dashboardFragment.isVisible){
+        if (dashboardFragment.isVisible) {
             bottomNav.selectedItemId = R.id.bottomNavHome
         }
 
@@ -106,10 +108,22 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
         something.setOnClickListener {
             Toast.makeText(this, "You Clicked Slider", Toast.LENGTH_LONG).show()
+
+            if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                drawerLayout.closeDrawer(GravityCompat.START)
+            } else {
+                super.onBackPressed()
+            }
+
+            userFragment = UserFragment()
+            supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.frame_layout, userFragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .commit()
         }
         apmcFragment = ApmcFragment()
         socialMediaPostFragment = SocialMediaPostsFragment()
-
 
         bottomNav.setOnNavigationItemSelectedListener {
             when (it.itemId) {
@@ -201,7 +215,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     }
 
     override fun onBackPressed() {
-        if(dashboardFragment.isVisible){
+        if (dashboardFragment.isVisible) {
 //            Toast.makeText(this, "A", Toast.LENGTH_LONG).show()
 //            bottomNav.selectedItemId = R.id.bottomNavHome
         }

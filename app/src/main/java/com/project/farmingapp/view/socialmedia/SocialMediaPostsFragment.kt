@@ -86,6 +86,7 @@ class SocialMediaPostsFragment : Fragment() {
     fun getData() {
         val firebaseFirestore: FirebaseFirestore = FirebaseFirestore.getInstance()
 
+
         firebaseFirestore.collection("posts").orderBy("timeStamp", Query.Direction.DESCENDING).get()
             .addOnSuccessListener {
                 Log.d("Posts data", it.documents.toString())
@@ -96,7 +97,6 @@ class SocialMediaPostsFragment : Fragment() {
             .addOnFailureListener {
 
             }
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
