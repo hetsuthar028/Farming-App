@@ -10,9 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.firebase.firestore.DocumentSnapshot
 import com.project.farmingapp.R
+import com.project.farmingapp.utilities.CellClickListener
 import kotlinx.android.synthetic.main.user_profile_posts_single.view.*
 
-class PostListUserProfileAdapter(val context: Context, var listData: ArrayList<DocumentSnapshot>) : RecyclerView.Adapter<PostListUserProfileAdapter.PostListUserProfileViewHolder>() {
+class PostListUserProfileAdapter(val context: Context, var listData: ArrayList<DocumentSnapshot>, private val cellClickListener: CellClickListener) : RecyclerView.Adapter<PostListUserProfileAdapter.PostListUserProfileViewHolder>() {
     class PostListUserProfileViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
 
     }
@@ -31,9 +32,12 @@ class PostListUserProfileAdapter(val context: Context, var listData: ArrayList<D
 
     override fun onBindViewHolder(holder: PostListUserProfileViewHolder, position: Int) {
         val currentData = listData[position]
+
         holder.itemView.userPostTitleUserProfileFrag.text = currentData.get("title").toString()
         holder.itemView.userPostUploadTimeUserProfileFrag.text = DateUtils.getRelativeTimeSpanString(currentData.get("timeStamp") as Long)
-
+        holder.itemView.userPostProfileCard.setOnClickListener {
+            cellClickListener.onCellClickListener(currentData.id)
+        }
         if (!currentData.get("imageUrl").toString().isNullOrEmpty()){
             Glide.with(context).load(currentData.getString("imageUrl")).into(holder.itemView.userPostImageUserProfileFrag)
         }

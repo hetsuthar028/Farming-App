@@ -27,8 +27,7 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:background="@drawable/ic_user_profile"
-            android:scaleType="fitXY"
-            />
+            android:scaleType="fitXY" />
 
     </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
 
@@ -36,19 +35,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Login"
-        app:layout_constraintStart_toEndOf="@id/circularRevealCardView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:visibility="gone"
-        />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/circularRevealCardView"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/navbarUserEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginVertical="5dp"
-        android:text="sirvibharatkumarpunaram18@gnu.ac.in"
+        android:text="abc@example.com"
         android:textColor="#fff"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -64,34 +62,29 @@
         android:layout_marginTop="25dp"
         android:text="User Name"
         android:textColor="#fff"
-
         android:textSize="20sp"
         android:textStyle="bold"
-
         app:layout_constraintBottom_toTopOf="@id/cityTextNavHeader"
         app:layout_constraintStart_toEndOf="@+id/circularRevealCardView"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-
         android:id="@+id/cityTextNavHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginVertical="10dp"
-
-        android:text="Ahmedabad"
+        android:text="City"
         android:textColor="#fff"
         android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView313"
+        app:layout_constraintBottom_toTopOf="@+id/navBarUserPostCount"
         app:layout_constraintStart_toStartOf="@+id/navbarUserName"
         app:layout_constraintTop_toBottomOf="@+id/navbarUserName" />
 
     <TextView
-        android:id="@+id/textView313"
+        android:id="@+id/navBarUserPostCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginVertical="5dp"
-
         android:gravity="right"
         android:text="Posts Count"
         android:textColor="#fff"

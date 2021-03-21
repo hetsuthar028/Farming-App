@@ -1,46 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:background="@drawable/table_border"
-    android:padding="5dp"
-    android:elevation="20dp"
-    android:layout_marginVertical="7dp"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <androidx.cardview.widget.CardView
+    android:layout_marginVertical="7dp"
+    android:background="@drawable/table_border"
+    android:elevation="20dp"
+    android:padding="5dp">
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/userPostProfileCard"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_height="wrap_content">
+        app:layout_constraintTop_toTopOf="parent">
+
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_height="match_parent"
             android:layout_width="match_parent"
-            android:padding="7dp"
-        >
+            android:layout_height="match_parent">
+
             <ImageView
                 android:id="@+id/userPostImageUserProfileFrag"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:src="@color/fontColor"
                 android:layout_width="50dp"
-                android:scaleType="fitXY"
                 android:layout_height="50dp"
-                />
+                android:layout_marginStart="3dp"
+                android:scaleType="fitXY"
+                android:src="@color/fontColor"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/userPostTitleUserProfileFrag"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="14sp"
+                android:layout_marginStart="7dp"
+                android:layout_marginEnd="7dp"
+                android:textColor="@color/fontColor"
                 android:ellipsize="end"
                 android:foregroundGravity="left"
                 android:gravity="fill_horizontal"
-                android:justificationMode="inter_word"
 
-                android:maxLines="2"
+                android:justificationMode="inter_word"
+                android:maxLines="3"
                 android:text="This is the title"
-                android:layout_marginEnd="12dp"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/userPostUploadTimeUserProfileFrag"
@@ -53,19 +55,20 @@
                 android:layout_height="wrap_content"
                 android:text="2 Hours Ago"
                 android:textSize="8sp"
+                android:textColor="@color/fontColor"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/userPostTitleUserProfileFrag"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/userPostTitleUserProfileFrag"
                 app:layout_constraintTop_toTopOf="parent" />
 
-<!--            <ImageView-->
-<!--                android:layout_width="20dp"-->
-<!--                android:src="@color/fontColor"-->
-<!--                android:layout_height="20dp"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="parent"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                />-->
+            <!--            <ImageView-->
+            <!--                android:layout_width="20dp"-->
+            <!--                android:src="@color/fontColor"-->
+            <!--                android:layout_height="20dp"-->
+            <!--                app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                app:layout_constraintTop_toTopOf="parent"-->
+            <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--                />-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

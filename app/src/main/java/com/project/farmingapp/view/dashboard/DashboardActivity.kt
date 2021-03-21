@@ -1,19 +1,27 @@
 package com.project.farmingapp.view.dashboard
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.service.autofill.UserData
+import android.util.AttributeSet
 import android.util.Log
 import android.view.Gravity
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import android.widget.Toolbar
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.GravityCompat
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -24,6 +32,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.project.farmingapp.R
 import com.project.farmingapp.adapter.CurrentWeatherAdapter
 import com.project.farmingapp.adapter.WeatherAdapter
+import com.project.farmingapp.databinding.ActivityDashboardBinding
 import com.project.farmingapp.model.WeatherApi
 import com.project.farmingapp.model.data.Weather
 import com.project.farmingapp.model.data.WeatherList
@@ -34,6 +43,8 @@ import com.project.farmingapp.view.auth.LoginActivity
 import com.project.farmingapp.view.socialmedia.SocialMediaPostsFragment
 import com.project.farmingapp.view.user.UserFragment
 import com.project.farmingapp.view.weather.WeatherFragment
+import com.project.farmingapp.viewmodel.UserDataViewModel
+import com.project.farmingapp.viewmodel.WeatherViewModel
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.PicassoProvider
 import kotlinx.android.synthetic.main.activity_dashboard.*
@@ -56,7 +67,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     lateinit var fruitsFragment: FruitsFragment
     lateinit var userFragment: UserFragment
     lateinit var socialMediaPostFragment: SocialMediaPostsFragment
-
+    private lateinit var viewModel: UserDataViewModel
     val firebaseFireStore = FirebaseFirestore.getInstance()
     val firebaseAuth = FirebaseAuth.getInstance()
     var userName = ""
@@ -66,9 +77,17 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
 
+        val binding: ActivityDashboardBinding = DataBindingUtil.setContentView(this, R.layout.activity_dashboard)
+        viewModel = ViewModelProviders.of(this).get(UserDataViewModel::class.java)
+        binding.userDataViewModel = viewModel
+
+
         toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
+
+
+        viewModel.getUserData(firebaseAuth.currentUser!!.email as String)
 
         navView.setNavigationItemSelectedListener(this)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -77,9 +96,12 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         weatherFragment = WeatherFragment()
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.frame_layout, dashboardFragment)
+            .replace(R.id.frame_layout, dashboardFragment, "userDash")
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+            .setReorderingAllowed(true)
+            .addToBackStack("userDash")
             .commit()
+
         bottomNav.selectedItemId = R.id.bottomNavHome
 
         val something = navView.getHeaderView(0);
@@ -88,21 +110,20 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             bottomNav.selectedItemId = R.id.bottomNavHome
         }
 
-        val googleLoggedUserName = firebaseAuth.currentUser!!.displayName
-        if (googleLoggedUserName.isNullOrEmpty()) {
-            firebaseFireStore.collection("users").document(firebaseAuth.currentUser!!.email!!)
-                .get()
-                .addOnCompleteListener {
-                    val data = it.result
-                    userName = data!!.getString("name").toString()
-                    something.cityTextNavHeader.text = data!!.getString("city").toString()
-                    something.navbarUserName.text = userName
-                }
-        } else {
-            something.navbarUserName.text = googleLoggedUserName
-        }
-        something.navbarUserEmail.text = firebaseAuth.currentUser!!.email
-        Glide.with(this).load(firebaseAuth.currentUser!!.photoUrl).into(something.navbarUserImage)
+//        val googleLoggedUserName = firebaseAuth.currentUser!!.displayName
+//        if (googleLoggedUserName.isNullOrEmpty()) {
+//            firebaseFireStore.collection("users").document(firebaseAuth.currentUser!!.email!!)
+//                .get()
+//                .addOnCompleteListener {
+//                    val data = it.result
+//                    userName = data!!.getString("name").toString()
+//                    something.cityTextNavHeader.text = data!!.getString("city").toString()
+//                    something.navbarUserName.text = userName
+//                }
+//        } else {
+//            something.navbarUserName.text = googleLoggedUserName
+//        }
+
 
 //        getWeather()
 
@@ -114,13 +135,8 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             } else {
                 super.onBackPressed()
             }
-
             userFragment = UserFragment()
-            supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.frame_layout, userFragment)
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                .commit()
+            setCurrentFragment(userFragment)
         }
         apmcFragment = ApmcFragment()
         socialMediaPostFragment = SocialMediaPostsFragment()
@@ -135,6 +151,18 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             true
         }
 
+        viewModel.userliveData.observe(this, Observer {
+            val something = navView.getHeaderView(0);
+            userName = it.get("name").toString()
+            something.cityTextNavHeader.text ="City: " +  it.get("city").toString()
+            something.navbarUserName.text = userName
+            something.navbarUserEmail.text = firebaseAuth.currentUser!!.email
+            Glide.with(this).load(it.get("profileImage")).into(something.navbarUserImage)
+            Log.d("User Data from VM", it.getString("name"))
+            val posts = it.get("posts") as List<String>
+
+            something.navBarUserPostCount.text = "Posts Count: " + posts.size.toString()
+        })
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -226,4 +254,5 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             super.onBackPressed()
         }
     }
+
 }
