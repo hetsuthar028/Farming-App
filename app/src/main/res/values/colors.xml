@@ -10,6 +10,12 @@
     <color name="fontColor">#FF404A3A</color>
     <color name="secondary2">#88d498</color>
     <color name="secondary3">#c6dabf</color>
-
-
+<color name="chip">
+    <selector xmlns:android="http://schemas.android.com/apk/res/android">
+        <item android:state_checked="true"
+            android:color="@color/colorPrimary" />
+        <item android:state_checked="false"
+            android:color="@color/secondary" />
+    </selector>
+</color>
 </resources>

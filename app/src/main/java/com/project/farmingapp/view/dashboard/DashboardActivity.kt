@@ -31,6 +31,7 @@ import com.project.farmingapp.model.data.WeatherRootList
 import com.project.farmingapp.view.apmc.ApmcFragment
 import com.project.farmingapp.view.articles.FruitsFragment
 import com.project.farmingapp.view.auth.LoginActivity
+import com.project.farmingapp.view.ecommerce.EcommerceFragment
 import com.project.farmingapp.view.socialmedia.SocialMediaPostsFragment
 import com.project.farmingapp.view.user.UserFragment
 import com.project.farmingapp.view.weather.WeatherFragment
@@ -48,6 +49,7 @@ import retrofit2.Retrofit
 
 class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     lateinit var dashboardFragment: dashboardFragment
+    lateinit var ecommerceFragment: EcommerceFragment
     lateinit var weatherFragment: WeatherFragment
     lateinit var navController: NavController
     lateinit var toggle: ActionBarDrawerToggle
@@ -124,12 +126,13 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         }
         apmcFragment = ApmcFragment()
         socialMediaPostFragment = SocialMediaPostsFragment()
+        ecommerceFragment=EcommerceFragment()
 
         bottomNav.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.bottomNavAPMC -> setCurrentFragment(apmcFragment)
                 R.id.bottomNavHome -> setCurrentFragment(dashboardFragment)
-                R.id.bottomNavEcomm -> setCurrentFragment(dashboardFragment)
+                R.id.bottomNavEcomm -> setCurrentFragment(ecommerceFragment)
                 R.id.bottomNavPost -> setCurrentFragment(socialMediaPostFragment)
             }
             true
