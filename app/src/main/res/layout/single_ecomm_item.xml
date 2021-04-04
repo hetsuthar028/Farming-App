@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
-  android:padding="5dp"
+
 
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -38,9 +38,13 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textColor="@color/fontColor"
                 android:id="@+id/ecommtitle"
                 app:layout_constraintBottom_toTopOf="@id/ecommPrice"
-                android:layout_width="250dp"
+                android:layout_width="0dp"
+                android:justificationMode="inter_word"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
@@ -49,8 +53,9 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+
                 android:id="@+id/ecommPrice"
-                android:layout_width="150dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
@@ -76,6 +81,7 @@
                 app:layout_constraintTop_toBottomOf="@id/ecommPrice" />
 
             <TextView
+                android:textColor="@color/fontColor"
                 android:id="@+id/ecommretailer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -90,6 +96,8 @@
                 app:layout_constraintTop_toBottomOf="@id/ecommRating" />
 
             <TextView
+                android:layout_margin="7dp"
+                android:textColor="@color/fontColor"
                 android:id="@+id/ecommstock"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

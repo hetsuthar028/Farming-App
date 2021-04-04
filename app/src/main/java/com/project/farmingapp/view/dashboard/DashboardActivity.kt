@@ -31,7 +31,8 @@ import com.project.farmingapp.model.data.WeatherRootList
 import com.project.farmingapp.view.apmc.ApmcFragment
 import com.project.farmingapp.view.articles.FruitsFragment
 import com.project.farmingapp.view.auth.LoginActivity
-import com.project.farmingapp.view.ecommerce.EcommerceFragment
+import com.project.farmingapp.view.ecommerce.*
+
 import com.project.farmingapp.view.socialmedia.SocialMediaPostsFragment
 import com.project.farmingapp.view.user.UserFragment
 import com.project.farmingapp.view.weather.WeatherFragment
@@ -48,6 +49,10 @@ import retrofit2.Response
 import retrofit2.Retrofit
 
 class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+    lateinit var cartFragment: CartFragment
+    lateinit var myOrdersFragment: MyOrdersFragment
+    lateinit var ecommerceItemFragment: EcommerceItemFragment
+    lateinit var paymentFragment: PaymentFragment
     lateinit var dashboardFragment: dashboardFragment
     lateinit var ecommerceFragment: EcommerceFragment
     lateinit var weatherFragment: WeatherFragment
@@ -74,7 +79,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
         navView.setNavigationItemSelectedListener(this)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
+  ecommerceItemFragment=EcommerceItemFragment()
         dashboardFragment = dashboardFragment()
         weatherFragment = WeatherFragment()
         supportFragmentManager
@@ -127,12 +132,14 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         apmcFragment = ApmcFragment()
         socialMediaPostFragment = SocialMediaPostsFragment()
         ecommerceFragment=EcommerceFragment()
-
+        paymentFragment = PaymentFragment()
+        cartFragment= CartFragment()
+        myOrdersFragment=MyOrdersFragment()
         bottomNav.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.bottomNavAPMC -> setCurrentFragment(apmcFragment)
                 R.id.bottomNavHome -> setCurrentFragment(dashboardFragment)
-                R.id.bottomNavEcomm -> setCurrentFragment(ecommerceFragment)
+                R.id.bottomNavEcomm -> setCurrentFragment(myOrdersFragment)
                 R.id.bottomNavPost -> setCurrentFragment(socialMediaPostFragment)
             }
             true

@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/secondary3"
+    tools:context=".view.ecommerce.EcommerceItemFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.asura.library.views.PosterSlider
+            android:id="@+id/poster_slider"
+            android:layout_width="match_parent"
+            android:layout_height="230dp"
+            android:background="@color/secondary3"
+            android:elevation="0dp"
+            app:defaultIndicator="circle"
+            app:hideIndicators="true"
+            app:imageSlideInterval="5000"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:loopSlides="true" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/poster_slider">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/ecommbackground"
+                android:elevation="6dp"
+
+                android:paddingHorizontal="10dp">
+
+                <TextView
+                    android:id="@+id/productTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="5dp"
+                    android:layout_marginTop="22dp"
+                    android:text="Natures Plus Organic Fertiliser, 1 Kg"
+                    android:textColor="@color/fontColor"
+                    android:textSize="22sp"
+                    app:layout_constraintBottom_toTopOf="@id/productTitle"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+
+                    />
+
+                <TextView
+                    android:id="@+id/productDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="5dp"
+                    android:layout_marginTop="7dp"
+                    android:text="Some Description here"
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/productTitle" />
+
+                <TextView
+
+                    android:id="@+id/productPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="5dp"
+                    android:layout_marginTop="11dp"
+                    android:text="$341.55"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="26sp"
+                    android:textStyle="bold"
+
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/productDescription" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/table_border"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="@id/productPrice"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/productPrice"
+                    app:layout_constraintTop_toTopOf="@id/productPrice">
+
+                    <ImageButton
+                        android:layout_width="40dp"
+                        android:layout_height="30dp"
+
+
+                        android:backgroundTint="#00FFFFFF"
+                        android:src="@drawable/add_icon" />
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="5dp"
+                        android:text="1"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <ImageButton
+                        android:layout_width="40dp"
+                        android:layout_height="30dp"
+                        android:backgroundTint="@color/white"
+                        android:src="@drawable/minus_icon"
+
+                        android:textColor="#000000"
+                        android:textStyle="bold" />
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/savedAmount"
+                    android:layout_width="wrap_content"
+
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="5dp"
+                    android:text="You save $39"
+                    android:textColor="@color/colorPrimary"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/productPrice" />
+
+                <TextView
+                    android:id="@+id/deliverycost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="5dp"
+                    android:layout_marginTop="11dp"
+                    android:text=" No cost for delivery"
+                    android:textStyle="italic"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/savedAmount"
+
+                    />
+
+                <RatingBar
+                    android:id="@+id/Rating"
+                    style="@style/Widget.AppCompat.RatingBar.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+
+                    android:layout_marginRight="18dp"
+                    android:rating="3"
+                    android:theme="@style/RatingBar"
+                    app:layout_constraintBottom_toBottomOf="@id/deliverycost"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/deliverycost"
+                    app:layout_constraintTop_toTopOf="@id/deliverycost" />
+
+                <TextView
+                    android:id="@+id/productSpec"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="5dp"
+                    android:layout_marginTop="7dp"
+                    android:text="Specifications"
+                    android:textSize="22sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/deliverycost" />
+
+
+                />
+
+                <LinearLayout
+                    android:id="@+id/sizeLinear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="5dp"
+                    android:layout_marginTop="7dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/productSpec"
+
+                    >
+
+                    <TextView
+                        android:id="@+id/productSIze"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="18dp"
+                        android:text="Size"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="70dp"
+
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="10dp"
+                        android:text="1"
+                        android:textSize="28sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="70dp"
+
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="10dp"
+                        android:text="1"
+                        android:textSize="28sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="70dp"
+
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="10dp"
+                        android:text="1"
+                        android:textSize="28sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="70dp"
+
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="10dp"
+                        android:text="1"
+                        android:textSize="28sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/howToUseLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="5dp"
+                    android:text="How to Use?"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/sizeLinear" />
+
+                <TextView
+                    android:id="@+id/howToUseText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginHorizontal="5dp"
+                    android:text="For all Indore Plant, Outdoor Plants, Fruit-bearing trees and vegetable gardening Maintaining terrace gardening, Bonsal plants, lawns, Apply 1-2 inch below or in rows or in rings on the surface of the plant, After Application water essential."
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/howToUseLabel" />
+
+                <TextView
+                    android:id="@+id/similarproduct"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="5dp"
+                    android:text="Similar Products"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/howToUseText" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="5dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/similarproduct"
+                    tools:listitem="@layout/similarproductlist" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+        <Button
+
+            android:id="@+id/addToCart"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="14dp"
+            android:background="@drawable/round_borderless_general"
+            android:backgroundTint="@color/colorThird"
+            android:drawableLeft="@drawable/add_icon"
+            android:text="Add to Cart"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/buynow"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+
+            android:id="@+id/buynow"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="14dp"
+            android:background="@drawable/round_borderless_general"
+            android:backgroundTint="@color/colorThird"
+            android:text="Buy Now"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/addToCart" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>
