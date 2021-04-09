@@ -97,4 +97,8 @@ dependencies {
 
     //carossal
     implementation 'com.github.mohan-dev1248:PosterSlider:1.0.2'
+
+    //Realtime
+    implementation 'com.google.firebase:firebase-database-ktx'
+
 }

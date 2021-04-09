@@ -79,9 +79,11 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
         navView.setNavigationItemSelectedListener(this)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-  ecommerceItemFragment=EcommerceItemFragment()
+
+        ecommerceItemFragment=EcommerceItemFragment()
         dashboardFragment = dashboardFragment()
         weatherFragment = WeatherFragment()
+
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.frame_layout, dashboardFragment)
@@ -139,7 +141,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             when (it.itemId) {
                 R.id.bottomNavAPMC -> setCurrentFragment(apmcFragment)
                 R.id.bottomNavHome -> setCurrentFragment(dashboardFragment)
-                R.id.bottomNavEcomm -> setCurrentFragment(myOrdersFragment)
+                R.id.bottomNavEcomm -> setCurrentFragment(ecommerceFragment)
                 R.id.bottomNavPost -> setCurrentFragment(socialMediaPostFragment)
             }
             true

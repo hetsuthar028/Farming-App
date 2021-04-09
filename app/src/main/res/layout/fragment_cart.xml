@@ -11,7 +11,7 @@
        android:layout_height="match_parent">
        <View
            android:layout_width="match_parent"
-           android:layout_height="50dp"
+           android:layout_height="40dp"
            android:backgroundTint="@color/colorThird"
            android:background="@drawable/round_borderless_general"
            app:layout_constraintTop_toTopOf="parent"
@@ -25,7 +25,7 @@
        <TextView
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           android:textSize="21sp"
+           android:textSize="18sp"
            android:textStyle="bold"
            app:layout_constraintStart_toStartOf="@id/totalBackgroundCart"
            app:layout_constraintTop_toTopOf="@id/totalBackgroundCart"
@@ -38,7 +38,7 @@
        <TextView
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           android:textSize="21sp"
+           android:textSize="18sp"
            android:textColor="#fff"
            android:layout_marginLeft="7dp"
            android:text="1"
@@ -52,7 +52,7 @@
        <TextView
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           android:textSize="21sp"
+           android:textSize="18sp"
            app:layout_constraintEnd_toStartOf="@id/totalCostValue"
            app:layout_constraintTop_toTopOf="@id/totalBackgroundCart"
            app:layout_constraintBottom_toBottomOf="@id/totalBackgroundCart"
@@ -65,7 +65,7 @@
        <TextView
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           android:textSize="21sp"
+           android:textSize="18sp"
            android:textColor="#fff"
            android:text="₹487"
            android:id="@+id/totalCostValue"
@@ -83,7 +83,7 @@
            android:id="@+id/hrCart"
            app:layout_constraintStart_toStartOf="parent"
            app:layout_constraintTop_toBottomOf="@id/totalBackgroundCart"
-           android:layout_marginVertical="14dp"
+           android:layout_marginVertical="7dp"
            android:layout_marginHorizontal="7dp"
            />
 
@@ -93,7 +93,7 @@
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:layout_marginHorizontal="14dp"
-           android:layout_marginVertical="14dp"
+           android:layout_marginVertical="7dp"
            app:layout_constraintTop_toBottomOf="@id/hrCart"
            >
 
@@ -106,8 +106,10 @@
                <ImageView
                    android:id="@+id/cartItemImage"
                    android:layout_width="130dp"
-                   android:layout_height="130dp"
-                   android:layout_margin="7dp"
+                   android:layout_height="0dp"
+                   app:layout_constraintBottom_toBottomOf="@id/pinCode"
+                   android:layout_marginHorizontal="7dp"
+                   android:layout_marginTop="7dp"
                    android:background="@drawable/round_borderless_general"
                    android:src="@color/secondary"
                    app:layout_constraintStart_toStartOf="parent"
@@ -242,9 +244,10 @@
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:layout_margin="7dp"
-                   android:text="PIN: 384246"
+                   android:text="Pin Code: 384246"
                    android:textColor="@color/fontColor"
                    android:textSize="12sp"
+                   android:id="@+id/pinCode"
                    android:textStyle="bold|italic"
                    app:layout_constraintStart_toEndOf="@id/cartItemImage"
                    app:layout_constraintTop_toBottomOf="@id/deliveryChargeCart" />
@@ -252,7 +255,8 @@
                <Button
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
-                   android:layout_margin="7dp"
+                   android:layout_marginHorizontal="7dp"
+
                    android:background="@drawable/rounder_border_general"
                    android:backgroundTint="@color/secondary"
                    android:text="Buy Now: ₹487"

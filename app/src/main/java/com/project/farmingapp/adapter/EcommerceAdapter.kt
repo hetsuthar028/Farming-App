@@ -15,7 +15,7 @@ import com.project.farmingapp.utilities.CellClickListener
 import kotlinx.android.synthetic.main.post_with_image_sm.view.*
 import kotlinx.android.synthetic.main.single_ecomm_item.view.*
 
-class EcommerceAdapter(val context: Context, val ecommtListData : List<DocumentSnapshot>):RecyclerView.Adapter<EcommerceAdapter.EcommercceViewModel>() {
+class EcommerceAdapter(val context: Context, val ecommtListData : List<DocumentSnapshot>, private val cellClickListener: CellClickListener):RecyclerView.Adapter<EcommerceAdapter.EcommercceViewModel>() {
 
     lateinit var firebaseAuth: FirebaseAuth
     lateinit var firebaseFirestore: FirebaseFirestore
@@ -40,10 +40,13 @@ class EcommerceAdapter(val context: Context, val ecommtListData : List<DocumentS
         holder.itemView.ecommtitle.text = currentList.get("title").toString()
         holder.itemView.ecommPrice.text = "\u20B9 "+currentList.get("price").toString()
         holder.itemView.ecommretailer.text = currentList.get("retailer").toString()
-        Glide.with(context).load(currentList.get("imageUrl")).into(holder.itemView.ecommImage)
+        val singleImage = currentList.get("imageUrl") as List<String>
+        Glide.with(context).load(singleImage[0].toString()).into(holder.itemView.ecommImage)
         holder.itemView.ecommRating.rating = currentList.get("rating").toString().toFloat()
 
-       
+       holder.itemView.setOnClickListener {
+           cellClickListener.onCellClickListener(currentList.id.toString())
+       }
 
     }
 }
