@@ -1,11 +1,26 @@
 package com.project.farmingapp.view.ecommerce
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.api.Distribution
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.getValue
+import com.google.firebase.firestore.DocumentSnapshot
 import com.project.farmingapp.R
+import com.project.farmingapp.adapter.CartItemsAdapter
+import kotlinx.android.synthetic.main.fragment_cart.*
+import kotlinx.android.synthetic.main.single_cart_item.*
+import java.util.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -57,4 +72,73 @@ class CartFragment : Fragment() {
                 }
             }
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val firebaseDatabase = FirebaseDatabase.getInstance()
+        val firebaseAuth = FirebaseAuth.getInstance()
+        val cartRef = firebaseDatabase.getReference("${firebaseAuth.currentUser!!.uid}").child("cart")
+
+        val postListener = object : ValueEventListener {
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                // Get Post object and use the values to update the UI
+                val items = dataSnapshot.value as Map<String, Object>
+
+                var totalCartPrice = 0
+                for((key, value ) in items){
+                    val currVal = value as Map<String, Object>
+                    totalCartPrice += currVal.get("qty").toString().toInt() * currVal.get("basePrice").toString().toInt()
+                }
+
+
+                totalItemsValue.text = items.size.toString()
+                totalCostValue.text = "\u20B9" +  totalCartPrice.toString()
+                val adapter = CartItemsAdapter(activity!!.applicationContext, items)
+                recyclerCart.adapter = adapter
+                recyclerCart.layoutManager = LinearLayoutManager(activity!!.applicationContext)
+                // ...
+            }
+        }
+
+
+        cartRef.addValueEventListener(postListener)
+
+//        cartRef.get().addOnCompleteListener {
+//            Log.d("CartFrag", it.result!!.value.toString())
+//            val data = it.result!!.value as Map<String, Object>
+//            Log.d("CartFrag", data.toString())
+////            if(it.result!!.value is List<>){
+////                Log.d("CartFrag", "Yes")
+////            }
+//
+////            val adapter = CartItemsAdapter(activity!!.applicationContext, data)
+////            recyclerCart.adapter = adapter
+////            recyclerCart.layoutManager = LinearLayoutManager(activity!!.applicationContext)
+//
+//            val currentData = data.entries.toTypedArray()
+//            Log.d("CartFrag2", currentData[0].toString())
+//
+//
+//
+//            val curr = currentData[0].value as Map<String, Object>
+//            Log.d("CartFrag3", curr.get("qty").toString())
+//
+//        }
+
+
+//        cartRef.get()
+
+
+        buyAllBtn.setOnClickListener {
+            
+        }
+
+
+    }
+
+
 }

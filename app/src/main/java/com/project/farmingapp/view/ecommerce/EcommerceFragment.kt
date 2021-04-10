@@ -157,9 +157,13 @@ class EcommerceFragment : Fragment(), CellClickListener {
         bundle.putString("name",name)
         ecommerceItemFragment.setArguments(bundle)
 
+
+        // Temporary
+        val cartFragment = CartFragment()
+
         val transaction = activity!!.supportFragmentManager
             .beginTransaction()
-            .replace(R.id.frame_layout, ecommerceItemFragment, name)
+            .replace(R.id.frame_layout, cartFragment, name)
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             .setReorderingAllowed(true)
             .addToBackStack("name")

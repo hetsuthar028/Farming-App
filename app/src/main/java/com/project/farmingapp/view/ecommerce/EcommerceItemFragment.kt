@@ -175,6 +175,7 @@ class EcommerceItemFragment : Fragment(), CellClickListener {
                 productPrice.text = "\u20B9" + specificData.getString("price")
                 productLongDesc.text = specificData.getString("longDesc")
                 howToUseText.text = specificData.getString("howtouse")
+                deliverycost.text = "\u20B9" + specificData.getString("delCharge")
                 Rating.rating = specificData.get("rating").toString().toFloat()
                 var attributes = specificData.get("attributes") as Map<String, Any>
 
@@ -272,6 +273,8 @@ class EcommerceItemFragment : Fragment(), CellClickListener {
         addToCart.setOnClickListener {
             val realtimeRef = realtimeDatabase.getReference("${firebaseAuth.currentUser!!.uid}").child("cart").child("${currentItemId}")
             selectionAttribute!!.put("qty", quantityCountEcomm.text.toString().toInt())
+            selectionAttribute.put("basePrice", productPrice.text.toString().toInt())
+            selectionAttribute.put("delCharge", deliverycost.text.toString().toInt())
 
             for((key, value) in selectionAttribute!!){
                 realtimeRef.child("${key}").setValue("${value}").addOnSuccessListener {

@@ -1,290 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.ecommerce.CartFragment">
 
-   <androidx.constraintlayout.widget.ConstraintLayout
-       android:layout_width="match_parent"
-       android:layout_height="match_parent">
-       <View
-           android:layout_width="match_parent"
-           android:layout_height="40dp"
-           android:backgroundTint="@color/colorThird"
-           android:background="@drawable/round_borderless_general"
-           app:layout_constraintTop_toTopOf="parent"
-           app:layout_constraintStart_toStartOf="parent"
-           app:layout_constraintEnd_toEndOf="parent"
-           android:layout_marginHorizontal="14dp"
-           android:layout_marginVertical="14dp"
-           android:id="@+id/totalBackgroundCart"
-           />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-       <TextView
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:textSize="18sp"
-           android:textStyle="bold"
-           app:layout_constraintStart_toStartOf="@id/totalBackgroundCart"
-           app:layout_constraintTop_toTopOf="@id/totalBackgroundCart"
-           app:layout_constraintBottom_toBottomOf="@id/totalBackgroundCart"
-           android:textColor="#fff"
-           android:id="@+id/totalItemsTitle"
-           android:text="Total Items: "
-           android:layout_marginLeft="14dp" />
+        <View
+            android:id="@+id/totalBackgroundCart"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginHorizontal="14dp"
+            android:layout_marginVertical="14dp"
+            android:background="@drawable/round_borderless_general"
+            android:backgroundTint="@color/colorThird"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-       <TextView
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:textSize="18sp"
-           android:textColor="#fff"
-           android:layout_marginLeft="7dp"
-           android:text="1"
-           android:id="@+id/totalItemsValue"
-           android:textStyle="bold"
-           app:layout_constraintStart_toEndOf="@id/totalItemsTitle"
-           app:layout_constraintTop_toTopOf="@id/totalBackgroundCart"
-           app:layout_constraintBottom_toBottomOf="@id/totalBackgroundCart"
-           />
+        <TextView
+            android:id="@+id/totalItemsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="14dp"
+            android:text="Total Items: "
+            android:textColor="#fff"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/totalBackgroundCart"
+            app:layout_constraintStart_toStartOf="@id/totalBackgroundCart"
+            app:layout_constraintTop_toTopOf="@id/totalBackgroundCart" />
 
-       <TextView
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:textSize="18sp"
-           app:layout_constraintEnd_toStartOf="@id/totalCostValue"
-           app:layout_constraintTop_toTopOf="@id/totalBackgroundCart"
-           app:layout_constraintBottom_toBottomOf="@id/totalBackgroundCart"
-           android:textColor="#fff"
-           android:textStyle="bold"
-           android:id="@+id/totalCostTitle"
-           android:text="Total Cost: "
-           android:layout_marginRight="7dp" />
+        <TextView
+            android:id="@+id/totalItemsValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="7dp"
+            android:text="-"
+            android:textColor="#fff"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/totalBackgroundCart"
+            app:layout_constraintStart_toEndOf="@id/totalItemsTitle"
+            app:layout_constraintTop_toTopOf="@id/totalBackgroundCart" />
 
-       <TextView
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:textSize="18sp"
-           android:textColor="#fff"
-           android:text="₹487"
-           android:id="@+id/totalCostValue"
-           android:textStyle="bold"
-           android:layout_marginRight="14dp"
-           app:layout_constraintEnd_toEndOf="@id/totalBackgroundCart"
-           app:layout_constraintTop_toTopOf="@id/totalBackgroundCart"
-           app:layout_constraintBottom_toBottomOf="@id/totalBackgroundCart"
-           />
+        <TextView
+            android:id="@+id/totalCostTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="7dp"
+            android:text="Total Cost: "
+            android:textColor="#fff"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/totalBackgroundCart"
+            app:layout_constraintEnd_toStartOf="@id/totalCostValue"
+            app:layout_constraintTop_toTopOf="@id/totalBackgroundCart" />
 
-       <View
-           android:layout_width="match_parent"
-           android:layout_height="2dp"
-           android:background="@color/colorPrimary"
-           android:id="@+id/hrCart"
-           app:layout_constraintStart_toStartOf="parent"
-           app:layout_constraintTop_toBottomOf="@id/totalBackgroundCart"
-           android:layout_marginVertical="7dp"
-           android:layout_marginHorizontal="7dp"
-           />
+        <TextView
+            android:id="@+id/totalCostValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="14dp"
+            android:text="-"
+            android:textColor="#fff"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/totalBackgroundCart"
+            app:layout_constraintEnd_toEndOf="@id/totalBackgroundCart"
+            app:layout_constraintTop_toTopOf="@id/totalBackgroundCart" />
+
+        <View
+            android:id="@+id/hrCart"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginHorizontal="7dp"
+            android:layout_marginVertical="7dp"
+            android:background="@color/colorPrimary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/totalBackgroundCart" />
 
 
-       <androidx.cardview.widget.CardView
-           android:id="@+id/cartCard"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:layout_marginHorizontal="14dp"
-           android:layout_marginVertical="7dp"
-           app:layout_constraintTop_toBottomOf="@id/hrCart"
-           >
-
-           <androidx.constraintlayout.widget.ConstraintLayout
-               android:layout_width="match_parent"
-
-               android:layout_height="wrap_content"
-               android:background="@drawable/rounder_border_general">
-
-               <ImageView
-                   android:id="@+id/cartItemImage"
-                   android:layout_width="130dp"
-                   android:layout_height="0dp"
-                   app:layout_constraintBottom_toBottomOf="@id/pinCode"
-                   android:layout_marginHorizontal="7dp"
-                   android:layout_marginTop="7dp"
-                   android:background="@drawable/round_borderless_general"
-                   android:src="@color/secondary"
-                   app:layout_constraintStart_toStartOf="parent"
-                   app:layout_constraintTop_toTopOf="parent" />
-
-               <TextView
-                   android:id="@+id/itemNameCart"
-                   android:layout_width="0dp"
-                   android:layout_height="wrap_content"
-                   android:layout_marginHorizontal="7dp"
-                   android:layout_marginVertical="7dp"
-                   android:text="Natures Plus Organic Fertiliser"
-                   android:textColor="@color/fontColor"
-                   android:textSize="14sp"
-                   android:textStyle="bold"
-                   app:layout_constraintEnd_toEndOf="parent"
-                   app:layout_constraintStart_toEndOf="@id/cartItemImage"
-                   app:layout_constraintTop_toTopOf="parent"
-
-                   />
-
-               <TextView
-                   android:id="@+id/itemPriceCart"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:layout_margin="7dp"
-                   android:text="₹469"
-                   android:textColor="@color/colorPrimary"
-                   android:textSize="21sp"
-                   android:textStyle="bold"
-                   app:layout_constraintStart_toEndOf="@id/cartItemImage"
-                   app:layout_constraintTop_toBottomOf="@id/itemNameCart"
-
-                   />
-
-               <ImageView
-                   android:layout_width="wrap_content"
-                   android:layout_marginHorizontal="7dp"
-                   android:layout_height="wrap_content"
-                   app:layout_constraintTop_toTopOf="@id/itemPriceCart"
-                   app:layout_constraintBottom_toBottomOf="@id/itemPriceCart"
-                   android:src="@drawable/ic_baseline_delete_forever_24"
-                   app:layout_constraintEnd_toEndOf="parent"
-                   />
-
-               <androidx.cardview.widget.CardView
-                   android:id="@+id/quantityChangeCard"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:layout_margin="7dp"
-                   android:orientation="horizontal"
-
-                   app:layout_constraintStart_toEndOf="@id/cartItemImage"
-                   app:layout_constraintTop_toBottomOf="@id/itemPriceCart">
-
-                   <LinearLayout
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:background="@drawable/rounder_border_general"
-                       android:orientation="horizontal"
-                       android:paddingHorizontal="10dp"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerCart"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="7dp"
+            app:layout_constraintBottom_toTopOf="@id/buyAllBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/hrCart" />
 
 
-                       >
-
-                       <ImageButton
-                           android:layout_width="30dp"
-                           android:layout_height="30dp"
-                           android:gravity="center"
-                           android:backgroundTint="#fff"
-                           android:src="@drawable/add_icon"
-                           />
-
-                       <TextView
-                           android:layout_width="15dp"
-                           android:layout_height="wrap_content"
-                           android:layout_marginHorizontal="2dp"
-                           android:layout_gravity="center_vertical"
-                           android:gravity="center"
-                           android:textSize="18sp"
-                           android:textColor="@color/fontColor"
-
-                           android:text="1" />
-
-                       <ImageButton
-                           android:layout_width="30dp"
-                           android:layout_height="30dp"
-                           android:gravity="center"
-                           android:backgroundTint="#fff"
-                           android:src="@drawable/minus_icon"/>
-                   </LinearLayout>
-               </androidx.cardview.widget.CardView>
-
-               <TextView
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   app:layout_constraintEnd_toEndOf="parent"
-                   app:layout_constraintTop_toTopOf="@id/quantityChangeCard"
-                   app:layout_constraintBottom_toBottomOf="@id/quantityChangeCard"
-                   android:layout_marginHorizontal="7dp"
-                   android:text="In Stock"
-                   android:textStyle="bold"
-                   android:textColor="@color/fontColor"
-                   />
-
-               <TextView
-                   android:id="@+id/deliveryChargeCart"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:layout_margin="7dp"
-                   android:text="Delivery Charge: ₹18"
-                   android:textColor="@color/fontColor"
-                   android:textSize="10sp"
-                   android:textStyle="italic"
-                   app:layout_constraintStart_toEndOf="@id/cartItemImage"
-                   app:layout_constraintTop_toBottomOf="@id/quantityChangeCard" />
-
-               <TextView
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   app:layout_constraintEnd_toEndOf="parent"
-                   android:layout_marginHorizontal="7dp"
-                   app:layout_constraintTop_toTopOf="@id/deliveryChargeCart"
-                   app:layout_constraintBottom_toBottomOf="@id/deliveryChargeCart"
-                   android:textColor="@color/fontColor"
-                   android:text="- Hello World Firm"
-                   android:textStyle="italic"
-                   android:textSize="10sp"
-                   />
-
-               <TextView
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:layout_margin="7dp"
-                   android:text="Pin Code: 384246"
-                   android:textColor="@color/fontColor"
-                   android:textSize="12sp"
-                   android:id="@+id/pinCode"
-                   android:textStyle="bold|italic"
-                   app:layout_constraintStart_toEndOf="@id/cartItemImage"
-                   app:layout_constraintTop_toBottomOf="@id/deliveryChargeCart" />
-
-               <Button
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:layout_marginHorizontal="7dp"
-
-                   android:background="@drawable/rounder_border_general"
-                   android:backgroundTint="@color/secondary"
-                   android:text="Buy Now: ₹487"
-                   android:textAllCaps="false"
-                   android:textColor="@color/fontColor"
-                   android:textSize="18sp"
-                   app:layout_constraintBottom_toBottomOf="parent"
-                   app:layout_constraintTop_toBottomOf="@id/cartItemImage" />
-
-
-           </androidx.constraintlayout.widget.ConstraintLayout>
-       </androidx.cardview.widget.CardView>
-
-
-       <Button
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:layout_margin="7dp"
-           android:text="Buy All"
-           android:textAllCaps="false"
-           app:layout_constraintBottom_toBottomOf="parent"
-           app:layout_constraintStart_toStartOf="parent"
-           app:layout_constraintEnd_toEndOf="parent"
-           android:textSize="21sp"
-           android:textColor="#fff"
-           android:backgroundTint="@color/colorThird"
-           android:background="@drawable/round_borderless_general"
-           />
-   </androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/buyAllBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="7dp"
+            android:background="@drawable/round_borderless_general"
+            android:backgroundTint="@color/colorThird"
+            android:padding="7dp"
+            android:text="Buy All"
+            android:textAllCaps="false"
+            android:textColor="#fff"
+            android:textSize="21sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

@@ -161,16 +161,30 @@
                     />
 
                 <TextView
-                    android:id="@+id/deliverycost"
+                    android:id="@+id/deliverycostTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="3.5dp"
-                    android:text=" No cost, Free delivery"
+                    android:text="Delivery Charge: "
                     android:textStyle="italic"
                     android:textSize="10sp"
                     android:layout_marginHorizontal="7dp"
                     android:textColor="@color/fontColor"
                     app:layout_constraintStart_toEndOf="@id/deliveryTruckImage"
+                    app:layout_constraintTop_toBottomOf="@id/savedAmount"
+                    />
+
+                <TextView
+                    android:id="@+id/deliverycost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="3.5dp"
+                    android:text="-"
+                    android:textStyle="italic"
+                    android:textSize="10sp"
+                    android:layout_marginHorizontal="7dp"
+                    android:textColor="@color/fontColor"
+                    app:layout_constraintStart_toEndOf="@id/deliverycostTitle"
                     app:layout_constraintTop_toBottomOf="@id/savedAmount"
 
                     />
