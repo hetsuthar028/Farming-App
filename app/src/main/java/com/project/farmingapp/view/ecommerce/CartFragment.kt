@@ -1,5 +1,6 @@
 package com.project.farmingapp.view.ecommerce
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -7,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.api.Distribution
 import com.google.firebase.auth.FirebaseAuth
@@ -16,11 +18,15 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.firestore.DocumentSnapshot
+import com.project.farmingapp.PrePaymentFragment
 import com.project.farmingapp.R
 import com.project.farmingapp.adapter.CartItemsAdapter
+import com.project.farmingapp.utilities.CartItemBuy
+import com.project.farmingapp.view.articles.FruitsFragment
 import kotlinx.android.synthetic.main.fragment_cart.*
 import kotlinx.android.synthetic.main.single_cart_item.*
 import java.util.*
+import kotlin.collections.ArrayList
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -32,7 +38,9 @@ private const val ARG_PARAM2 = "param2"
  * Use the [CartFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class CartFragment : Fragment() {
+class CartFragment : Fragment(),CartItemBuy {
+
+    lateinit var prePaymentfragment:PrePaymentFragment
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -97,7 +105,7 @@ class CartFragment : Fragment() {
 
                 totalItemsValue.text = items.size.toString()
                 totalCostValue.text = "\u20B9" +  totalCartPrice.toString()
-                val adapter = CartItemsAdapter(activity!!.applicationContext, items)
+                val adapter = CartItemsAdapter(activity!!.applicationContext, items,this@CartFragment)
                 recyclerCart.adapter = adapter
                 recyclerCart.layoutManager = LinearLayoutManager(activity!!.applicationContext)
                 // ...
@@ -134,10 +142,44 @@ class CartFragment : Fragment() {
 
 
         buyAllBtn.setOnClickListener {
-            
+//            prePaymentfragment = PrePaymentFragment()
+//            val bundle = Bundle()
+//
+//            val transaction = activity!!.supportFragmentManager
+//                .beginTransaction()
+//                .replace(R.id.frame_layout, prePaymentfragment)
+//                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+//                .setReorderingAllowed(true)
+//                .addToBackStack("name")
+//                .commit()
+//val TotalPrice=totalCostValue.text.toString()
+            //var products_id:ArrayList<String>
+           // products_id.add()
+//            Intent (activity!!.applicationContext, RazorPayActivity::class.java).also {
+//                it.putExtra("tp",totalPrice)
+//                it.putExtra()
+//                startActivity(it)
+
+           // }
         }
 
 
+    }
+
+    override fun addToOrders(productId: String, qty: Int, totalPrice: Int) {
+        var product_id=ArrayList<String>()
+        var item_cost=ArrayList<Int>()
+        var item_qty=ArrayList<Int>()
+        product_id.add(productId)
+        item_cost.add(totalPrice)
+        item_qty.add(qty)
+        Intent (activity!!.applicationContext, RazorPayActivity::class.java).also {
+          //  it.putExtra("tp", "123")
+            it.putStringArrayListExtra("products_id",product_id)
+            it.putIntegerArrayListExtra("items_cost",item_cost)
+            it.putIntegerArrayListExtra("items_qty",item_qty)
+            startActivity(it)
+        }
     }
 
 

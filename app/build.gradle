@@ -5,6 +5,14 @@ apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs"
 apply plugin: 'com.google.gms.google-services'
 
+repositories {
+
+    mavenCentral()
+
+    flatDir {
+        dirs 'libs'
+    }
+}
 
 android {
     compileSdkVersion 29
@@ -100,5 +108,8 @@ dependencies {
 
     //Realtime
     implementation 'com.google.firebase:firebase-database-ktx'
+
+    //RazorPay
+    implementation 'com.razorpay:checkout:1.5.16'
 
 }

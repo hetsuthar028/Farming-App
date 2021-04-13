@@ -14,10 +14,11 @@ import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.project.farmingapp.R
+import com.project.farmingapp.utilities.CartItemBuy
 import kotlinx.android.synthetic.main.single_cart_item.*
 import kotlinx.android.synthetic.main.single_cart_item.view.*
 
-class CartItemsAdapter(val context: Context, val allData: Map<String, Object>) :
+class CartItemsAdapter(val context: Context, val allData: Map<String, Object>,val cartitembuy:CartItemBuy) :
     RecyclerView.Adapter<CartItemsAdapter.CartItemsViewHolder>() {
     class CartItemsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -45,7 +46,12 @@ class CartItemsAdapter(val context: Context, val allData: Map<String, Object>) :
                 .child("${currentData.key}").child("qty")
 
 
-
+holder.itemView.cartItemBuyBtn.setOnClickListener {
+    var qty=holder.itemView.quantityCountEcomm.text.toString().toInt()
+var totalPrice=holder.itemView.cartItemBuyBtn.text.toString().split("₹") as ArrayList<String>
+    Log.d("totalPrice",totalPrice[1].toString())
+cartitembuy.addToOrders("${currentData.key}",qty,totalPrice[1].toString().toInt())
+}
         holder.itemView.increaseQtyBtn.setOnClickListener {
 
             holder.itemView.quantityCountEcomm.text =
@@ -80,6 +86,10 @@ class CartItemsAdapter(val context: Context, val allData: Map<String, Object>) :
                 val allImages = it.result!!.get("imageUrl") as ArrayList<String>
                 Glide.with(context).load(allImages[0]).into(holder.itemView.cartItemImage)
 
+
+
+
             }
     }
+
 }

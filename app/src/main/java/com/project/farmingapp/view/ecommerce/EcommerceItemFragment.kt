@@ -172,10 +172,10 @@ class EcommerceItemFragment : Fragment(), CellClickListener {
 
                 productTitle.text = specificData.getString("title")
                 productShortDescription.text = specificData.getString("shortDesc")
-                productPrice.text = "\u20B9" + specificData.getString("price")
+                productPrice.text =  specificData.getString("price")
                 productLongDesc.text = specificData.getString("longDesc")
                 howToUseText.text = specificData.getString("howtouse")
-                deliverycost.text = "\u20B9" + specificData.getString("delCharge")
+                deliverycost.text = specificData.getString("delCharge")
                 Rating.rating = specificData.get("rating").toString().toFloat()
                 var attributes = specificData.get("attributes") as Map<String, Any>
 
