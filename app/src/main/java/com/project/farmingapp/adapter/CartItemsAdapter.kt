@@ -18,7 +18,7 @@ import com.project.farmingapp.utilities.CartItemBuy
 import kotlinx.android.synthetic.main.single_cart_item.*
 import kotlinx.android.synthetic.main.single_cart_item.view.*
 
-class CartItemsAdapter(val context: Context, val allData: Map<String, Object>,val cartitembuy:CartItemBuy) :
+class CartItemsAdapter(val context: Context, val allData: HashMap<String, Object>,val cartitembuy:CartItemBuy) :
     RecyclerView.Adapter<CartItemsAdapter.CartItemsViewHolder>() {
     class CartItemsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -45,6 +45,9 @@ class CartItemsAdapter(val context: Context, val allData: Map<String, Object>,va
             firebaseDatabase.getReference("${firebaseAuth.currentUser!!.uid}").child("cart")
                 .child("${currentData.key}").child("qty")
 
+        val itemRef =
+            firebaseDatabase.getReference("${firebaseAuth.currentUser!!.uid}").child("cart")
+                .child("${currentData.key}")
 
 holder.itemView.cartItemBuyBtn.setOnClickListener {
     var qty=holder.itemView.quantityCountEcomm.text.toString().toInt()
@@ -52,6 +55,11 @@ var totalPrice=holder.itemView.cartItemBuyBtn.text.toString().split("₹") as Ar
     Log.d("totalPrice",totalPrice[1].toString())
 cartitembuy.addToOrders("${currentData.key}",qty,totalPrice[1].toString().toInt())
 }
+
+        holder.itemView.removeCartBtn.setOnClickListener {
+            itemRef.removeValue()
+        }
+
         holder.itemView.increaseQtyBtn.setOnClickListener {
 
             holder.itemView.quantityCountEcomm.text =

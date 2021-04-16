@@ -81,6 +81,8 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         navView.setNavigationItemSelectedListener(this)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        supportActionBar?.title = "Farming App"
+
         ecommerceItemFragment=EcommerceItemFragment()
         dashboardFragment = dashboardFragment()
         weatherFragment = WeatherFragment()

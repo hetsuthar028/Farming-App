@@ -1,15 +1,16 @@
 package com.project.farmingapp.view.ecommerce
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.text.Html
 import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.asura.library.posters.Poster
@@ -24,6 +25,7 @@ import com.google.firebase.ktx.Firebase
 import com.project.farmingapp.R
 import com.project.farmingapp.adapter.AttributesNormalAdapter
 import com.project.farmingapp.adapter.AttributesSelectionAdapter
+import com.project.farmingapp.model.data.CartItem
 import com.project.farmingapp.utilities.CellClickListener
 import com.project.farmingapp.viewmodel.EcommViewModel
 import kotlinx.android.synthetic.main.fragment_ecommerce_item.*
@@ -60,6 +62,9 @@ class EcommerceItemFragment : Fragment(), CellClickListener {
 
         realtimeDatabase = FirebaseDatabase.getInstance()
         firebaseAuth = FirebaseAuth.getInstance()
+
+
+
     }
 
     override fun onCreateView(
@@ -92,6 +97,10 @@ class EcommerceItemFragment : Fragment(), CellClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
+
+        (activity as AppCompatActivity).supportActionBar?.title = "E-Commerce"
+        loadingText.text = "Loading..."
 
 
         val color1Params = color1.layoutParams
@@ -172,7 +181,7 @@ class EcommerceItemFragment : Fragment(), CellClickListener {
 
                 productTitle.text = specificData.getString("title")
                 productShortDescription.text = specificData.getString("shortDesc")
-                productPrice.text =  specificData.getString("price")
+                productPrice.text =  "₹"  + specificData.getString("price")
                 productLongDesc.text = specificData.getString("longDesc")
                 howToUseText.text = specificData.getString("howtouse")
                 deliverycost.text = specificData.getString("delCharge")
@@ -202,27 +211,16 @@ class EcommerceItemFragment : Fragment(), CellClickListener {
                 for((key, value) in attributes){
                     var selectionMap = mutableMapOf<String, Any>()
                     var normalMap = mutableMapOf<String, Any>()
-//                    val keys = "<b>" + key.toString() + "</b>" + ": "+ value
-
 
                     if(value is ArrayList<*> && key.toString()!="Color"){
-//                        Toast.makeText(activity!!.applicationContext, "${key}", Toast.LENGTH_SHORT).show()
-
                         selectionMap.put(key, value)
                         allSelectionAttributes.add(selectionMap)
-//                        Toast.makeText(activity!!.applicationContext, "Value as a List", Toast.LENGTH_SHORT).show()
                     }
 
-
                     if(value is String){
-//                        Toast.makeText(activity!!.applicationContext, "Value as a String", Toast.LENGTH_SHORT).show()
                         normalMap.put(key, value)
                         allNormalAttributes.add(normalMap)
                     }
-
-//                    val values =  value.toString()
-//                    al?lAttributesKeys = key + "\n"
-//                    allAttrbutesValues = value.toString() + "\n"
 
                 }
 
@@ -233,6 +231,9 @@ class EcommerceItemFragment : Fragment(), CellClickListener {
                 val adapter2 = AttributesNormalAdapter(activity!!.applicationContext, allNormalAttributes)
                 recyclerNormalAttributes.adapter = adapter2
                 recyclerNormalAttributes.layoutManager = LinearLayoutManager(activity!!.applicationContext)
+
+                progress_ecommItem.visibility = View.GONE
+                loadingText.visibility = View.GONE
 
 //                allAttributesTitle.text = allAttributesKeys + "\n"
 //                allAttributesValue.text = allAttrbutesValues + "\n"
@@ -268,30 +269,96 @@ class EcommerceItemFragment : Fragment(), CellClickListener {
                 poster_slider.setPosters(posters)
 
             }
+            else{
+
+            }
         }
 
         addToCart.setOnClickListener {
+            addToCart.isClickable = false
+            progress_ecommItem.visibility = View.VISIBLE
+            loadingText.text = "Adding to Cart..."
+            loadingText.visibility = View.GONE
             val realtimeRef = realtimeDatabase.getReference("${firebaseAuth.currentUser!!.uid}").child("cart").child("${currentItemId}")
             selectionAttribute!!.put("qty", quantityCountEcomm.text.toString().toInt())
             selectionAttribute.put("basePrice", productPrice.text.toString().toInt())
             selectionAttribute.put("delCharge", deliverycost.text.toString().toInt())
 
-            for((key, value) in selectionAttribute!!){
-                realtimeRef.child("${key}").setValue("${value}").addOnSuccessListener {
-                    Toast.makeText(activity!!.applicationContext, "Added to Cart", Toast.LENGTH_SHORT).show()
+            realtimeRef.setValue(CartItem(quantityCountEcomm.text.toString().toInt(), productPrice.text.toString().toInt(), deliverycost.text.toString().toInt()))
+                .addOnCompleteListener {
+
+                    Toast.makeText(activity!!.applicationContext, "Item Added", Toast.LENGTH_SHORT).show()
+                    progress_ecommItem.visibility = View.GONE
+                    loadingText.visibility = View.GONE
+                    addToCart.isClickable = true
+
                 }.addOnFailureListener {
-                    Toast.makeText(activity!!.applicationContext, "${it} : Failed to Add", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity!!.applicationContext, "Please Try Again!", Toast.LENGTH_SHORT).show()
+                    progress_ecommItem.visibility = View.GONE
+                    loadingText.visibility = View.GONE
+                    addToCart.isClickable = true
                 }
+
+//            for((key, value) in selectionAttribute!!){
+//                realtimeRef.child("${key}").setValue("${value}").addOnSuccessListener {
+//                    Toast.makeText(activity!!.applicationContext, "Added to Cart", Toast.LENGTH_SHORT).show()
+//                }.addOnFailureListener {
+//                    Toast.makeText(activity!!.applicationContext, "${it} : Failed to Add", Toast.LENGTH_SHORT).show()
+//                }
+//            }
+        }
+
+        buynow.setOnClickListener {
+            var product_id = ArrayList<String>()
+            var item_cost=ArrayList<Int>()
+            var item_qty=ArrayList<Int>()
+            val productPrice = productPrice.text.toString().split("₹") as ArrayList<String>
+
+
+            var totalPrice = quantityCountEcomm.text.toString().toInt()*productPrice[1].toString().toInt() + deliverycost.text.toString().toInt()
+
+            product_id.add(currentItemId as String)
+            item_cost.add(totalPrice)
+            item_qty.add(quantityCountEcomm.text.toString().toInt())
+
+            Intent(activity!!.applicationContext, RazorPayActivity::class.java).also {
+                it.putStringArrayListExtra("products_id",product_id)
+                it.putIntegerArrayListExtra("items_cost",item_cost)
+                it.putIntegerArrayListExtra("items_qty",item_qty)
+                startActivity(it)
             }
+
         }
     }
 
     override fun onCellClickListener(name: String) {
         val selectionAttributeAllData = name.split(" ") as List<Any>
 
-        selectionAttribute!!.put(selectionAttributeAllData[1].toString(), selectionAttributeAllData[0].toString().toInt())
+//        selectionAttribute!!.put(selectionAttributeAllData[1].toString(), selectionAttributeAllData[0].toString().toInt())
 
         Log.d("EcommItem", selectionAttributeAllData[0].toString())
         Log.d("EcommItem", selectionAttributeAllData[1].toString())
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.cart_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        when (item.itemId){
+            R.id.cart_item -> {
+                val cartFragment = CartFragment()
+                val transaction = activity!!.supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.frame_layout, cartFragment)
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .setReorderingAllowed(true)
+                    .addToBackStack("cart")
+                    .commit()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

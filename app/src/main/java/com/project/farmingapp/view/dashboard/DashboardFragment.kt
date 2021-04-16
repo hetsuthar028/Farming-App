@@ -8,26 +8,33 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.GridLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
 import com.google.gson.JsonObject
 import com.project.farmingapp.R
+import com.project.farmingapp.adapter.DashboardEcomItemAdapter
 import com.project.farmingapp.model.WeatherApi
 import com.project.farmingapp.model.data.WeatherRootList
+import com.project.farmingapp.utilities.CellClickListener
 import com.project.farmingapp.view.articles.ArticleListFragment
 import com.project.farmingapp.view.articles.FruitsFragment
+import com.project.farmingapp.view.ecommerce.EcommerceItemFragment
 import com.project.farmingapp.view.weather.WeatherFragment
 import com.project.farmingapp.viewmodel.ArticleViewModel
+import com.project.farmingapp.viewmodel.EcommViewModel
 import com.project.farmingapp.viewmodel.WeatherViewModel
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import kotlin.random.Random
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -40,7 +47,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [dashboardFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class dashboardFragment : Fragment() {
+class dashboardFragment : Fragment(), CellClickListener {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -48,6 +55,7 @@ class dashboardFragment : Fragment() {
     lateinit var fruitsFragment: FruitsFragment
     lateinit var articleListFragment: ArticleListFragment
     private lateinit var viewModel: WeatherViewModel
+    private lateinit var viewModel2: EcommViewModel
     var data: WeatherRootList? = null
     lateinit var sharedPreferences: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,7 +70,11 @@ class dashboardFragment : Fragment() {
         viewModel = ViewModelProviders.of(requireActivity())
             .get<WeatherViewModel>(WeatherViewModel::class.java)
 
+        viewModel2 = ViewModelProviders.of(requireActivity())
+            .get<EcommViewModel>(EcommViewModel::class.java)
+
         viewModel.updateNewData()
+        viewModel2.loadAllEcommItems()
     }
 
     override fun onCreateView(
@@ -81,6 +93,13 @@ class dashboardFragment : Fragment() {
             var iconurl = "https://openweathermap.org/img/w/" + iconcode + ".png";
             Glide.with(activity!!.applicationContext).load(iconurl)
                 .into(weathIconImageWeathFrag)
+        })
+
+        viewModel2.ecommLiveData.observe(viewLifecycleOwner, Observer {
+            var itemsToShow = (0..it.size-1).shuffled().take(4) as List<Int>
+            val adapterEcomm = DashboardEcomItemAdapter(activity!!.applicationContext,it,  itemsToShow, this)
+            dashboardEcommRecycler.adapter = adapterEcomm
+            dashboardEcommRecycler.layoutManager = GridLayoutManager(activity!!.applicationContext, 2)
         })
 
         // Inflate the layout for this fragment
@@ -195,5 +214,17 @@ class dashboardFragment : Fragment() {
     override fun onStop() {
         super.onStop()
         Toast.makeText(activity!!.applicationContext, "Dash Closed", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onCellClickListener(name: String) {
+        val ecommerceItemFragment = EcommerceItemFragment()
+
+        val transaction = activity!!.supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.frame_layout, ecommerceItemFragment, name)
+            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+            .setReorderingAllowed(true)
+            .addToBackStack("name")
+            .commit()
     }
 }

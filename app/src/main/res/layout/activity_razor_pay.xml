@@ -52,7 +52,7 @@
             android:layout_marginVertical="7dp"
             android:background="@drawable/edit_back"
             android:hint="Locality / Street Name"
-            android:inputType="number"
+
             android:padding="10dp"
             android:textColor="@color/colorPrimary"
             android:textColorHint="#FF404A3A"
@@ -101,7 +101,7 @@
             android:background="@drawable/edit_back"
             android:hint="State"
 
-            android:inputType="number"
+
             android:padding="10dp"
             android:textColor="@color/colorPrimary"
             android:textColorHint="#FF404A3A"
@@ -119,7 +119,6 @@
             android:layout_marginVertical="7dp"
             android:background="@drawable/edit_back"
             android:hint="Pin Code"
-            android:inputType="numberPassword"
             android:padding="10dp"
             android:textColor="@color/colorPrimary"
             android:textColorHint="#FF404A3A"
@@ -168,7 +167,7 @@
             android:layout_marginVertical="14dp"
             android:foregroundGravity="center"
             android:orientation="horizontal"
-
+            android:foregroundTint="@color/colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/addressTypeTitle">
@@ -176,12 +175,14 @@
             <com.google.android.material.radiobutton.MaterialRadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-android:id="@+id/homerd"
+                android:id="@+id/homerd"
                 android:layout_weight="1"
+                android:buttonTint="@color/colorPrimary"
                 android:text="Home" />
 
             <com.google.android.material.radiobutton.MaterialRadioButton
                 android:layout_width="wrap_content"
+                android:buttonTint="@color/colorPrimary"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Office" />
@@ -190,9 +191,27 @@ android:id="@+id/homerd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:buttonTint="@color/colorPrimary"
                 android:text="Other" />
 
         </RadioGroup>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Net Value: ₹"
+            app:layout_constraintTop_toBottomOf="@id/addressTypeRadioGroup"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:id="@+id/netValue"
+            android:textColor="@color/colorThird"
+            />
+
+
+
 
 
         <Button
@@ -200,7 +219,7 @@ android:id="@+id/homerd"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:id="@+id/orderNowBtn"
-            android:layout_width="230dp"
+            android:layout_width="250dp"
             android:layout_height="55dp"
             android:layout_marginVertical="7dp"
             android:background="@drawable/round_borderless_general"

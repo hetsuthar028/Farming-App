@@ -2,11 +2,10 @@ package com.project.farmingapp.view.ecommerce
 
 import android.os.Bundle
 import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -56,6 +55,9 @@ class EcommerceFragment : Fragment(), CellClickListener {
 
             viewmodel.loadAllEcommItems()
         }
+
+
+
     }
 
     override fun onCreateView(
@@ -81,7 +83,8 @@ class EcommerceFragment : Fragment(), CellClickListener {
         super.onViewCreated(view, savedInstanceState)
 
 
-
+        setHasOptionsMenu(true)
+        (activity as AppCompatActivity).supportActionBar?.title = "E-Commerce"
 
         chipgrp.check(R.id.chip1)
         viewmodel.loadAllEcommItems()
@@ -159,15 +162,42 @@ class EcommerceFragment : Fragment(), CellClickListener {
 
 
         // Temporary
-        val cartFragment = CartFragment()
+//        val cartFragment = CartFragment()
 
         val transaction = activity!!.supportFragmentManager
             .beginTransaction()
-            .replace(R.id.frame_layout, cartFragment, name)
+            .replace(R.id.frame_layout, ecommerceItemFragment, name)
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             .setReorderingAllowed(true)
             .addToBackStack("name")
             .commit()
 
     }
+
+
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.cart_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        when (item.itemId){
+            R.id.cart_item -> {
+                val cartFragment = CartFragment()
+                val transaction = activity!!.supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.frame_layout, cartFragment)
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .setReorderingAllowed(true)
+                    .addToBackStack("cart")
+                    .commit()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+
+
 }
