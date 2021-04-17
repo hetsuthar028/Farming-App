@@ -11,26 +11,35 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.ecommerce.RazorPayActivity"></activity>
-        <activity android:name=".view.dashboard.DashboardActivity"></activity>
-        <activity
-            android:name=".view.auth.SignupActivity"
-            android:noHistory="true"
-            android:theme="@style/AppTheme2"></activity>
-        <activity
-            android:name=".view.auth.LoginActivity"
-            android:noHistory="true"
+        <activity android:name=".view.introscreen.IntroActivity"
             android:theme="@style/AppTheme2">
+
+        </activity>
+        <activity android:name=".view.ecommerce.RazorPayActivity" />
+        <activity android:name=".view.dashboard.DashboardActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".view.auth.SignupActivity"
+            android:noHistory="true"
+            android:theme="@style/AppTheme2" />
+        <activity
+            android:name=".view.auth.LoginActivity"
+            android:noHistory="true"
+            android:theme="@style/AppTheme2">
+
+        </activity>
 
         <meta-data
             android:name="com.razorpay.ApiKey"
             android:value="@string/key_id" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

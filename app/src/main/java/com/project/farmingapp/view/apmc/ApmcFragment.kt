@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.project.farmingapp.R
@@ -13,6 +14,7 @@ import com.project.farmingapp.adapter.ApmcAdapter
 import com.project.farmingapp.model.APMCApi
 import com.project.farmingapp.model.data.APMCCustomRecords
 import com.project.farmingapp.model.data.APMCMain
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.fragment_apmc.*
 import retrofit2.Call
@@ -68,6 +70,9 @@ class ApmcFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        setHasOptionsMenu(true)
+        (activity as AppCompatActivity).supportActionBar?.title = "APMC"
 
         val sdf = SimpleDateFormat("dd/MM/yyyy")
         dateValueTextApmc.text = sdf.format(Date()).toString()
@@ -429,12 +434,17 @@ class ApmcFragment : Fragment() {
 
                             val ss = apmcdata.records[0].market
 
+                            Log.d("PreREc", previousRecord.toString())
 
 //                            var gettingUpdatedRecords: APMCCustomRecords? = null
                             if (totalRecords==1){
                                 customRecords.add(previousRecord)
                             } else{
+                                var count = 0
                                 for (i in 1..totalRecords-1) {
+                                    Toast.makeText(activity!!.applicationContext, "Single Record", Toast.LENGTH_SHORT).show()
+
+
 //                                var firstMarket2 = ""
                                     if (apmcdata.records[i].market == previousRecord.market) {
                                         previousRecord.commodity.add(apmcdata.records[i].commodity)
@@ -443,7 +453,9 @@ class ApmcFragment : Fragment() {
 //                                    list1.add(apmcdata.records[i].commodity)
 //                                    list2.add(apmcdata.records[i].min_price)
 //                                    list3.add(apmcdata.records[i].max_price)
+                                        count = 1
                                     } else {
+                                        count = 0
                                         customRecords.add(previousRecord)
                                         list1.add(apmcdata.records[i].commodity)
                                         list2.add(apmcdata.records[i].min_price)
@@ -457,6 +469,10 @@ class ApmcFragment : Fragment() {
                                             list3
                                         )
                                     }
+                                }
+                                if(count == 1){
+                                    Log.d("LastRec", "Yes")
+                                    customRecords.add(previousRecord)
                                 }
                             }
 

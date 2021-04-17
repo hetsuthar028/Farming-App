@@ -1,6 +1,8 @@
 package com.project.farmingapp.view.dashboard
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
@@ -33,6 +35,7 @@ import com.project.farmingapp.view.apmc.ApmcFragment
 import com.project.farmingapp.view.articles.FruitsFragment
 import com.project.farmingapp.view.auth.LoginActivity
 import com.project.farmingapp.view.ecommerce.*
+import com.project.farmingapp.view.introscreen.IntroActivity
 
 import com.project.farmingapp.view.socialmedia.SocialMediaPostsFragment
 import com.project.farmingapp.view.user.UserFragment
@@ -70,6 +73,8 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     var userName = ""
     var data: WeatherRootList? = null
 
+    lateinit var sharedPreferences: SharedPreferences
+    var firstTime: Boolean? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
@@ -77,6 +82,35 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
+
+        val currentUser = firebaseAuth.currentUser
+
+        sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        firstTime =sharedPreferences.getBoolean("firstTime", true);
+
+
+        if(firstTime!!){
+            Intent(this, IntroActivity::class.java).also {
+                startActivity(it)
+            }
+//            val editor = sharedPreferences.edit()
+//            firstTime = false;
+//            editor.putBoolean("firstTime", firstTime!!)
+//            editor.apply()
+            finish()
+            return
+        } else{
+            if(currentUser == null){
+                Intent(this, LoginActivity::class.java).also {
+                    startActivity(it)
+                }
+                finish()
+                return
+            } else{
+
+            }
+        }
+
 
         navView.setNavigationItemSelectedListener(this)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

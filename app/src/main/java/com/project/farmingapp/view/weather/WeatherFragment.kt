@@ -11,6 +11,7 @@ import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.annotation.Nullable
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
@@ -103,6 +104,10 @@ class WeatherFragment : Fragment(), WeatherListener {
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        setHasOptionsMenu(true)
+        (activity as AppCompatActivity).supportActionBar?.title = "Weather Forecast"
+
 //        val binding = FragmentWeatherBinding.bind(view)
 //        fragmentWeatherBinding = binding
 
