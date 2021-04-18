@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/action_search"
+        android:title="Home"
+        android:icon="@drawable/dash_home" />
+    <item android:id="@+id/action_settings"
+        android:title="Posts"
+        android:icon="@drawable/post_logo" />
+    <item android:id="@+id/Commodity"
+        android:title="Commodity"
+        android:icon="@drawable/dash_home" />
+
+</menu>
