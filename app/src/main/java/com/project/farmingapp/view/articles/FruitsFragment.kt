@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.view.animation.RotateAnimation
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
@@ -198,6 +199,10 @@ class FruitsFragment : Fragment(), ArticleListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        setHasOptionsMenu(true)
+        (activity as AppCompatActivity).supportActionBar?.title = "Articles"
+
         val params = descTextTitleFruitFragArt.layoutParams
 
         var toggle = 0

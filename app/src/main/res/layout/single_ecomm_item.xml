@@ -43,12 +43,13 @@
                 android:textColor="@color/fontColor"
                 android:id="@+id/ecommtitle"
                 app:layout_constraintBottom_toTopOf="@id/ecommPrice"
+                android:fontFamily="@font/lato_bold"
                 android:layout_width="0dp"
                 android:justificationMode="inter_word"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="7dp"
                 android:layout_marginTop="5dp"
-                android:text="Greatindos Premium Quality GRADE A NPK, Hydroponic Fertilizer"
+                android:text="Swaraj Tractor 774 3E"
                 app:layout_constraintStart_toEndOf="@id/ecommImage"
                 app:layout_constraintTop_toTopOf="parent" />
 

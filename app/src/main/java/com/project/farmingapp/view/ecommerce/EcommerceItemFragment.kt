@@ -280,11 +280,12 @@ class EcommerceItemFragment : Fragment(), CellClickListener {
             loadingText.text = "Adding to Cart..."
             loadingText.visibility = View.GONE
             val realtimeRef = realtimeDatabase.getReference("${firebaseAuth.currentUser!!.uid}").child("cart").child("${currentItemId}")
+            val basePrice = productPrice.text.toString().split("₹") as List<String>
             selectionAttribute!!.put("qty", quantityCountEcomm.text.toString().toInt())
-            selectionAttribute.put("basePrice", productPrice.text.toString().toInt())
+            selectionAttribute.put("basePrice", basePrice[1].toString().toInt())
             selectionAttribute.put("delCharge", deliverycost.text.toString().toInt())
 
-            realtimeRef.setValue(CartItem(quantityCountEcomm.text.toString().toInt(), productPrice.text.toString().toInt(), deliverycost.text.toString().toInt()))
+            realtimeRef.setValue(CartItem(quantityCountEcomm.text.toString().toInt(), basePrice[1].toString().toInt(), deliverycost.text.toString().toInt()))
                 .addOnCompleteListener {
 
                     Toast.makeText(activity!!.applicationContext, "Item Added", Toast.LENGTH_SHORT).show()

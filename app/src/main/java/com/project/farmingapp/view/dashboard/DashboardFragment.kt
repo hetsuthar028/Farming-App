@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.GridLayout
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
@@ -73,7 +74,7 @@ class dashboardFragment : Fragment(), CellClickListener {
         viewModel2 = ViewModelProviders.of(requireActivity())
             .get<EcommViewModel>(EcommViewModel::class.java)
 
-        viewModel.updateNewData()
+
         viewModel2.loadAllEcommItems()
     }
 
@@ -82,18 +83,37 @@ class dashboardFragment : Fragment(), CellClickListener {
         savedInstanceState: Bundle?
     ): View? {
 
-        viewModel.newDataTrial.observe(viewLifecycleOwner, Observer {
 
-            Log.d("Observed Here", "Yes")
-            weathTempTextWeathFrag.text = (it.list[0].main.temp - 273).toInt().toString() + "\u2103"
-            humidityTextWeathFrag.text = "Humidity: " + it!!.list[0].main.humidity.toString() + " %"
-            windTextWeathFrag.text = "Wind: " + it!!.list[0].wind.speed.toString() + " km/hr"
+        viewModel.getCoordinates().observe(viewLifecycleOwner, Observer {
+            Log.d("DashFrag", it.toString())
+            viewModel.updateNewData()
+            val city =  it.get(2) as String
+            viewModel.newDataTrial.observe(viewLifecycleOwner, Observer {
 
-            var iconcode = it!!.list[0].weather[0].icon
-            var iconurl = "https://openweathermap.org/img/w/" + iconcode + ".png";
-            Glide.with(activity!!.applicationContext).load(iconurl)
-                .into(weathIconImageWeathFrag)
+                Log.d("Observed Here", "Yes")
+                weathTempTextWeathFrag.text = (it.list[0].main.temp - 273).toInt().toString() + "\u2103"
+                humidityTextWeathFrag.text = "Humidity: " + it!!.list[0].main.humidity.toString() + " %"
+                windTextWeathFrag.text = "Wind: " + it!!.list[0].wind.speed.toString() + " km/hr"
+                weatherCityTitle.text = city.toString()
+                var iconcode = it!!.list[0].weather[0].icon
+                var iconurl = "https://openweathermap.org/img/w/" + iconcode + ".png";
+                Glide.with(activity!!.applicationContext).load(iconurl)
+                    .into(weathIconImageWeathFrag)
+            })
         })
+
+//        viewModel.newDataTrial.observe(viewLifecycleOwner, Observer {
+//
+//            Log.d("Observed Here", "Yes")
+//            weathTempTextWeathFrag.text = (it.list[0].main.temp - 273).toInt().toString() + "\u2103"
+//            humidityTextWeathFrag.text = "Humidity: " + it!!.list[0].main.humidity.toString() + " %"
+//            windTextWeathFrag.text = "Wind: " + it!!.list[0].wind.speed.toString() + " km/hr"
+//
+//            var iconcode = it!!.list[0].weather[0].icon
+//            var iconurl = "https://openweathermap.org/img/w/" + iconcode + ".png";
+//            Glide.with(activity!!.applicationContext).load(iconurl)
+//                .into(weathIconImageWeathFrag)
+//        })
 
         viewModel2.ecommLiveData.observe(viewLifecycleOwner, Observer {
             var itemsToShow = (0..it.size-1).shuffled().take(4) as List<Int>
@@ -108,6 +128,9 @@ class dashboardFragment : Fragment(), CellClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        setHasOptionsMenu(true)
+        (activity as AppCompatActivity).supportActionBar?.title = "Farming App"
 
         weatherCard.setOnClickListener {
             weatherFragment = WeatherFragment()

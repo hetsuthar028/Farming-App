@@ -36,6 +36,7 @@
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="10dp"
                 android:text="TVC Tractor"
+                android:fontFamily="@font/lato"
                 android:textColor="@color/fontColor"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toTopOf="@id/itemPrice"

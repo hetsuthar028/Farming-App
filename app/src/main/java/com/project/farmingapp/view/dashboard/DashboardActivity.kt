@@ -1,21 +1,37 @@
 package com.project.farmingapp.view.dashboard
 
+
+import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
+import android.content.SharedPreferences
+import android.content.pm.PackageManager
+import android.location.Address
+import android.location.Geocoder
+import android.location.Location
+import android.location.LocationManager
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.os.PersistableBundle
+import android.provider.Settings
 import android.service.autofill.UserData
 import android.util.AttributeSet
 import android.util.Log
 import android.view.Gravity
 import android.view.MenuItem
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import android.widget.Toolbar
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -27,6 +43,9 @@ import androidx.navigation.NavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Glide.with
+import com.google.android.gms.common.api.GoogleApiClient
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationServices
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -42,7 +61,7 @@ import com.project.farmingapp.view.apmc.ApmcFragment
 import com.project.farmingapp.view.articles.FruitsFragment
 import com.project.farmingapp.view.auth.LoginActivity
 import com.project.farmingapp.view.ecommerce.*
-
+import com.project.farmingapp.view.introscreen.IntroActivity
 import com.project.farmingapp.view.socialmedia.SocialMediaPostsFragment
 import com.project.farmingapp.view.user.UserFragment
 import com.project.farmingapp.view.weather.WeatherFragment
@@ -59,8 +78,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
+import java.util.*
 
-class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, com.google.android.gms.location.LocationListener  {
     lateinit var cartFragment: CartFragment
     lateinit var myOrdersFragment: MyOrdersFragment
     lateinit var ecommerceItemFragment: EcommerceItemFragment
@@ -76,11 +96,23 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     lateinit var userFragment: UserFragment
     lateinit var socialMediaPostFragment: SocialMediaPostsFragment
     private lateinit var viewModel: UserDataViewModel
+    private lateinit var weatherViewModel: WeatherViewModel
+    lateinit var sharedPreferences: SharedPreferences
+    
+  
     val firebaseFireStore = FirebaseFirestore.getInstance()
     val firebaseAuth = FirebaseAuth.getInstance()
     var userName = ""
     var data: WeatherRootList? = null
-
+    var firstTime: Boolean? = null
+    
+    private var REQUEST_LOCATION_CODE = 101
+    private var mGoogleApiClient: GoogleApiClient? = null
+    private var mLocation: Location? = null
+    private var mLocationRequest: LocationRequest? = null
+    private val UPDATE_INTERVAL = (2 * 1000).toLong()  /* 10 secs */
+    private val FASTEST_INTERVAL: Long = 2000 /* 2 sec */
+  
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
@@ -93,6 +125,48 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
+
+         weatherViewModel = ViewModelProviders.of(this)
+            .get<WeatherViewModel>(WeatherViewModel::class.java)
+
+
+
+        mGoogleApiClient = GoogleApiClient.Builder(this)
+            .addApi(LocationServices.API)
+            .build()
+
+        mGoogleApiClient!!.connect()
+
+        buildGoogleApiClient()
+
+        val currentUser = firebaseAuth.currentUser
+
+        sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        firstTime =sharedPreferences.getBoolean("firstTime", true);
+
+
+        if(firstTime!!){
+            Intent(this, IntroActivity::class.java).also {
+                startActivity(it)
+            }
+//            val editor = sharedPreferences.edit()
+//            firstTime = false;
+//            editor.putBoolean("firstTime", firstTime!!)
+//            editor.apply()
+            finish()
+            return
+        } else{
+            if(currentUser == null){
+                Intent(this, LoginActivity::class.java).also {
+                    startActivity(it)
+                }
+                finish()
+                return
+            } else{
+
+            }
+        }
+
 
 
         viewModel.getUserData(firebaseAuth.currentUser!!.email as String)
@@ -122,23 +196,6 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             bottomNav.selectedItemId = R.id.bottomNavHome
         }
 
-//        val googleLoggedUserName = firebaseAuth.currentUser!!.displayName
-//        if (googleLoggedUserName.isNullOrEmpty()) {
-//            firebaseFireStore.collection("users").document(firebaseAuth.currentUser!!.email!!)
-//                .get()
-//                .addOnCompleteListener {
-//                    val data = it.result
-//                    userName = data!!.getString("name").toString()
-//                    something.cityTextNavHeader.text = data!!.getString("city").toString()
-//                    something.navbarUserName.text = userName
-//                }
-//        } else {
-//            something.navbarUserName.text = googleLoggedUserName
-//        }
-
-
-//        getWeather()
-
         something.setOnClickListener {
             Toast.makeText(this, "You Clicked Slider", Toast.LENGTH_LONG).show()
 
@@ -150,12 +207,14 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             userFragment = UserFragment()
             setCurrentFragment(userFragment)
         }
+      
         apmcFragment = ApmcFragment()
         socialMediaPostFragment = SocialMediaPostsFragment()
         ecommerceFragment=EcommerceFragment()
         paymentFragment = PaymentFragment()
         cartFragment= CartFragment()
         myOrdersFragment=MyOrdersFragment()
+      
         bottomNav.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.bottomNavAPMC -> setCurrentFragment(apmcFragment)
@@ -167,14 +226,17 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         }
 
         viewModel.userliveData.observe(this, Observer {
+          
             val something = navView.getHeaderView(0);
+            val posts = it.get("posts") as List<String>
+          
             userName = it.get("name").toString()
             something.cityTextNavHeader.text ="City: " +  it.get("city").toString()
             something.navbarUserName.text = userName
             something.navbarUserEmail.text = firebaseAuth.currentUser!!.email
             Glide.with(this).load(it.get("profileImage")).into(something.navbarUserImage)
+            
             Log.d("User Data from VM", it.getString("name"))
-            val posts = it.get("posts") as List<String>
 
             something.navBarUserPostCount.text = "Posts Count: " + posts.size.toString()
         })
@@ -259,15 +321,174 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
     override fun onBackPressed() {
         if (dashboardFragment.isVisible) {
-//            Toast.makeText(this, "A", Toast.LENGTH_LONG).show()
-//            bottomNav.selectedItemId = R.id.bottomNavHome
+            if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                drawerLayout.closeDrawer(GravityCompat.START)
+            } else {
+                super.onBackPressed()
+            }
+    }
+
+
+    fun automatedClick(){
+
+        if (!checkGPSEnabled()) {
+            return
         }
 
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START)
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                //Location Permission already granted
+                getLocation();
+
+            } else {
+                //Request Location Permission
+                checkLocationPermission()
+            }
         } else {
-            super.onBackPressed()
+            getLocation();
+//            buildGoogleApiClient()
         }
     }
 
+    override fun onClick(v: View?) {
+        if (!checkGPSEnabled()) {
+            return
+        }
+
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                //Location Permission already granted
+                getLocation();
+            } else {
+                //Request Location Permission
+                checkLocationPermission()
+            }
+        } else {
+            getLocation();
+        }
+    }
+    @SuppressLint("MissingPermission")
+    private fun getLocation() {
+        mLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+
+        if (mLocation == null) {
+            startLocationUpdates();
+        }
+        if (mLocation != null) {
+            Toast.makeText(this, "Lat: " + mLocation!!.latitude.toString(), Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Long: " + mLocation!!.longitude.toString(), Toast.LENGTH_SHORT).show()
+            
+            val coords = mutableListOf<String>()
+            val geocoder = Geocoder(this, Locale.getDefault())
+            val addresses: List<Address> = geocoder.getFromLocation(mLocation!!.latitude, mLocation!!.longitude, 1)
+
+            coords.add(mLocation!!.latitude.toString())
+            coords.add(mLocation!!.longitude.toString())
+            coords.add(addresses[0].locality.toString())
+            viewModel.updateCoordinates(coords)
+
+        } else {
+            Toast.makeText(this, "Location not Detected", Toast.LENGTH_SHORT).show();
+        }
+    }
+    private fun startLocationUpdates() {
+        // Create the location request
+        mLocationRequest = LocationRequest.create()
+            .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+            .setInterval(UPDATE_INTERVAL)
+            .setFastestInterval(FASTEST_INTERVAL)
+        // Request location updates
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return
+        }
+        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this)
+    }
+    override fun onLocationChanged(p0: Location?) {
+        TODO("Not yet implemented")
+    }
+
+    @Synchronized
+    private fun buildGoogleApiClient() {
+        mGoogleApiClient = GoogleApiClient.Builder(this)
+            .addApi(LocationServices.API)
+            .build()
+
+        mGoogleApiClient!!.connect()
+//        automatedClick()
+    }
+
+    private fun checkGPSEnabled(): Boolean {
+        if (!isLocationEnabled())
+            showAlert()
+        return isLocationEnabled()
+    }
+
+    private fun showAlert() {
+        val dialog = android.app.AlertDialog.Builder(this)
+        dialog.setTitle("Enable Location")
+            .setMessage("Your Locations Settings is set to 'Off'.\nPlease Enable Location to use this app!")
+            .setPositiveButton("Location Settings") { paramDialogInterface, paramInt ->
+                val myIntent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+                startActivity(myIntent)
+            }
+            .setNegativeButton("Cancel") { paramDialogInterface, paramInt -> }
+        dialog.show()
+    }
+
+    private fun isLocationEnabled(): Boolean {
+        var locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        return locationManager!!.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager!!.isProviderEnabled(
+            LocationManager.NETWORK_PROVIDER)
+    }
+
+    private fun checkLocationPermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
+                android.app.AlertDialog.Builder(this)
+                    .setTitle("Location Permission Needed")
+                    .setMessage("This app needs the Location Permissions!\nPlease accept to use location functionality.")
+                    .setPositiveButton("OK", DialogInterface.OnClickListener { dialog, which ->
+                        ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_LOCATION_CODE)
+                    })
+                    .create()
+                    .show()
+
+            } else ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_LOCATION_CODE)
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        when (requestCode) {
+            REQUEST_LOCATION_CODE -> {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission was granted, yay! Do the location-related task you need to do.
+                    if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                        Toast.makeText(this, "Permission Granted", Toast.LENGTH_LONG).show()
+                        automatedClick()
+                    }
+                } else {
+                    // permission denied, boo! Disable the functionality that depends on this permission.
+                    Toast.makeText(this, "Permission Denied", Toast.LENGTH_LONG).show()
+                }
+                return
+            }
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        mGoogleApiClient?.connect()
+        Handler().postDelayed({
+            automatedClick()
+        }, 1000)
+
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if (mGoogleApiClient!!.isConnected()) {
+            mGoogleApiClient!!.disconnect()
+        }
+    }
 }

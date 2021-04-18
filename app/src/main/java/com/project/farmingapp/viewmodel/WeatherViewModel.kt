@@ -13,6 +13,7 @@ import com.project.farmingapp.model.data.WeatherRootList
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import kotlin.coroutines.coroutineContext
 
 class WeatherViewModel : ViewModel() {
     lateinit var Adapter: WeatherAdapter
@@ -21,6 +22,8 @@ class WeatherViewModel : ViewModel() {
 
     private var message1 = MutableLiveData<WeatherRootList>()
     private var message2 = MutableLiveData<WeatherRootList>()
+
+    private var coordinates = MutableLiveData<List<String>>()
 
     val _rootData1 = MutableLiveData<WeatherRootList>()
     val rootData2: LiveData<WeatherRootList> = _rootData1
@@ -53,11 +56,25 @@ class WeatherViewModel : ViewModel() {
         weatherListener?.onSuccess(response)
     }
 
+    fun updateCoordinates(coords: List<String>){
+        coordinates.value = coords
+        Log.d("WeatherView", coordinates.value.toString())
+    }
+
+    fun getCoordinates(): MutableLiveData<List<String>> {
+        return coordinates
+    }
+
     fun updateNewData(){
+
         val response: Call<WeatherRootList> =
-            WeatherApi.weatherInstances.getWeather("23.0225", "72.5714")
+            WeatherApi.weatherInstances.getWeather("${coordinates.value?.get(0)}", "${coordinates.value?.get(1)}")
 
         Log.d("New Weather Updated", "Yes")
+        Log.d("Weather Lat", "${coordinates.value?.get(0)}")
+        Log.d("Weather Long", "${coordinates.value?.get(1)}")
+        Log.d("Weather City", "${coordinates.value?.get(2)}")
+
         if (newDataTrial.value == null) {
             response.enqueue(object : Callback<WeatherRootList> {
                 override fun onFailure(call: Call<WeatherRootList>, t: Throwable) {

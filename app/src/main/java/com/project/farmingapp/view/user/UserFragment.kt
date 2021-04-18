@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import android.widget.Toast
 import androidx.core.graphics.toColorInt
 import androidx.lifecycle.Observer
@@ -54,8 +55,7 @@ private lateinit var userDataViewModel: UserDataViewModel
 class UserFragment : Fragment(), CellClickListener {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
-    private var param2: String? = null
-    val firebaseAuth = FirebaseAuth.getInstance()
+    private var param2: String? = null  
     private val PICK_IMAGE_REQUEST = 71
     private var filePath: Uri? = null
     private var postID: UUID? = null
@@ -64,6 +64,8 @@ class UserFragment : Fragment(), CellClickListener {
     private var uploadProfOrBack: Int? = null
 
     val firebaseFirestore = FirebaseFirestore.getInstance()
+    val firebaseAuth = FirebaseAuth.getInstance()
+  
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -72,17 +74,14 @@ class UserFragment : Fragment(), CellClickListener {
         }
 
 
-
         viewModel = ViewModelProviders.of(requireActivity())
             .get<UserProfilePostsViewModel>(UserProfilePostsViewModel::class.java)
 
         userDataViewModel = ViewModelProviders.of(requireActivity())
             .get<UserDataViewModel>(UserDataViewModel::class.java)
+      
         storageReference = FirebaseStorage.getInstance().reference
-//        viewModel.getUserPosts(firebaseAuth.currentUser!!.email)
-//        viewModel.getUserPostsIDs(firebaseAuth.currentUser!!.email)
         viewModel.getAllPosts(firebaseAuth.currentUser!!.email)
-
     }
 
 
@@ -105,17 +104,10 @@ class UserFragment : Fragment(), CellClickListener {
             }
         })
 
-//        val adapter = PostListUserProfileAdapter(activity!!.applicationContext, it, this)
-
-
-
-
-
         viewModel.userProfilePostsLiveData2.observe(viewLifecycleOwner, Observer {
             Log.d("Some Part 2", it.toString())
         })
 
-//        viewModel.getUserPosts(firebaseAuth.currentUser!!.email)
         return inflater.inflate(R.layout.fragment_user, container, false)
     }
 
@@ -141,6 +133,9 @@ class UserFragment : Fragment(), CellClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        setHasOptionsMenu(true)
+        (activity as AppCompatActivity).supportActionBar?.title = "Profile"
 
         addAboutTextUserFrag.paintFlags = Paint.UNDERLINE_TEXT_FLAG
 
@@ -184,10 +179,8 @@ class UserFragment : Fragment(), CellClickListener {
 
         uploadProgressBarProfile.visibility = View.GONE
         uploadBackProgressProfile.visibility = View.GONE
+
 //        uploadProfilePictureImageToDB.setOnClickListener {
-//
-//
-//
 ////            uploadImage2().setImageBitmap(bitmap)
 //
 //            Toast.makeText(activity!!.applicationContext, "Uploading...", Toast.LENGTH_SHORT).show()
@@ -242,9 +235,6 @@ class UserFragment : Fragment(), CellClickListener {
                 Glide.with(activity!!.applicationContext).load(it?.getString("backImage"))
                     .into(userBackgroundImage)
             }
-
-
-
 
             val posts = it?.get("posts") as List<String>
             userPostsCountUserProfileFrag.text = "Posts: " + posts.size.toString()
@@ -305,10 +295,6 @@ class UserFragment : Fragment(), CellClickListener {
                         uploadUserBackgroundImage.visibility = View.GONE
                     }
 
-
-
-//                    uploadImage3()
-//                    uploadImage4()
                     uploadImage2().setImageBitmap(bitmap)
                 }
 
@@ -459,9 +445,6 @@ class UserFragment : Fragment(), CellClickListener {
 //            builder.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.RED)
 //            builder.getButton(AlertDialog.BUTTON_NEUTRAL).setTextColor(R.color.fontColor!!)
 //        }
-
-
-
 
         Toast.makeText(activity!!.applicationContext, "You Clicked" + name.toString(), Toast.LENGTH_SHORT).show()
     }
