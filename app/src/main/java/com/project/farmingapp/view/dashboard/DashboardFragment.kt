@@ -138,8 +138,6 @@ class dashboardFragment : Fragment(), CellClickListener {
 //        }
 
         cat4.setOnClickListener {
-//            fruitsFragment = FruitsFragment()
-
             articleListFragment = ArticleListFragment()
             if (activity!!.supportFragmentManager.findFragmentByTag("name3") == null) {
                 val transaction = activity!!.supportFragmentManager

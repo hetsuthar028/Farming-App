@@ -111,6 +111,7 @@ class UserProfilePostsViewModel : ViewModel() {
             .get()
             .addOnSuccessListener {
                 liveData3.value = it.documents as ArrayList<DocumentSnapshot>
+                Log.d("UserPrlPostsViewModel", "Updated data")
             }
             .addOnFailureListener {
                 Log.d("Error", "Error in all docs")
