@@ -1,0 +1,316 @@
+Index: app/src/main/java/com/project/farmingapp/viewmodel/AuthViewModel.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.project.farmingapp.viewmodel\r\n\r\nimport android.view.View\r\nimport androidx.lifecycle.ViewModel\r\nimport com.project.farmingapp.model.AuthRepository\r\n\r\nclass AuthViewModel : ViewModel() {\r\n\r\n    var name: String? = null\r\n    var mobNo: String? = null\r\n    var email: String? = null\r\n    var city: String? = null\r\n    var password: String? = null\r\n    var confPassword: String? = null\r\n    var userType:String? = \"normal\"\r\n    var authListener: AuthListener? = null\r\n\r\n    fun signupButtonClicked(view: View) {\r\n        authListener!!.onStarted()\r\n        if (name.isNullOrEmpty() || mobNo.toString().length != 10 || mobNo == null || password.isNullOrEmpty() || confPassword.isNullOrEmpty() || city.isNullOrEmpty()) {\r\n            // Failure\r\n            authListener!!.onFailure(\"Error Occurred\")\r\n            return\r\n        }\r\n        // Success\r\n        var data = hashMapOf(\r\n            \"name\" to name,\r\n            \"mobNo\" to mobNo,\r\n            \"email\" to email,\r\n            \"city\" to city,\r\n            \"userType\" to userType\r\n        )\r\n        val authRepo = AuthRepository().signInWithEmail(email!!, password!!, data)\r\n\r\n        authListener?.onSuccess(authRepo)\r\n\r\n    }\r\n\r\n    fun googleSignupButtonClicked(view: View) {\r\n        //\r\n\r\n//        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)\r\n//            .requestIdToken(getString(R.string.default_web_client_id))\r\n//            .requestEmail()\r\n//            .build()\r\n//        googleSignInClient = GoogleSignIn.getClient(this, gso)\r\n\r\n\r\n    }\r\n\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/project/farmingapp/viewmodel/AuthViewModel.kt	(revision d0dcb8b4662cad8592336090eac9f8e56ae7147e)
++++ app/src/main/java/com/project/farmingapp/viewmodel/AuthViewModel.kt	(date 1609342945111)
+@@ -15,6 +15,9 @@
+     var userType:String? = "normal"
+     var authListener: AuthListener? = null
+ 
++    var loginmail:String?=null
++    var loginpwd:String?=null
++
+     fun signupButtonClicked(view: View) {
+         authListener!!.onStarted()
+         if (name.isNullOrEmpty() || mobNo.toString().length != 10 || mobNo == null || password.isNullOrEmpty() || confPassword.isNullOrEmpty() || city.isNullOrEmpty()) {
+@@ -48,5 +51,20 @@
+ 
+     }
+ 
++//bharat try new2
++
++    fun loginButtonClicked(view: View) {
++        authListener!!.onStarted()
++        if (loginmail.isNullOrEmpty() || loginpwd.isNullOrEmpty()) {
++            // Failure
++            authListener!!.onFailure("Error Occurred")
++            return
++        }
++        // Success
+ 
++        val authRepo = AuthRepository().loginWithEmail(loginmail!!, loginpwd!!)
++
++        authListener?.onSuccess(authRepo)
++
++    }
+ }
+\ No newline at end of file
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    package=\"com.project.farmingapp\">\r\n\r\n    <uses-permission android:name=\"android.permission.INTERNET\" />\r\n\r\n    <application\r\n        android:allowBackup=\"true\"\r\n        android:icon=\"@mipmap/ic_launcher\"\r\n        android:label=\"@string/app_name\"\r\n        android:roundIcon=\"@mipmap/ic_launcher_round\"\r\n        android:supportsRtl=\"true\"\r\n        android:theme=\"@style/AppTheme\">\r\n        <activity android:name=\".view.auth.SignupActivity\"><intent-filter>\r\n            <action android:name=\"android.intent.action.MAIN\" />\r\n\r\n            <category android:name=\"android.intent.category.LAUNCHER\" />\r\n        </intent-filter></activity>\r\n        <activity android:name=\".view.auth.LoginActivity\">\r\n\r\n        </activity>\r\n    </application>\r\n\r\n</manifest>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/AndroidManifest.xml	(revision d0dcb8b4662cad8592336090eac9f8e56ae7147e)
++++ app/src/main/AndroidManifest.xml	(date 1609342664080)
+@@ -11,13 +11,15 @@
+         android:roundIcon="@mipmap/ic_launcher_round"
+         android:supportsRtl="true"
+         android:theme="@style/AppTheme">
+-        <activity android:name=".view.auth.SignupActivity"><intent-filter>
+-            <action android:name="android.intent.action.MAIN" />
++        <activity android:name=".view.auth.SignupActivity">
++
++        </activity>
++        <activity android:name=".view.auth.LoginActivity">
++            <intent-filter>
++                <action android:name="android.intent.action.MAIN" />
+ 
+-            <category android:name="android.intent.category.LAUNCHER" />
+-        </intent-filter></activity>
+-        <activity android:name=".view.auth.LoginActivity">
+-
++                <category android:name="android.intent.category.LAUNCHER" />
++            </intent-filter>
+         </activity>
+     </application>
+ 
+Index: app/src/main/java/com/project/farmingapp/view/auth/LoginActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.project.farmingapp.view.auth\r\n\r\nimport android.content.Intent\r\nimport androidx.appcompat.app.AppCompatActivity\r\nimport android.os.Bundle\r\nimport com.project.farmingapp.R\r\nimport kotlinx.android.synthetic.main.activity_login.*\r\n\r\nclass LoginActivity : AppCompatActivity() {\r\n    override fun onCreate(savedInstanceState: Bundle?) {\r\n        super.onCreate(savedInstanceState)\r\n        setContentView(R.layout.activity_login)\r\n\r\n        createaccountText.setOnClickListener {\r\n            Intent(this, SignupActivity::class.java).also {\r\n                startActivity(it)\r\n            }\r\n        }\r\n\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/project/farmingapp/view/auth/LoginActivity.kt	(revision d0dcb8b4662cad8592336090eac9f8e56ae7147e)
++++ app/src/main/java/com/project/farmingapp/view/auth/LoginActivity.kt	(date 1609343274046)
+@@ -3,13 +3,32 @@
+ import android.content.Intent
+ import androidx.appcompat.app.AppCompatActivity
+ import android.os.Bundle
++import androidx.databinding.DataBindingUtil
++import androidx.lifecycle.LiveData
++import androidx.lifecycle.Observer
++import androidx.lifecycle.ViewModelProviders
+ import com.project.farmingapp.R
++import com.project.farmingapp.databinding.ActivityLoginBinding
++import com.project.farmingapp.databinding.ActivitySignupBinding
++import com.project.farmingapp.utilities.hide
++import com.project.farmingapp.utilities.show
++import com.project.farmingapp.utilities.toast
++import com.project.farmingapp.viewmodel.AuthListener
++import com.project.farmingapp.viewmodel.AuthViewModel
+ import kotlinx.android.synthetic.main.activity_login.*
++import kotlinx.android.synthetic.main.activity_signup.*
+ 
+-class LoginActivity : AppCompatActivity() {
++class LoginActivity : AppCompatActivity(),AuthListener {
+     override fun onCreate(savedInstanceState: Bundle?) {
+         super.onCreate(savedInstanceState)
+-        setContentView(R.layout.activity_login)
++
++
++        val binding: ActivityLoginBinding =
++            DataBindingUtil.setContentView(this, R.layout.activity_login)
++        val viewModel = ViewModelProviders.of(this).get(AuthViewModel::class.java)
++        binding.authViewModel = viewModel
++
++        viewModel.authListener = this
+ 
+         createaccountText.setOnClickListener {
+             Intent(this, SignupActivity::class.java).also {
+@@ -18,4 +37,22 @@
+         }
+ 
+     }
++
++    override fun onStarted() {
++        progressLogin.show()
++    }
++
++    override fun onSuccess(authRepo: LiveData<String>) {
++        authRepo.observe(this, Observer {
++            progressLogin.hide()
++            if (it.toString() == "Success") {
++                toast("Login successful")
++            }
++        })
++    }
++
++    override fun onFailure(message: String) {
++        progressLogin.hide()
++        toast("Failure")
++    }
+ }
+\ No newline at end of file
+Index: app/src/main/java/com/project/farmingapp/model/AuthRepository.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.project.farmingapp.model\r\n\r\nimport android.content.Intent\r\nimport android.util.Log\r\nimport android.widget.Toast\r\nimport androidx.lifecycle.LiveData\r\nimport androidx.lifecycle.MutableLiveData\r\nimport com.google.android.gms.auth.api.signin.GoogleSignInClient\r\nimport com.google.firebase.auth.FirebaseAuth\r\nimport com.google.firebase.firestore.FirebaseFirestore\r\n\r\nclass AuthRepository {\r\n\r\n    lateinit var googleSignInClient: GoogleSignInClient\r\n    val firebaseAuth = FirebaseAuth.getInstance()\r\n    lateinit var firebaseDb: FirebaseFirestore\r\n    fun signInWithEmail(email: String, password: String, otherData: HashMap<String, String?>): LiveData<String> {\r\n\r\n        firebaseDb = FirebaseFirestore.getInstance()\r\n        val data = MutableLiveData<String>()\r\n        val data2 = MutableLiveData<String>()\r\n        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {\r\n            if (it.isSuccessful) {\r\n\r\n//                Log.d(\"AuthRepo\", it.result!!.additionalUserInfo.toString())\r\n//                Log.d(\"AuthRepo2\", data.value)\r\n\r\n                firebaseDb!!.collection(\"users\").document(\"${email}\")\r\n                    .set(otherData)\r\n                    .addOnSuccessListener {\r\n                        data.value = \"Success\"\r\n//                        Toast.makeText(this, \"Data added\", Toast.LENGTH_SHORT).show()\r\n//                        Intent(this, LoginActivity::class.java).also {\r\n//                            startActivity(it)\r\n//                        }\r\n//                        data2.value = \"Success\"\r\n                    }\r\n                    .addOnFailureListener { Exception ->\r\n                        {\r\n                            data.value = \"Failure\"\r\n//                            data2.value = \"Failure\"\r\n//                            Toast.makeText(this, \"Error: ${Exception}\", Toast.LENGTH_SHORT).show()\r\n                        }\r\n                    }\r\n\r\n            } else if (it.isCanceled) {\r\n\r\n            }\r\n\r\n        }.addOnFailureListener {\r\n            Log.d(\"AuthRepo\", it.message)\r\n            data.value = it.message\r\n        }\r\n\r\n        return data\r\n    }\r\n\r\n    fun signInGoogle(){\r\n\r\n//        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)\r\n//            .requestIdToken(getString(R.string.default_web_client_id))\r\n//            .requestEmail()\r\n//            .build()\r\n//        googleSignInClient = GoogleSignIn.getClient(this, gso)\r\n\r\n    }\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/project/farmingapp/model/AuthRepository.kt	(revision d0dcb8b4662cad8592336090eac9f8e56ae7147e)
++++ app/src/main/java/com/project/farmingapp/model/AuthRepository.kt	(date 1609345661739)
+@@ -65,4 +65,31 @@
+ 
+     }
+ 
++
++    //bharat try new code here
++    fun loginWithEmail(email: String, password: String): LiveData<String> {
++
++        firebaseDb = FirebaseFirestore.getInstance()
++        val data = MutableLiveData<String>()
++        firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
++            if (it.isSuccessful) {
++                data.value="Success"
++
++//                Log.d("AuthRepo", it.result!!.additionalUserInfo.toString())
++//                Log.d("AuthRepo2", data.value)
++
++
++            } else if (it.isCanceled) {
++
++            }
++
++        }.addOnFailureListener {
++            Log.d("AuthRepo", it.message)
++            data.value = it.message
++        }
++
++        return data
++    }
++
++
+ }
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_login.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n\r\n<layout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\">\r\n    <data>\r\n        <variable\r\n            name=\"authViewModel\"\r\n            type=\"com.project.farmingapp.viewmodel.AuthViewModel\" />\r\n    </data>\r\n\r\n    <ScrollView\r\n        android:layout_width=\"match_parent\"\r\n        android:fillViewport=\"true\"\r\n        android:layout_height=\"match_parent\">\r\n\r\n        <androidx.constraintlayout.widget.ConstraintLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"match_parent\"\r\n\r\n            android:background=\"@drawable/authback\"\r\n            tools:context=\".view.auth.LoginActivity\">\r\n\r\n\r\n            <TextView\r\n                android:id=\"@+id/titleTextLogin\"\r\n                android:layout_width=\"wrap_content\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:text=\"Farming App\"\r\n                android:textColor=\"#fff\"\r\n                android:textSize=\"30sp\"\r\n                android:textStyle=\"bold\"\r\n                app:layout_constraintBottom_toTopOf=\"@id/title2TextLogin\"\r\n                app:layout_constraintEnd_toEndOf=\"parent\"\r\n                app:layout_constraintStart_toStartOf=\"parent\"\r\n                app:layout_constraintTop_toTopOf=\"parent\"\r\n                />\r\n\r\n            <TextView\r\n                android:id=\"@+id/title2TextLogin\"\r\n                android:layout_width=\"wrap_content\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:text=\"Login\"\r\n                android:textSize=\"17sp\"\r\n                android:textColor=\"#fff\"\r\n                app:layout_constraintBottom_toTopOf=\"@id/guide2\"\r\n                app:layout_constraintEnd_toEndOf=\"parent\"\r\n                app:layout_constraintHorizontal_bias=\"0.5\"\r\n                app:layout_constraintStart_toStartOf=\"parent\"\r\n                app:layout_constraintTop_toBottomOf=\"@id/titleTextLogin\" />\r\n\r\n            <androidx.constraintlayout.widget.Guideline\r\n                android:id=\"@+id/guide2\"\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:orientation=\"horizontal\"\r\n                app:layout_constraintGuide_percent=\"0.15\" />\r\n\r\n            <com.google.android.material.textfield.TextInputLayout\r\n                android:id=\"@+id/emailContLogin\"\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_marginHorizontal=\"30dp\"\r\n                android:layout_marginTop=\"120dp\"\r\n                android:textColorHint=\"#60AA39\"\r\n                app:layout_constraintBottom_toTopOf=\"@id/passwordContLogin\"\r\n                app:layout_constraintStart_toStartOf=\"parent\"\r\n                app:layout_constraintTop_toBottomOf=\"@id/guide2\"\r\n                app:layout_constraintVertical_bias=\"0.0\">\r\n\r\n                <com.google.android.material.textfield.TextInputEditText\r\n                    android:id=\"@+id/emailEditLogin\"\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:backgroundTint=\"#0060AA39\"\r\n                    android:hint=\"Email\"\r\n                    android:textColor=\"#fff\"\r\n                    android:textStyle=\"bold\" />\r\n            </com.google.android.material.textfield.TextInputLayout>\r\n\r\n            <com.google.android.material.textfield.TextInputLayout\r\n                android:id=\"@+id/passwordContLogin\"\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_marginHorizontal=\"30dp\"\r\n                android:textColorHint=\"#60AA39\"\r\n                app:counterEnabled=\"false\"\r\n                app:counterMaxLength=\"10\"\r\n                app:passwordToggleTint=\"#fff\"\r\n                app:layout_constraintBottom_toTopOf=\"@id/loginBtnLogin\"\r\n                app:layout_constraintStart_toStartOf=\"parent\"\r\n                app:layout_constraintTop_toBottomOf=\"@id/emailContLogin\">\r\n\r\n                <com.google.android.material.textfield.TextInputEditText\r\n                    android:id=\"@+id/passwordEditLogin\"\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:backgroundTint=\"#0060AA39\"\r\n                    android:hint=\"Password\"\r\n                    android:inputType=\"phone\"\r\n                    android:textColor=\"#fff\"\r\n                    android:textStyle=\"bold\" />\r\n            </com.google.android.material.textfield.TextInputLayout>\r\n\r\n\r\n            <com.google.android.material.button.MaterialButton\r\n                android:id=\"@+id/loginBtnLogin\"\r\n                android:layout_width=\"100dp\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_marginTop=\"30dp\"\r\n\r\n                android:background=\"@drawable/all_buttons\"\r\n                android:padding=\"15sp\"\r\n                android:text=\"Login\"\r\n                android:textAlignment=\"center\"\r\n                android:textAllCaps=\"false\"\r\n                android:textColor=\"#fff\"\r\n                android:textStyle=\"bold\"\r\n                app:layout_constraintBottom_toTopOf=\"@id/orTextLogin\"\r\n                app:layout_constraintEnd_toEndOf=\"parent\"\r\n                app:layout_constraintHorizontal_bias=\"0.498\"\r\n                app:layout_constraintStart_toStartOf=\"parent\"\r\n                app:layout_constraintTop_toBottomOf=\"@id/passwordContLogin\" />\r\n\r\n            <TextView\r\n                android:id=\"@+id/orTextLogin\"\r\n                android:layout_width=\"wrap_content\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_marginTop=\"10dp\"\r\n                android:text=\"OR\"\r\n                android:textColor=\"#fff\"\r\n                android:textStyle=\"bold\"\r\n                app:layout_constraintEnd_toEndOf=\"parent\"\r\n                app:layout_constraintStart_toStartOf=\"parent\"\r\n                app:layout_constraintTop_toBottomOf=\"@+id/loginBtnLogin\" />\r\n\r\n            <com.google.android.gms.common.SignInButton\r\n                android:id=\"@+id/signGoogleBtnLogin\"\r\n                android:layout_width=\"130dp\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_marginTop=\"10dp\"\r\n                app:layout_constraintEnd_toEndOf=\"parent\"\r\n                app:layout_constraintHorizontal_bias=\"0.498\"\r\n                app:layout_constraintStart_toStartOf=\"parent\"\r\n                app:layout_constraintTop_toBottomOf=\"@id/orTextLogin\"\r\n                app:layout_constraintVertical_bias=\"0.0\" />\r\n\r\n            <TextView\r\n                android:id=\"@+id/createaccountText\"\r\n                android:layout_width=\"wrap_content\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:text=\"Don't have an account? Create account\"\r\n                android:textColor=\"#fff\"\r\n                android:textSize=\"15sp\"\r\n                android:textStyle=\"bold\"\r\n                app:layout_constraintBottom_toBottomOf=\"parent\"\r\n                app:layout_constraintEnd_toEndOf=\"parent\"\r\n                app:layout_constraintStart_toStartOf=\"parent\"\r\n                app:layout_constraintTop_toBottomOf=\"@+id/signGoogleBtnLogin\" />\r\n          \" />\r\n\r\n        </androidx.constraintlayout.widget.ConstraintLayout>\r\n    </ScrollView>\r\n</layout>\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_login.xml	(revision d0dcb8b4662cad8592336090eac9f8e56ae7147e)
++++ app/src/main/res/layout/activity_login.xml	(date 1609342862034)
+@@ -69,6 +69,7 @@
+                 app:layout_constraintVertical_bias="0.0">
+ 
+                 <com.google.android.material.textfield.TextInputEditText
++                    android:text="@={authViewModel.loginmail}"
+                     android:id="@+id/emailEditLogin"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+@@ -92,6 +93,7 @@
+                 app:layout_constraintTop_toBottomOf="@id/emailContLogin">
+ 
+                 <com.google.android.material.textfield.TextInputEditText
++                    android:text="@={authViewModel.loginpwd}"
+                     android:id="@+id/passwordEditLogin"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+@@ -102,8 +104,18 @@
+                     android:textStyle="bold" />
+             </com.google.android.material.textfield.TextInputLayout>
+ 
+-
++            <ProgressBar
++                android:id="@+id/progressLogin"
++                android:visibility="invisible"
++                android:layout_width="wrap_content"
++                android:layout_height="wrap_content"
++                app:layout_constraintBottom_toBottomOf="parent"
++                app:layout_constraintEnd_toEndOf="parent"
++                app:layout_constraintHorizontal_bias="0.5"
++                app:layout_constraintStart_toStartOf="parent"
++                app:layout_constraintTop_toTopOf="parent" />
+             <com.google.android.material.button.MaterialButton
++                android:onClick="@{authViewModel::loginButtonClicked}"
+                 android:id="@+id/loginBtnLogin"
+                 android:layout_width="100dp"
+                 android:layout_height="wrap_content"
+Index: .idea/jarRepositories.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"RemoteRepositoriesConfiguration\">\r\n    <remote-repository>\r\n      <option name=\"id\" value=\"central\" />\r\n      <option name=\"name\" value=\"Maven Central repository\" />\r\n      <option name=\"url\" value=\"https://repo1.maven.org/maven2\" />\r\n    </remote-repository>\r\n    <remote-repository>\r\n      <option name=\"id\" value=\"jboss.community\" />\r\n      <option name=\"name\" value=\"JBoss Community repository\" />\r\n      <option name=\"url\" value=\"https://repository.jboss.org/nexus/content/repositories/public/\" />\r\n    </remote-repository>\r\n    <remote-repository>\r\n      <option name=\"id\" value=\"BintrayJCenter\" />\r\n      <option name=\"name\" value=\"BintrayJCenter\" />\r\n      <option name=\"url\" value=\"https://jcenter.bintray.com/\" />\r\n    </remote-repository>\r\n    <remote-repository>\r\n      <option name=\"id\" value=\"Google\" />\r\n      <option name=\"name\" value=\"Google\" />\r\n      <option name=\"url\" value=\"https://dl.google.com/dl/android/maven2/\" />\r\n    </remote-repository>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/jarRepositories.xml	(revision d0dcb8b4662cad8592336090eac9f8e56ae7147e)
++++ .idea/jarRepositories.xml	(date 1609303744590)
+@@ -21,5 +21,10 @@
+       <option name="name" value="Google" />
+       <option name="url" value="https://dl.google.com/dl/android/maven2/" />
+     </remote-repository>
++    <remote-repository>
++      <option name="id" value="maven" />
++      <option name="name" value="maven" />
++      <option name="url" value="https://jitpack.io" />
++    </remote-repository>
+   </component>
+ </project>
+\ No newline at end of file
+Index: .idea/gradle.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"GradleMigrationSettings\" migrationVersion=\"1\" />\r\n  <component name=\"GradleSettings\">\r\n    <option name=\"linkedExternalProjectsSettings\">\r\n      <GradleProjectSettings>\r\n        <option name=\"testRunner\" value=\"PLATFORM\" />\r\n        <option name=\"distributionType\" value=\"DEFAULT_WRAPPED\" />\r\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\r\n        <option name=\"gradleJvm\" value=\"1.8\" />\r\n        <option name=\"modules\">\r\n          <set>\r\n            <option value=\"$PROJECT_DIR$\" />\r\n            <option value=\"$PROJECT_DIR$/app\" />\r\n          </set>\r\n        </option>\r\n        <option name=\"resolveModulePerSourceSet\" value=\"false\" />\r\n      </GradleProjectSettings>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/gradle.xml	(revision d0dcb8b4662cad8592336090eac9f8e56ae7147e)
++++ .idea/gradle.xml	(date 1609303744597)
+@@ -15,6 +15,7 @@
+           </set>
+         </option>
+         <option name="resolveModulePerSourceSet" value="false" />
++        <option name="useQualifiedModuleNames" value="true" />
+       </GradleProjectSettings>
+     </option>
+   </component>
+Index: build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>// Top-level build file where you can add configuration options common to all sub-projects/modules.\r\nbuildscript {\r\n    ext.kotlin_version = \"1.3.72\"\r\n    repositories {\r\n        google()\r\n        jcenter()\r\n    }\r\n    dependencies {\r\n\r\n        classpath \"com.android.tools.build:gradle:4.0.1\"\r\n        classpath \"org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version\"\r\n\r\n        // NOTE: Do not place your application dependencies here; they belong\r\n        classpath 'com.google.gms:google-services:4.3.4'\r\n        // in the individual module build.gradle files\r\n        classpath \"androidx.navigation:navigation-safe-args-gradle-plugin:2.1.0-alpha05\"\r\n    }\r\n}\r\n\r\nallprojects {\r\n    repositories {\r\n        google()\r\n        jcenter()\r\n    }\r\n}\r\n\r\ntask clean(type: Delete) {\r\n    delete rootProject.buildDir\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- build.gradle	(revision d0dcb8b4662cad8592336090eac9f8e56ae7147e)
++++ build.gradle	(date 1609303727423)
+@@ -21,6 +21,7 @@
+     repositories {
+         google()
+         jcenter()
++
+     }
+ }
+ 
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_1_7\" default=\"true\" project-jdk-name=\"1.8\" project-jdk-type=\"JavaSDK\">\r\n    <output url=\"file://$PROJECT_DIR$/build/classes\" />\r\n  </component>\r\n  <component name=\"ProjectType\">\r\n    <option name=\"id\" value=\"Android\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/misc.xml	(revision d0dcb8b4662cad8592336090eac9f8e56ae7147e)
++++ .idea/misc.xml	(date 1609303801213)
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+     <output url="file://$PROJECT_DIR$/build/classes" />
+   </component>
+   <component name="ProjectType">
+Index: app/build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>apply plugin: 'com.android.application'\r\napply plugin: 'kotlin-android'\r\napply plugin: 'kotlin-android-extensions'\r\napply plugin: 'kotlin-kapt'\r\napply plugin: \"androidx.navigation.safeargs\"\r\napply plugin: 'com.google.gms.google-services'\r\n\r\n\r\nandroid {\r\n    compileSdkVersion 29\r\n    buildToolsVersion \"29.0.2\"\r\n\r\n    defaultConfig {\r\n        applicationId \"com.project.farmingapp\"\r\n        minSdkVersion 21\r\n        targetSdkVersion 29\r\n        versionCode 1\r\n        versionName \"1.0\"\r\n\r\n        testInstrumentationRunner \"androidx.test.runner.AndroidJUnitRunner\"\r\n    }\r\n\r\n    buildTypes {\r\n        release {\r\n            minifyEnabled false\r\n            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'\r\n        }\r\n    }\r\n    dataBinding {\r\n        enabled = true\r\n    }\r\n}\r\n\r\ndependencies {\r\n\r\n\r\n    implementation fileTree(dir: \"libs\", include: [\"*.jar\"])\r\n    implementation \"org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version\"\r\n    implementation 'androidx.core:core-ktx:1.3.2'\r\n    implementation 'androidx.appcompat:appcompat:1.2.0'\r\n    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'\r\n    implementation 'com.google.android.gms:play-services-auth:19.0.0'\r\n    implementation 'com.google.firebase:firebase-auth:16.0.5'\r\n    testImplementation 'junit:junit:4.12'\r\n    androidTestImplementation 'androidx.test.ext:junit:1.1.2'\r\n    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'\r\n\r\n\r\n    // retrofit and GSON\r\n    implementation 'com.squareup.retrofit2:retrofit:2.6.0'\r\n    implementation 'com.squareup.retrofit2:converter-gson:2.6.0'\r\n\r\n    // Kotlin coroutines\r\n    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1'\r\n    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1'\r\n\r\n    // ViewModel and LiveData\r\n    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'\r\n\r\n\r\n// New Material Design\r\n    implementation 'com.google.android.material:material:1.1.0-alpha07'\r\n\r\n    // Kodein Dependency Injection\r\n    implementation 'org.kodein.di:kodein-di-generic-jvm:6.2.1'\r\n    implementation 'org.kodein.di:kodein-di-framework-android-x:6.2.1'\r\n\r\n    // Android Room\r\n    implementation 'androidx.room:room-runtime:2.1.0-rc01'\r\n    implementation 'androidx.room:room-ktx:2.1.0-rc01'\r\n    kapt 'androidx.room:room-compiler:2.1.0-rc01'\r\n\r\n// Android Navigation Architecture\r\n    implementation 'androidx.navigation:navigation-fragment-ktx:2.1.0-alpha05'\r\n    implementation 'androidx.navigation:navigation-ui-ktx:2.1.0-alpha05'\r\n\r\n    implementation platform('com.google.firebase:firebase-bom:26.2.0')\r\n    implementation 'com.google.firebase:firebase-firestore:21.5.0'\r\n    implementation 'com.google.firebase:firebase-storage:19.1.1'\r\n    implementation 'com.google.android.gms:play-services-auth:19.0.0'\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/build.gradle	(revision d0dcb8b4662cad8592336090eac9f8e56ae7147e)
++++ app/build.gradle	(date 1609327434558)
+@@ -41,6 +41,7 @@
+     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+     implementation 'com.google.android.gms:play-services-auth:19.0.0'
+     implementation 'com.google.firebase:firebase-auth:16.0.5'
++    implementation 'com.google.firebase:firebase-firestore-ktx:22.0.1'
+     testImplementation 'junit:junit:4.12'
+     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
