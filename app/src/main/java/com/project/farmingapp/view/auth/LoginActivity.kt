@@ -107,7 +107,7 @@ class LoginActivity : AppCompatActivity(), AuthListener {
             progressLogin.hide()
             if (it.toString() == "Success") {
                 toast("Logged In")
-                Toast.makeText(this, "login successful", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, it.toString(), Toast.LENGTH_LONG).show()
                 Intent(this, DashboardActivity::class.java).also {
                     startActivity(it)
                 }

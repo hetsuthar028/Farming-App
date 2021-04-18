@@ -72,6 +72,7 @@ class AuthViewModel : ViewModel() {
                         account.email.toString(),
                         data2
                     )
+                    Log.d("AuthView", returned.value.toString())
                     authListener?.onSuccess(returned)
                 } catch (e: ApiException) {
                     authListener!!.onFailure(e.message.toString())

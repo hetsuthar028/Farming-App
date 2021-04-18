@@ -66,7 +66,7 @@ class WeatherFragment : Fragment(), WeatherListener {
         }
 
         // init ViewModel
-        val viewModel = ViewModelProviders.of(requireActivity())
+        viewModel = ViewModelProviders.of(requireActivity())
             .get<WeatherViewModel>(WeatherViewModel::class.java)
 
         val bundle = this.arguments
@@ -83,7 +83,7 @@ class WeatherFragment : Fragment(), WeatherListener {
 //        val binding : WeatherFragmentBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_weather, container, false)
 
 
-        viewModel = ViewModelProviders.of(this).get(WeatherViewModel::class.java)
+//        viewModel = ViewModelProviders.of(this).get(WeatherViewModel::class.java)
 
 
 //        val data =  WeatherViewModel().getWeather(this.context)
@@ -123,53 +123,94 @@ class WeatherFragment : Fragment(), WeatherListener {
 //        rcylr_weather.layoutManager= LinearLayoutManager(this.context!!)
 //        Log.d("bharat",data.toString())
 
-        viewModel = ViewModelProviders.of(requireActivity())
-            .get<WeatherViewModel>(WeatherViewModel::class.java)
-        viewModel.getMessageB()
-            .observe(viewLifecycleOwner, object : Observer<WeatherRootList?> {
-                override fun onChanged(t: WeatherRootList?) {
-                    Log.d("DashFrag Data Changed B", t.toString())
 
-                    var data: WeatherRootList? = t
-                    var firstDate = data!!.list[0].dt_txt.slice(8..9)
-                    var otherDates = firstDate
-                    var i = 1
-                    var data2 = mutableListOf<WeatherList>()
+        val newWeatherData = viewModel.newDataTrial.value
+        Log.d("New Data Weather Trial", newWeatherData.toString())
+        // New
+//        var data: WeatherRootList? = t
+        var firstDate = newWeatherData!!.list[0].dt_txt.slice(8..9)
+        var otherDates = firstDate
+        var i = 1
+        var data2 = mutableListOf<WeatherList>()
 
-                    while (otherDates == firstDate) {
-                        data2!!.add(data.list[i - 1])
-                        otherDates = data.list[i].dt_txt.slice(8..9)
-                        i += 1
-                    }
+        while (otherDates == firstDate) {
+            data2!!.add(newWeatherData.list[i - 1])
+            otherDates = newWeatherData.list[i].dt_txt.slice(8..9)
+            i += 1
+        }
 
 //                    Log.d("Final OtherDates", data2.toString())
 //                    Log.d("Fragment", data.list.size.toString())
 
-                    var data3 = mutableListOf<WeatherList>()
-                    for (a in i - 1..39) {
-                        if (data.list[a].dt_txt.slice(11..12) == "12") {
-                            Log.d("Something date", data.list[a].dt_txt)
-                            data3.add(data.list[a])
-                        }
-                    }
+        var data3 = mutableListOf<WeatherList>()
+        for (a in i - 1..39) {
+            if (newWeatherData.list[a].dt_txt.slice(11..12) == "12") {
+                Log.d("Something date", newWeatherData.list[a].dt_txt)
+                data3.add(newWeatherData.list[a])
+            }
+        }
 
 //                    Log.d("New List", data3.toString())
 
-                    Adapter = WeatherAdapter(activity!!.applicationContext, data3)
-                    Adapter2 = CurrentWeatherAdapter(activity!!.applicationContext, data2)
+        Adapter = WeatherAdapter(activity!!.applicationContext, data3)
+        Adapter2 = CurrentWeatherAdapter(activity!!.applicationContext, data2)
 
-                    rcylr_weather.adapter = Adapter
-                    rcylr_weather.layoutManager = LinearLayoutManager(activity!!.applicationContext)
+        rcylr_weather.adapter = Adapter
+        rcylr_weather.layoutManager = LinearLayoutManager(activity!!.applicationContext)
 
-                    currentWeather_rcycl.adapter = Adapter2
-                    currentWeather_rcycl.layoutManager = LinearLayoutManager(
-                        activity!!.applicationContext,
-                        LinearLayoutManager.HORIZONTAL,
-                        false
-                    )
-//                    Log.d("bharat", data.toString())
-                }
-            })
+        currentWeather_rcycl.adapter = Adapter2
+        currentWeather_rcycl.layoutManager = LinearLayoutManager(
+            activity!!.applicationContext,
+            LinearLayoutManager.HORIZONTAL,
+            false
+        )
+
+
+//        viewModel.getMessageB()
+//            .observe(viewLifecycleOwner, object : Observer<WeatherRootList?> {
+//                override fun onChanged(t: WeatherRootList?) {
+//                    Log.d("DashFrag Data Changed B", t.toString())
+//
+//                    var data: WeatherRootList? = t
+//                    var firstDate = data!!.list[0].dt_txt.slice(8..9)
+//                    var otherDates = firstDate
+//                    var i = 1
+//                    var data2 = mutableListOf<WeatherList>()
+//
+//                    while (otherDates == firstDate) {
+//                        data2!!.add(data.list[i - 1])
+//                        otherDates = data.list[i].dt_txt.slice(8..9)
+//                        i += 1
+//                    }
+//
+////                    Log.d("Final OtherDates", data2.toString())
+////                    Log.d("Fragment", data.list.size.toString())
+//
+//                    var data3 = mutableListOf<WeatherList>()
+//                    for (a in i - 1..39) {
+//                        if (data.list[a].dt_txt.slice(11..12) == "12") {
+//                            Log.d("Something date", data.list[a].dt_txt)
+//                            data3.add(data.list[a])
+//                        }
+//                    }
+//
+////                    Log.d("New List", data3.toString())
+//
+//                    Adapter = WeatherAdapter(activity!!.applicationContext, data3)
+//                    Adapter2 = CurrentWeatherAdapter(activity!!.applicationContext, data2)
+//
+//                    rcylr_weather.adapter = Adapter
+//                    rcylr_weather.layoutManager = LinearLayoutManager(activity!!.applicationContext)
+//
+//                    currentWeather_rcycl.adapter = Adapter2
+//                    currentWeather_rcycl.layoutManager = LinearLayoutManager(
+//                        activity!!.applicationContext,
+//                        LinearLayoutManager.HORIZONTAL,
+//                        false
+//                    )
+////                    Log.d("bharat", data.toString())
+//                }
+//            })
     }
 
     fun getWeather() {
