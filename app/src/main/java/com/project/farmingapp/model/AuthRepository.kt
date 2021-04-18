@@ -53,7 +53,11 @@ class AuthRepository {
         return data
     }
 
-    fun signInToGoogle(idToken: String, email: String, otherData: HashMap<String, String?>) : LiveData<String> {
+    fun signInToGoogle(
+        idToken: String,
+        email: String,
+        otherData: HashMap<String, String?>
+    ): LiveData<String> {
         firebaseDb = FirebaseFirestore.getInstance()
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         firebaseAuth!!.signInWithCredential(credential)
@@ -79,33 +83,27 @@ class AuthRepository {
     }
 
 
+    //login
+    fun logInWithEmail(
+        email: String,
+        password: String
+    ): LiveData<String> {
 
+        firebaseDb = FirebaseFirestore.getInstance()
 
+        val data = MutableLiveData<String>()
+        firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
+            if (it.isSuccessful) {
+                data.value = "Success"
 
+            } else if (it.isCanceled) {
+                data.value = "Failure"
+            }
 
- //login
- fun logInWithEmail(
-     email: String,
-     password: String): LiveData<String> {
-
-     firebaseDb = FirebaseFirestore.getInstance()
-
-     val data = MutableLiveData<String>()
-     firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
-         if (it.isSuccessful) {
-          data.value="Success"
-
-         } else if (it.isCanceled) {
-             data.value = "Failure"
-         }
-
-     }.addOnFailureListener {
-         Log.d("AuthRepo", it.message)
-         data.value = it.message
-     }
-     return data
- }
-
-
-
+        }.addOnFailureListener {
+            Log.d("AuthRepo", it.message)
+            data.value = it.message
+        }
+        return data
+    }
 }
