@@ -1,13 +1,16 @@
 package com.project.farmingapp.view.weather
 
+import android.os.Build
 import android.os.Bundle
 
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.annotation.Nullable
+import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
@@ -15,11 +18,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.project.farmingapp.R
 import com.project.farmingapp.adapter.CurrentWeatherAdapter
 import com.project.farmingapp.adapter.WeatherAdapter
 import com.project.farmingapp.databinding.FragmentWeatherBinding
 import com.project.farmingapp.model.WeatherApi
+import com.project.farmingapp.databinding.FragmentWeatherBindingImpl
 import com.project.farmingapp.model.data.Weather
 import com.project.farmingapp.model.data.WeatherList
 import com.project.farmingapp.model.data.WeatherRootList
@@ -95,6 +100,7 @@ class WeatherFragment : Fragment(), WeatherListener {
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 //        val binding = FragmentWeatherBinding.bind(view)
@@ -158,12 +164,31 @@ class WeatherFragment : Fragment(), WeatherListener {
         rcylr_weather.adapter = Adapter
         rcylr_weather.layoutManager = LinearLayoutManager(activity!!.applicationContext)
 
+//        currentWeather_rcycl.adapter = Adapter2
+//        currentWeather_rcycl.layoutManager = LinearLayoutManager(
+//            activity!!.applicationContext,
+//            LinearLayoutManager.HORIZONTAL,
+//            false
+//        )
         currentWeather_rcycl.adapter = Adapter2
-        currentWeather_rcycl.layoutManager = LinearLayoutManager(
-            activity!!.applicationContext,
-            LinearLayoutManager.HORIZONTAL,
-            false
-        )
+        currentWeather_rcycl.layoutManager = LinearLayoutManager(activity!!.applicationContext, LinearLayoutManager.HORIZONTAL, false)
+
+
+//        currentWeather_rcycl.setOnFocusChangeListener { view, b ->
+//            view.animation = AnimationUtils.loadAnimation(context, R.anim.fade_scale)
+//        }
+
+//        currentWeather_rcycl.setOnScrollChangeListener { view, i, i2, i3, i4 ->
+//            view.animation = AnimationUtils.loadAnimation(context, R.anim.fade_scale)
+//        }
+
+//        val manager: CarouselLayoutManager = CarouselLayoutManager(CarouselLayoutManager.HORIZONTAL)
+//        manager.maxVisibleItems = 3
+//
+//        manager.setPostLayoutListener(CarouselZoomPostLayoutListener())
+//        currentWeather_rcycl.layoutManager = manager
+//        currentWeather_rcycl.hasFixedSize(true)
+//        currentWeather_rcycl.addOnScrollListener(CenterScrollListener())
 
 
 //        viewModel.getMessageB()
@@ -311,4 +336,8 @@ class WeatherFragment : Fragment(), WeatherListener {
         })
         Toast.makeText(this.context, "SS", Toast.LENGTH_LONG).show()
     }
+}
+
+private fun RecyclerView.hasFixedSize(b: Boolean) {
+
 }

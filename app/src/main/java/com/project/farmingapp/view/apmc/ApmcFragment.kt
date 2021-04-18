@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.project.farmingapp.R
 import com.project.farmingapp.adapter.ApmcAdapter
 import com.project.farmingapp.model.APMCApi
+import com.project.farmingapp.model.data.APMCCustomRecords
 import com.project.farmingapp.model.data.APMCMain
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.fragment_apmc.*
@@ -18,7 +19,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.lang.reflect.Field
+import java.text.SimpleDateFormat
+import java.time.OffsetDateTime
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -37,6 +41,11 @@ class ApmcFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     lateinit var adapter: ApmcAdapter
+    var indexSpinner1: Int? = null
+    var indexSpinner2: Int? = null
+    var someMap: Map<Any, Array<String>>? = null
+    var states: Array<String>? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -53,16 +62,19 @@ class ApmcFragment : Fragment() {
 
 //        bottomNav.selectedItemId = R.id.bottomNavAPMC
 
-        getApmc()
+//        getApmc()
         return inflater.inflate(R.layout.fragment_apmc, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val sdf = SimpleDateFormat("dd/MM/yyyy")
+        dateValueTextApmc.text = sdf.format(Date()).toString()
 
 
-        var states = arrayOf(
+
+        states = arrayOf(
             "All states",
             "Andhra Pradesh",
             "Chandigarh",
@@ -100,56 +112,146 @@ class ApmcFragment : Fragment() {
             "Bayad",
             "Bhabhar",
             "Bharuch",
-            "Chikli",
+            "Bhavnagar",
+            "Bhesan",
+            "Bhiloda",
+            "Bhuj",
+            "Bilimore",
+            "Bodeli",
+            "Borsad",
+            "Botad",
+            "Chikhli Apmc",
+            "Chotila Apmc",
+            "Dabh01 Apmc",
             "Dahod",
-            "Deesa",
-            "Gandhinagar",
+            "Dediyapada Apmc",
+            "Dehgam",
+            "Devgadhbaria Apmc",
+            "Dhandhuka Apmc",
+            "Dhanera",
+            "Dhari",
+            "Dhoalka",
+            "Dhoraji",
+            "Dhrol",
+            "Fatehpura Apmc",
+            "Gadhada",
+            "Gandhinagar Apmc",
+            "Gariyadhar Apmc",
             "Godhra",
+            "Gondal",
+            "Halvad",
             "Himmatnagar",
-            "Idar",
+            "Idar Apmc",
+            "Jam Jodhpur",
+            "Jamkandorna",
+            "Jamkhambhaliya",
             "Jamnagar",
+            "Jasdan",
+            "Jetpur",
+            "Jhagadiya Apmc",
+            "Jhalod",
             "Junagadh",
+            "Kadi Apmc",
+            "Kalavad",
             "Kalol",
+            "Kapadwanj",
+            "Karjan",
+            "Kathlal Apmc",
+            "Keshod",
             "Khambhat",
+            "Kodinar",
+            "Kosamba Apmc",
             "Lalpur",
-            "Lunawada",
-            "Mahuwa",
+            "Limkheda Apmc",
+            "Lunawada Apmc",
+            "Mahemdavad",
+            "Mahuva",
+            "Mahuva Apmc",
+            "Manadal Apmc",
+            "Mandvi Apmc",
+            "Matar Apmc",
             "Mehsana",
+            "Modasa",
             "Morbi",
-            "Nadiyad",
-            "Navsari",
+            "Nadiad",
+            "Navsari Apmc",
+            "Nizar",
+            "Padara",
             "Palanpur",
+            "Palitana Apmc",
+            "Panthawada",
             "Patan",
+            "Patdi Apmc",
+            "Pavi-Jetpur",
+            "Petalad",
+            "Porbandar",
+            "Prantij Apmc",
+            "Radhanpur Apmc",
             "Rajkot",
+            "Rajpipla Apmc",
+            "Rajula",
+            "Rapar",
             "Sanand",
-            "Sihor",
+            "Sanjeli Apmc",
+            "Savarkundla",
+            "Savli",
+            "Selamba Apmc",
+            "Siddhpur",
+            "Sihor Apmc",
+            "Songadh Apmc",
+            "Talaja Apmc",
             "Talod",
-            "Unava",
+            "Tarapur",
+            "Thara",
+            "Tharad",
+            "Thasra Apmc",
+            "Tilakwada Apmc",
+            "Umrala Apmc",
+            "Una Apmc",
+            "Unava Apmc",
+            "Upleta",
+            "Vadali Apmc",
+            "Vadhvan",
             "Vadodara",
+            "Valabhipur Apmc",
+            "Valia Apmc",
             "Valsad",
-            "Wankaner"
+            "Vijapur",
+            "Vinchhiya",
+            "Visavadar",
+            "Visanagar",
+            "Vyara",
+            "Wankaner APMC"
+
         )
         var citiesInMaha: Array<String> = arrayOf(
             "All Cities",
-            "Anand",
-            "Bardoli",
-            "Dahod",
-            "Deesa",
-            "Gandhinagar",
-            "Junagadh",
-            "Kalol",
-            "Khambhat",
-            "Talod",
-            "Unava",
-            "Vadodara",
-            "Valsad",
-            "Wankaner"
+            "Aamgaoni",
+            "Aatpadi",
+            "Achalpur",
+            "Aheri",
+            "Ahmednagar",
+            "Akola",
+            "Akot",
+            "Amalner",
+            "Amravathi",
+            "Ambejogai",
+            "Anjangaon Surji",
+            "Arjuni Morgoan",
+            "Arvi",
+            "Aurangabad",
+            "Ausa",
+            "Barmati",
+            "Barshi",
+            "Basmat",
+            "Beed",
+            "Bhiwaour"
         )
 
         var aa = ArrayAdapter(
             activity!!.applicationContext,
             android.R.layout.simple_spinner_dropdown_item,
-            states
+            states!!
         )
 //        var aa2 = ArrayAdapter(activity!!.applicationContext, android.R.layout.simple_spinner_dropdown_item, citiesInGujarat)
         spinner1.adapter = aa
@@ -158,7 +260,11 @@ class ApmcFragment : Fragment() {
 //        spinner2.setSelection(0, false)
 
 
-        val someMap = mapOf("Chandigarh" to citiesInMaha, "Gujarat" to citiesInGujarat)
+        someMap = mapOf(
+            "Chandigarh" to citiesInMaha,
+            "Gujarat" to citiesInGujarat,
+            "Maharashtra" to citiesInMaha
+        )
 
 
         spinner1.onItemSelectedListener = object :
@@ -171,14 +277,56 @@ class ApmcFragment : Fragment() {
                 if (p2 == 0) {
                     Toast.makeText(activity!!.applicationContext, "All states", Toast.LENGTH_LONG)
                         .show()
+                    textAPMCWarning.text = "Please Select State and District"
+                    recycleAPMC.visibility = View.GONE
+                    textAPMCWarning.visibility = View.VISIBLE
                 } else {
                     var aa2 = ArrayAdapter(
                         activity!!.applicationContext,
                         android.R.layout.simple_spinner_dropdown_item,
-                        someMap[states[p2]]!!
+
+                        someMap!![states!![p2]]!!
                     )
+
+                    indexSpinner1 = p2
                     spinner2.adapter = aa2
                     aa2.notifyDataSetChanged()
+                }
+            }
+
+            override fun onItemClick(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                Toast.makeText(activity!!.applicationContext, "Something", Toast.LENGTH_LONG).show()
+            }
+        }
+
+        spinner2.onItemSelectedListener = object :
+            AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                if (p2 == 0) {
+                    Toast.makeText(activity!!.applicationContext, "All District", Toast.LENGTH_LONG)
+                        .show()
+                    textAPMCWarning.text = "Please Select District"
+                    recycleAPMC.visibility = View.GONE
+                    textAPMCWarning.visibility = View.VISIBLE
+                } else {
+
+                    if (p2 != 0) {
+                        getApmc("${someMap!![states!![indexSpinner1!!]]!![p2]}")
+                    }
+                    indexSpinner2 = p2
+
+
+//                    var aa2 = ArrayAdapter(
+//                        activity!!.applicationContext,
+//                        android.R.layout.simple_spinner_dropdown_item,
+//                        someMap[states[p2]]!!
+//                    )
+//                    spinner2.adapter = aa2
+//                    aa2.notifyDataSetChanged()
                 }
             }
 
@@ -209,32 +357,126 @@ class ApmcFragment : Fragment() {
             }
     }
 
-    private fun getApmc() {
+    private fun getApmc(district: String) {
         val apmc1: Call<APMCMain> = APMCApi.apmcInstances.getapmc(20)
-        apmc1.enqueue(object : Callback<APMCMain> {
-            override fun onFailure(call: Call<APMCMain>, t: Throwable) {
-                Log.d("bharat222", "fail ho gya", t)
-            }
+        var apmc2: Call<APMCMain>? = null
+        if (indexSpinner2 != 0) {
 
-            override fun onResponse(
-                call: Call<APMCMain>,
-                response: Response<APMCMain>
-            ) {
+//            apmc2 = APMCApi.apmcInstances.getSomeData(someMap!![states!![indexSpinner1?]]!)
 
-                val apmcdata = response.body()
-                if (apmcdata != null) {
+            apmc2 = APMCApi.apmcInstances.getSomeData(district)
+            Log.d("APMC District", district)
+
+
+            apmc2!!.enqueue(object : Callback<APMCMain> {
+                override fun onFailure(call: Call<APMCMain>, t: Throwable) {
+                    Log.d("bharat222", "fail ho gya", t)
+                }
+
+                override fun onResponse(
+                    call: Call<APMCMain>,
+                    response: Response<APMCMain>
+                ) {
+
+                    val apmcdata = response.body()
+                    if (apmcdata != null) {
 //                    var data= mutableListOf<APMCMain>()
 //                    data.add(apmcdata)
-                    Log.d("APMCFrag", apmcdata.records.toString())
-                    adapter = ApmcAdapter(activity!!.applicationContext, apmcdata.records)
-                    recycleAPMC.adapter = adapter
-                    recycleAPMC.layoutManager = LinearLayoutManager(activity!!.applicationContext)
 
-                    //temp.text=rootdata.weather.main.toString()
-                    Log.d("bharat222", apmcdata.toString())
+//                    val totalRecords = apmcdata.records.size
+//                    for (i in 0..totalRecords){
+//
+//                    }
+
+                        val updatedYear = apmcdata.updated_date.toString().slice(0..3)
+                        val updatedMonth = apmcdata.updated_date.toString().slice(5..6)
+                        val updatedDate = apmcdata.updated_date.toString().slice(8..9)
+
+
+                        dateValueTextApmc.text = "$updatedDate/$updatedMonth/$updatedYear"
+                        if (apmcdata.records.size == 0) {
+                            textAPMCWarning.visibility = View.VISIBLE
+                            recycleAPMC.visibility = View.GONE
+                            textAPMCWarning.text = "No records found!"
+                        } else {
+                            textAPMCWarning.visibility = View.GONE
+                            recycleAPMC.visibility = View.VISIBLE
+                            Log.d("APMCFrag", apmcdata.records.toString())
+
+                            val totalRecords = apmcdata.records.size
+                            var firstMarket = ""
+                            if (!apmcdata.records[0].market.isNullOrEmpty()) {
+                                firstMarket = apmcdata.records[0].market.toString()
+                            }
+
+                            val customRecords = ArrayList<APMCCustomRecords>()
+
+                            val list1 = mutableListOf<String>()
+                            val list2 = mutableListOf<String>()
+                            val list3 = mutableListOf<String>()
+                            list1.add(apmcdata.records[0].commodity)
+                            list2.add(apmcdata.records[0].min_price)
+                            list3.add(apmcdata.records[0].max_price)
+
+                            var previousRecord = APMCCustomRecords(
+                                apmcdata.records[0].state,
+                                apmcdata.records[0].district,
+                                apmcdata.records[0].market,
+                                list1,
+                                list2,
+                                list3
+                            )
+
+                            val ss = apmcdata.records[0].market
+
+
+//                            var gettingUpdatedRecords: APMCCustomRecords? = null
+                            if (totalRecords==1){
+                                customRecords.add(previousRecord)
+                            } else{
+                                for (i in 1..totalRecords-1) {
+//                                var firstMarket2 = ""
+                                    if (apmcdata.records[i].market == previousRecord.market) {
+                                        previousRecord.commodity.add(apmcdata.records[i].commodity)
+                                        previousRecord.min_price.add(apmcdata.records[i].min_price)
+                                        previousRecord.max_price.add(apmcdata.records[i].max_price)
+//                                    list1.add(apmcdata.records[i].commodity)
+//                                    list2.add(apmcdata.records[i].min_price)
+//                                    list3.add(apmcdata.records[i].max_price)
+                                    } else {
+                                        customRecords.add(previousRecord)
+                                        list1.add(apmcdata.records[i].commodity)
+                                        list2.add(apmcdata.records[i].min_price)
+                                        list3.add(apmcdata.records[i].max_price)
+                                        previousRecord = APMCCustomRecords(
+                                            apmcdata.records[i].state,
+                                            apmcdata.records[i].district,
+                                            apmcdata.records[i].market,
+                                            list1,
+                                            list2,
+                                            list3
+                                        )
+                                    }
+                                }
+                            }
+
+                            Log.d("New APMC Data", customRecords.toString())
+                            Log.d("Old APMC Data", apmcdata.toString())
+
+                            adapter = ApmcAdapter(activity!!.applicationContext, customRecords)
+                            recycleAPMC.adapter = adapter
+                            recycleAPMC.layoutManager =
+                                LinearLayoutManager(activity!!.applicationContext)
+
+                            //temp.text=rootdata.weather.main.toString()
+                            Log.d("bharat222", apmcdata.toString())
+                        }
+
+                    }
                 }
-            }
 
-        })
+            })
+
+        }
     }
 }

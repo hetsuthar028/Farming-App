@@ -8,11 +8,11 @@
         android:id="@+id/articleListCardArtListFrag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:cardElevation="5dp"
-        app:cardCornerRadius="7dp"
-
         android:layout_marginBottom="2dp"
+        app:cardCornerRadius="7dp"
+        app:cardElevation="5dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -25,9 +25,8 @@
                 android:id="@+id/imageArticleListFrag"
                 android:layout_width="150dp"
                 android:layout_height="110dp"
-                android:src="@color/colorPrimary"
-
                 android:scaleType="fitXY"
+                android:src="@color/colorPrimary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -36,15 +35,14 @@
                 android:id="@+id/descTextxArticleListFrag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginVertical="4dp"
                 android:text="Dummy Text"
                 android:textSize="17sp"
                 android:textStyle="bold"
-                android:layout_marginVertical="4dp"
-
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/imageArticleListFrag"
                 app:layout_constraintStart_toStartOf="@id/imageArticleListFrag"
-                app:layout_constraintTop_toBottomOf="@id/imageArticleListFrag"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintTop_toBottomOf="@id/imageArticleListFrag" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

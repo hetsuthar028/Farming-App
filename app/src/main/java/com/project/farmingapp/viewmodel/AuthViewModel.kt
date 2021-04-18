@@ -1,17 +1,13 @@
 package com.project.farmingapp.viewmodel
 
 import android.content.Intent
-import android.provider.Settings.Global.getString
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.project.farmingapp.R
 import com.project.farmingapp.model.AuthRepository
-import com.project.farmingapp.view.auth.SignupActivity
 
 class AuthViewModel : ViewModel() {
 
@@ -36,6 +32,7 @@ class AuthViewModel : ViewModel() {
         private const val RC_SIGN_IN = 9001
     }
 
+    val userPosts = arrayListOf<String>()
     fun signupButtonClicked(view: View) {
         authListener!!.onStarted()
         if (name.isNullOrEmpty() || mobNo.toString().length != 10 || mobNo == null || password.isNullOrEmpty() || confPassword.isNullOrEmpty() || city.isNullOrEmpty()) {
@@ -49,7 +46,9 @@ class AuthViewModel : ViewModel() {
             "mobNo" to mobNo,
             "email" to email,
             "city" to city,
-            "userType" to userType
+            "userType" to userType,
+            "posts" to  userPosts,
+            "profileImage" to ""
         )
         val authRepo = AuthRepository().signInWithEmail(email!!, password!!, data)
         authListener?.onSuccess(authRepo)
@@ -57,15 +56,19 @@ class AuthViewModel : ViewModel() {
 
     fun returnActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         authListener!!.onStarted()
-        var data2 = hashMapOf(
-            "userType" to userType
-        )
+
         if (requestCode == RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             val exception = task.exception
             if (task.isSuccessful) {
                 try {
                     val account = task.getResult(ApiException::class.java)!!
+                    var data2 = hashMapOf(
+                        "userType" to userType,
+                        "posts" to userPosts,
+                        "name" to account.displayName.toString(),
+                        "profileImage" to account.photoUrl.toString()
+                    )
                     authRepository = AuthRepository()
                     var returned = authRepository.signInToGoogle(
                         account.idToken!!,
@@ -81,7 +84,6 @@ class AuthViewModel : ViewModel() {
             }
         }
     }
-
 
     //login btn function
     fun loginButtonClicked(view: View) {
