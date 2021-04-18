@@ -134,7 +134,8 @@ class WeatherFragment : Fragment(), WeatherListener {
 //        rcylr_weather.layoutManager= LinearLayoutManager(this.context!!)
 //        Log.d("bharat",data.toString())
 
-
+        val city = viewModel.getCoordinates().value
+        weatherCity.text = city!!.get(2).toString()
         val newWeatherData = viewModel.newDataTrial.value
         Log.d("New Data Weather Trial", newWeatherData.toString())
         // New

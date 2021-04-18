@@ -12,99 +12,114 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateDrawable="@drawable/progress_background"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/progress_create_post"
+            app:layout_constraintStart_toStartOf="parent"
+            android:elevation="2dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Creating..."
+            android:id="@+id/progressTitle"
+            app:layout_constraintTop_toBottomOf="@id/progress_create_post"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            android:elevation="2dp"
+            android:textSize="18sp"
+            android:textColor="@color/fontColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginVertical="14dp"
+            />
+
         <TextView
             android:id="@+id/createPostTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/uploadImagePreview"
             android:text="Create Post"
+            android:textColor="@color/fontColor"
+            android:textStyle="bold"
+            android:textSize="21sp"
+            android:layout_marginVertical="14dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/postTitleText"
+        <ImageButton
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="14dp"
-
-            android:textColorHint="#60AA39"
-
+            android:layout_height="250dp"
+            android:background="@drawable/edit_back"
+            android:id="@+id/uploadImagePreview"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/createPostTitle"
-            app:layout_constraintVertical_bias="0.0">
+            app:layout_constraintEnd_toEndOf="parent"
+            android:backgroundTint="@color/secondary"
+            android:src="@drawable/add_icon"
 
-            <com.google.android.material.textfield.TextInputEditText
+            android:layout_marginHorizontal="14dp"
+            android:layout_marginVertical="80dp"
+            />
+
+
+
+
+
+            <EditText
+                android:background="@drawable/edit_back"
                 android:id="@+id/postTitleSM"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#0060AA39"
+                android:layout_height="50dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/uploadImagePreview"
+                android:layout_marginHorizontal="14dp"
+                android:layout_marginVertical="14dp"
+                android:padding="10dp"
                 android:hint="Title"
-
                 android:textStyle="bold" />
-        </com.google.android.material.textfield.TextInputLayout>
 
 
-        <!--        <EditText-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:hint="Post Title"-->
-        <!--            android:id="@+id/postTitleText"-->
-        <!--            app:layout_constraintStart_toStartOf="parent"-->
-        <!--            app:layout_constraintTop_toBottomOf="@id/createPostTitle"-->
-        <!--            />-->
-
-        <!--        <TextView-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:id="@+id/postTitleText"-->
-        <!--            app:layout_constraintStart_toStartOf="parent"-->
-        <!--            app:layout_constraintTop_toBottomOf="@id/createPostTitle"-->
-        <!--            android:text="Post Title" />-->
-
-        <Button
-            android:id="@+id/uploadImageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="14dp"
-            android:text="Upload Image/Video"
-            android:textStyle="normal"
-            android:textSize="14sp"
-            android:textAllCaps="false"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/descriptionPost" />
 
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/descriptionPost"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="14dp"
-            android:textColorHint="#60AA39"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/postTitleText"
-            app:layout_constraintVertical_bias="0.0">
 
-            <com.google.android.material.textfield.TextInputEditText
+
+
+
+            <EditText
                 android:id="@+id/descPostSM"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#0060AA39"
+                android:background="@drawable/edit_back"
+                android:layout_height="50dp"
+                android:layout_marginVertical="14dp"
+                android:layout_marginHorizontal="14dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/postTitleSM"
+                android:padding="10dp"
                 android:hint="Description"
                 android:textStyle="bold" />
-        </com.google.android.material.textfield.TextInputLayout>
+
 
         <Button
             android:id="@+id/createPostBtnSM"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="120dp"
+            android:background="@drawable/all_buttons"
+            android:layout_height="60dp"
+            android:textStyle="bold"
             android:layout_marginVertical="14dp"
             android:textAllCaps="false"
+            android:textSize="18sp"
             android:text="Create"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/uploadImageButton" />
+            app:layout_constraintTop_toBottomOf="@id/descPostSM" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
