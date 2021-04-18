@@ -15,6 +15,6 @@
     </style>
     <style name="RatingBar" parent="AppTheme">
         <item name="colorControlActivated">@color/colorPrimary</item>
-        <item name="colorControlNormal">@color/secondary</item>
+        <item name="colorControlNormal">@color/secondary2</item>
     </style>
 </resources>

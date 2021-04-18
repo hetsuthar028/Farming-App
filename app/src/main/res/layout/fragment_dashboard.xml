@@ -279,204 +279,216 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/carousel" />
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/ecomm1"
-                android:layout_width="0dp"
-                android:layout_height="175dp"
-                android:layout_marginVertical="10dp"
-                android:layout_marginEnd="10dp"
-                app:cardCornerRadius="10dp"
-                app:layout_constraintEnd_toStartOf="@id/ecomm2"
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:id="@+id/ecomm1"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="175dp"-->
+<!--                android:layout_marginVertical="10dp"-->
+<!--                android:layout_marginEnd="10dp"-->
+<!--                app:cardCornerRadius="10dp"-->
+<!--                app:layout_constraintEnd_toStartOf="@id/ecomm2"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/productsTitle">-->
+
+<!--                <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent">-->
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/ecommIcon1"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="125dp"-->
+<!--                        android:background="@color/colorPrimary"-->
+<!--                        app:layout_constraintEnd_toEndOf="parent"-->
+<!--                        app:layout_constraintHorizontal_bias="0.5"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/ecommName1"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:paddingHorizontal="10dp"-->
+<!--                        android:text="TVC Tractor"-->
+<!--                        android:textSize="14sp"-->
+<!--                        app:layout_constraintBottom_toTopOf="@id/someID"-->
+<!--                        android:textStyle="bold"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toBottomOf="@id/ecommIcon1" />-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:paddingHorizontal="10dp"-->
+<!--                        android:id="@+id/someID"-->
+<!--                        android:text="$994"-->
+<!--                        android:textColor="@color/colorPrimary"-->
+<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toBottomOf="@id/ecommName1" />-->
+
+<!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--            </androidx.cardview.widget.CardView>-->
+
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:id="@+id/ecomm2"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="175dp"-->
+<!--                android:layout_marginVertical="10dp"-->
+<!--                android:layout_marginStart="10dp"-->
+<!--                app:cardCornerRadius="10dp"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toEndOf="@id/ecomm1"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/productsTitle">-->
+
+<!--                <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent">-->
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/ecommIcon2"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="125dp"-->
+<!--                        android:background="@color/colorPrimary"-->
+<!--                        app:layout_constraintEnd_toEndOf="parent"-->
+<!--                        app:layout_constraintHorizontal_bias="0.5"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/ecommName2"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:paddingHorizontal="10dp"-->
+<!--                        android:text="TVC Tractor"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:textStyle="bold"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toBottomOf="@id/ecommIcon2" />-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:paddingHorizontal="10dp"-->
+<!--                        android:text="$994"-->
+<!--                        android:textColor="@color/colorPrimary"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toBottomOf="@id/ecommName2" />-->
+
+<!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--            </androidx.cardview.widget.CardView>-->
+
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:id="@+id/ecomm3"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="175dp"-->
+<!--                android:layout_marginVertical="10dp"-->
+<!--                android:layout_marginEnd="10dp"-->
+<!--                app:cardCornerRadius="10dp"-->
+<!--                app:layout_constraintEnd_toStartOf="@id/ecomm4"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/ecomm1">-->
+
+<!--                <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent">-->
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/ecommIcon3"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="125dp"-->
+<!--                        android:background="@color/colorPrimary"-->
+<!--                        app:layout_constraintEnd_toEndOf="parent"-->
+<!--                        app:layout_constraintHorizontal_bias="0.5"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/ecommName3"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:paddingHorizontal="10dp"-->
+<!--                        android:text="TVC Tractor"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:textStyle="bold"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toBottomOf="@id/ecommIcon3" />-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:paddingHorizontal="10dp"-->
+<!--                        android:text="$994"-->
+<!--                        android:textColor="@color/colorPrimary"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toBottomOf="@id/ecommName3" />-->
+
+<!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--            </androidx.cardview.widget.CardView>-->
+
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:id="@+id/ecomm4"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="175dp"-->
+<!--                android:layout_marginVertical="10dp"-->
+<!--                android:layout_marginStart="10dp"-->
+<!--                app:cardCornerRadius="10dp"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toEndOf="@id/ecomm3"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/ecomm2">-->
+
+<!--                <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent">-->
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/ecommIcon4"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="125dp"-->
+<!--                        android:background="@color/colorPrimary"-->
+<!--                        app:layout_constraintEnd_toEndOf="parent"-->
+<!--                        app:layout_constraintHorizontal_bias="0.5"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/ecommName4"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:paddingHorizontal="10dp"-->
+<!--                        android:text="TVC Tractor"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:textStyle="bold"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toBottomOf="@id/ecommIcon4" />-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:paddingHorizontal="10dp"-->
+<!--                        android:text="$994"-->
+<!--                        android:textColor="@color/colorPrimary"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toBottomOf="@id/ecommName4" />-->
+
+<!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--            </androidx.cardview.widget.CardView>-->
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/dashboardEcommRecycler"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/productsTitle">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:id="@+id/ecommIcon1"
-                        android:layout_width="0dp"
-                        android:layout_height="125dp"
-                        android:background="@color/colorPrimary"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/ecommName1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingHorizontal="10dp"
-                        android:text="TVC Tractor"
-                        android:textSize="14sp"
-                        app:layout_constraintBottom_toTopOf="@id/someID"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/ecommIcon1" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingHorizontal="10dp"
-                        android:id="@+id/someID"
-                        android:text="$994"
-                        android:textColor="@color/colorPrimary"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/ecommName1" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/ecomm2"
-                android:layout_width="0dp"
-                android:layout_height="175dp"
-                android:layout_marginVertical="10dp"
-                android:layout_marginStart="10dp"
-                app:cardCornerRadius="10dp"
+                app:layout_constraintTop_toBottomOf="@id/productsTitle"
+                android:layout_marginVertical="7dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/ecomm1"
-                app:layout_constraintTop_toBottomOf="@id/productsTitle">
+                />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:id="@+id/ecommIcon2"
-                        android:layout_width="0dp"
-                        android:layout_height="125dp"
-                        android:background="@color/colorPrimary"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/ecommName2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingHorizontal="10dp"
-                        android:text="TVC Tractor"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/ecommIcon2" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingHorizontal="10dp"
-                        android:text="$994"
-                        android:textColor="@color/colorPrimary"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/ecommName2" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/ecomm3"
-                android:layout_width="0dp"
-                android:layout_height="175dp"
-                android:layout_marginVertical="10dp"
-                android:layout_marginEnd="10dp"
-                app:cardCornerRadius="10dp"
-                app:layout_constraintEnd_toStartOf="@id/ecomm4"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ecomm1">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:id="@+id/ecommIcon3"
-                        android:layout_width="0dp"
-                        android:layout_height="125dp"
-                        android:background="@color/colorPrimary"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/ecommName3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingHorizontal="10dp"
-                        android:text="TVC Tractor"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/ecommIcon3" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingHorizontal="10dp"
-                        android:text="$994"
-                        android:textColor="@color/colorPrimary"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/ecommName3" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/ecomm4"
-                android:layout_width="0dp"
-                android:layout_height="175dp"
-                android:layout_marginVertical="10dp"
-                android:layout_marginStart="10dp"
-                app:cardCornerRadius="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/ecomm3"
-                app:layout_constraintTop_toBottomOf="@id/ecomm2">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:id="@+id/ecommIcon4"
-                        android:layout_width="0dp"
-                        android:layout_height="125dp"
-                        android:background="@color/colorPrimary"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/ecommName4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingHorizontal="10dp"
-                        android:text="TVC Tractor"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/ecommIcon4" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingHorizontal="10dp"
-                        android:text="$994"
-                        android:textColor="@color/colorPrimary"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/ecommName4" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </androidx.cardview.widget.CardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
