@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="10dp"
+
+    android:layout_marginVertical="10dp">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <TableLayout
+            android:id="@+id/tabla_cuerpo"
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TableRow
+                android:id="@+id/tableRow1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="4">
+
+                <TextView
+                    android:id="@+id/marketTextApmc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/table_lefttop_border"
+                    android:padding="5dp"
+                    android:paddingStart="10dp"
+                    android:text="Market"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textStyle="bold"></TextView>
+
+                <TextView
+                    android:id="@+id/marketValueTextApmc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_span="2"
+                    android:layout_weight="2"
+                    android:paddingStart="10dp"
+                    android:background="@drawable/table_righttop_border"
+                    android:padding="5dp"
+                    android:text="TextView"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textStyle="bold"></TextView>
+
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/locationTextApmc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/table_border"
+                    android:paddingStart="10dp"
+                    android:padding="5dp"
+                    android:text="Location"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textStyle="bold"></TextView>
+
+                <TextView
+                    android:id="@+id/locationValueTextApmc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_span="2"
+                    android:layout_weight="2"
+                    android:background="@drawable/table_border"
+                    android:paddingStart="10dp"
+                    android:padding="5dp"
+                    android:text="TextView"
+                    android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
+
+
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow3"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/commodityTextApmc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/table_border"
+                    android:padding="5dp"
+                    android:paddingStart="10dp"
+                    android:text="Commodity"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textStyle="bold"></TextView>
+
+                <TextView
+                    android:id="@+id/commodityValueTextApmc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_span="2"
+                    android:layout_weight="2"
+                    android:textStyle="bold"
+
+                    android:background="@drawable/table_border"
+                    android:padding="5dp"
+                    android:paddingStart="10dp"
+                    android:text="TextView"
+                    android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
+
+
+            </TableRow>
+
+            <View
+                android:id="@+id/hr1Apmc"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimary"
+
+                />
+
+            <TableRow
+                android:id="@+id/tableRow4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/minTextApmc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+
+                    android:background="@drawable/table_border"
+                    android:padding="5dp"
+                    android:text="Minimum"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:paddingStart="10dp"
+                    android:textStyle="bold"></TextView>
+
+                <TextView
+                    android:id="@+id/maxTextApmc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/table_border"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="Maximum"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textStyle="bold"></TextView>
+
+                <TextView
+                    android:id="@+id/modalTextApmc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/table_border"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="Modal"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textStyle="bold"></TextView>
+
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow54"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/minValueTextApmc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/table_leftbottom_border"
+                    android:padding="5dp"
+                    android:paddingStart="10dp"
+
+                    android:text="TextView"
+                    android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
+
+                <TextView
+                    android:id="@+id/maxValueTextApmc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/table_border"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="TextView"
+                    android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
+
+                <TextView
+                    android:id="@+id/modalValueTextApmc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/table_rightbottom_border"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="TextView"
+                    android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
+
+
+            </TableRow>
+
+        </TableLayout>
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
