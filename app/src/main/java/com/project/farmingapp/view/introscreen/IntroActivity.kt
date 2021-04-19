@@ -114,7 +114,7 @@ class IntroActivity : AppCompatActivity() {
             }
             val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
             val editor = sharedPreferences.edit()
-            editor.putBoolean("firstTime", true)
+            editor.putBoolean("firstTime", false)
             editor.apply()
             finish()
         }

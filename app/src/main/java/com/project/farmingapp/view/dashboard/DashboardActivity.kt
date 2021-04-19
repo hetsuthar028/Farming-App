@@ -85,8 +85,9 @@ import retrofit2.Retrofit
 import java.util.*
 import kotlin.collections.HashMap
 
-class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
-    View.OnClickListener, com.google.android.gms.location.LocationListener {
+
+class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, com.google.android.gms.location.LocationListener {
+
     lateinit var cartFragment: CartFragment
     lateinit var myOrdersFragment: MyOrdersFragment
     lateinit var ecommerceItemFragment: EcommerceItemFragment
@@ -104,6 +105,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     private lateinit var viewModel: UserDataViewModel
     private lateinit var weatherViewModel: WeatherViewModel
     lateinit var sharedPreferences: SharedPreferences
+
 
     val firebaseFireStore = FirebaseFirestore.getInstance()
     val firebaseAuth = FirebaseAuth.getInstance()
@@ -181,7 +183,9 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         navView.setNavigationItemSelectedListener(this)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+
         supportActionBar?.title = "Agri India"
+
         dashboardFragment = dashboardFragment()
         supportFragmentManager
             .beginTransaction()
@@ -222,9 +226,11 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         paymentFragment = PaymentFragment()
         cartFragment = CartFragment()
         myOrdersFragment = MyOrdersFragment()
+
         ecommerceItemFragment = EcommerceItemFragment()
 
         weatherFragment = WeatherFragment()
+
 
         bottomNav.setOnNavigationItemSelectedListener {
             when (it.itemId) {
@@ -409,11 +415,12 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         return true
     }
 
+
     fun automatedClick() {
 
-        if (!checkGPSEnabled()) {
-            return
-        }
+            if (!checkGPSEnabled()) {
+                return
+            }
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(
@@ -424,20 +431,23 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 //Location Permission already granted
                 getLocation();
 
+
+                } else {
+                    //Request Location Permission
+                    checkLocationPermission()
+                }
             } else {
-                //Request Location Permission
-                checkLocationPermission()
-            }
-        } else {
-            getLocation();
+                getLocation();
 //            buildGoogleApiClient()
+            }
         }
-    }
 
-    override fun onClick(v: View?) {
-        if (!checkGPSEnabled()) {
-            return
-        }
+        override fun onClick(v: View?) {
+            if (!checkGPSEnabled()) {
+                return
+            }
+
+
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(
@@ -447,22 +457,49 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             ) {
                 //Location Permission already granted
                 getLocation();
+
             } else {
-                //Request Location Permission
-                checkLocationPermission()
+                getLocation();
             }
-        } else {
-            getLocation();
         }
+
     }
 
     @SuppressLint("MissingPermission")
     private fun getLocation() {
         mLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
 
-        if (mLocation == null) {
-            startLocationUpdates();
+        @SuppressLint("MissingPermission")
+        private fun getLocation() {
+            mLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+
+            if (mLocation == null) {
+                startLocationUpdates();
+            }
+            if (mLocation != null) {
+                Toast.makeText(this, "Lat: " + mLocation!!.latitude.toString(), Toast.LENGTH_SHORT)
+                    .show()
+                Toast.makeText(
+                    this,
+                    "Long: " + mLocation!!.longitude.toString(),
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                val coords = mutableListOf<String>()
+                val geocoder = Geocoder(this, Locale.getDefault())
+                val addresses: List<Address> =
+                    geocoder.getFromLocation(mLocation!!.latitude, mLocation!!.longitude, 1)
+
+                coords.add(mLocation!!.latitude.toString())
+                coords.add(mLocation!!.longitude.toString())
+                coords.add(addresses[0].locality.toString())
+                weatherViewModel.updateCoordinates(coords)
+
+            } else {
+                Toast.makeText(this, "Location not Detected", Toast.LENGTH_SHORT).show();
+            }
         }
+
         if (mLocation != null) {
 //            Toast.makeText(this, "Lat: " + mLocation!!.latitude.toString(), Toast.LENGTH_SHORT)
 //                .show()
@@ -482,9 +519,31 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             coords.add(addresses[0].locality.toString())
             weatherViewModel.updateCoordinates(coords)
 
-        } else {
-            Toast.makeText(this, "Location not Detected", Toast.LENGTH_SHORT).show();
+
+        private fun startLocationUpdates() {
+            // Create the location request
+            mLocationRequest = LocationRequest.create()
+                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                .setInterval(UPDATE_INTERVAL)
+                .setFastestInterval(FASTEST_INTERVAL)
+            // Request location updates
+            if (ActivityCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                return
+            }
+            LocationServices.FusedLocationApi.requestLocationUpdates(
+                mGoogleApiClient,
+                mLocationRequest,
+                this
+            )
         }
+
     }
 
     private fun startLocationUpdates() {
@@ -515,33 +574,22 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         TODO("Not yet implemented")
     }
 
-    @Synchronized
-    private fun buildGoogleApiClient() {
-        mGoogleApiClient = GoogleApiClient.Builder(this)
-            .addApi(LocationServices.API)
-            .build()
+        @Synchronized
+        private fun buildGoogleApiClient() {
+            mGoogleApiClient = GoogleApiClient.Builder(this)
+                .addApi(LocationServices.API)
+                .build()
 
-        mGoogleApiClient!!.connect()
+            mGoogleApiClient!!.connect()
 //        automatedClick()
-    }
+        }
 
-    private fun checkGPSEnabled(): Boolean {
-        if (!isLocationEnabled())
-            showAlert()
-        return isLocationEnabled()
-    }
+        private fun checkGPSEnabled(): Boolean {
+            if (!isLocationEnabled())
+                showAlert()
+            return isLocationEnabled()
+        }
 
-    private fun showAlert() {
-        val dialog = android.app.AlertDialog.Builder(this)
-        dialog.setTitle("Enable Location")
-            .setMessage("Your Locations Settings is set to 'Off'.\nPlease Enable Location to use this app!")
-            .setPositiveButton("Location Settings") { paramDialogInterface, paramInt ->
-                val myIntent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-                startActivity(myIntent)
-            }
-            .setNegativeButton("Cancel") { paramDialogInterface, paramInt -> }
-        dialog.show()
-    }
 
     private fun isLocationEnabled(): Boolean {
         var locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
@@ -579,8 +627,9 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                 REQUEST_LOCATION_CODE
             )
+
         }
-    }
+
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -599,30 +648,29 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                     ) {
                         Toast.makeText(this, "Permission Granted", Toast.LENGTH_LONG).show()
                         automatedClick()
+
                     }
-                } else {
-                    // permission denied, boo! Disable the functionality that depends on this permission.
-                    Toast.makeText(this, "Permission Denied", Toast.LENGTH_LONG).show()
+                    return
                 }
-                return
             }
         }
-    }
 
-    override fun onStart() {
-        super.onStart()
-        mGoogleApiClient?.connect()
-        Handler().postDelayed({
-            automatedClick()
-        }, 1000)
+        override fun onStart() {
+            super.onStart()
+            mGoogleApiClient?.connect()
+            Handler().postDelayed({
+                automatedClick()
+            }, 1000)
 
-    }
-
-    override fun onStop() {
-        super.onStop()
-        if (mGoogleApiClient!!.isConnected()) {
-            mGoogleApiClient!!.disconnect()
         }
+
+        override fun onStop() {
+            super.onStop()
+            if (mGoogleApiClient!!.isConnected()) {
+                mGoogleApiClient!!.disconnect()
+            }
+        }
+
     }
 
 }
