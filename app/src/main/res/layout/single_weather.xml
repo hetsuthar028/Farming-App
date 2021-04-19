@@ -3,9 +3,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="60dp"
+    android:padding="7dp"
 
     >
 
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/guide1_weather"
+        app:layout_constraintGuide_percent="0.3"
+         />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide2_weather"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.45" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/guide3_weather"
+        app:layout_constraintGuide_percent="0.6"
+         />
     <!--    <TextView-->
     <!--        android:id="@+id/weather_date"-->
     <!--        android:layout_marginLeft="5dp"-->
@@ -59,16 +82,17 @@
         android:id="@+id/weatherDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
         android:text="21/01/2020"
         android:textColor="@color/colorPrimary"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/weatherIcon"
+        app:layout_constraintEnd_toStartOf="@id/guide1_weather"
         app:layout_constraintStart_toStartOf="parent"
 
         app:layout_constraintTop_toTopOf="parent" />
+
+
 
     <ImageView
         android:id="@+id/weatherIcon"
@@ -77,8 +101,8 @@
         android:src="@drawable/ic_launcher_foreground"
         app:layout_constraintBottom_toBottomOf="parent"
 
-        app:layout_constraintEnd_toStartOf="@id/weatherTemperature"
-        app:layout_constraintStart_toEndOf="@id/weatherDate"
+        app:layout_constraintEnd_toStartOf="@id/guide2_weather"
+        app:layout_constraintStart_toEndOf="@id/guide1_weather"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -90,16 +114,14 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/weatherDescription"
-        app:layout_constraintStart_toEndOf="@id/weatherIcon"
+        app:layout_constraintEnd_toStartOf="@id/guide3_weather"
+        app:layout_constraintStart_toEndOf="@id/guide2_weather"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/weatherDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
         android:inputType="textCapSentences"
         android:text="Cloudy Sky"
         android:textColor="@color/colorPrimary"
@@ -107,14 +129,14 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/weatherTemperature"
+        app:layout_constraintStart_toEndOf="@id/guide3_weather"
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginHorizontal="28dp"
-        android:background="#000000"
+        android:layout_height="0.3dp"
+        android:layout_marginHorizontal="7dp"
+        android:background="@color/fontColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -163,12 +163,6 @@ class EcommerceItemFragment : Fragment(), CellClickListener {
         var posters: ArrayList<Poster> = ArrayList()
 
 
-//        posters.add(RemoteImage("https://images.unsplash.com/photo-1611095973763-414019e72400?ixid=MXwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1051&q=80"))
-//        posters.add(RemoteImage("https://images.unsplash.com/photo-1613805829523-d0a7c663c5c2?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=701&q=80"))
-//        posters.add(RemoteImage("https://images.unsplash.com/photo-1613807871118-9e983601b759?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=675&q=80"))
-
-
-
         val allData = viewmodel.ecommLiveData.value
         val allDataLength = allData!!.size
 
@@ -189,11 +183,6 @@ class EcommerceItemFragment : Fragment(), CellClickListener {
                 var attributes = specificData.get("attributes") as Map<String, Any>
 
 
-
-//                var allAttributesKeys = ""
-
-//                var allAttrbutesValues = ""
-
                 if(attributes.contains("Color")){
                     colorLinear.visibility = View.VISIBLE
                     colorTitle.visibility = View.VISIBLE
@@ -201,9 +190,6 @@ class EcommerceItemFragment : Fragment(), CellClickListener {
                 } else{
                     colorLinear.visibility = View.GONE
                     colorTitle.visibility = View.GONE
-
-
-
                 }
 
                 var allSelectionAttributes = mutableListOf<MutableMap<String, Any>>()
@@ -235,39 +221,12 @@ class EcommerceItemFragment : Fragment(), CellClickListener {
                 progress_ecommItem.visibility = View.GONE
                 loadingText.visibility = View.GONE
 
-//                allAttributesTitle.text = allAttributesKeys + "\n"
-//                allAttributesValue.text = allAttrbutesValues + "\n"
-//                allAttributesTitle.setText(Html.fromHtml(allAttributes))
-
-//                specificData.contains()
-//                val sizeMap = mapOf<Int, Any>(
-//                    0 to listOf<TextView>(weightCardSize1, priceCardSize1),
-//                    1 to listOf<TextView>(weightCardSize2, priceCardSize2),
-//                    2 to listOf<TextView>(weightCardSize3, priceCardSize3)
-//                )
-
-//                if(attributes.contains("size")){
-//                    val sizes = attributes.get("size") as ArrayList<String>?
-//                    for(a in 0..sizes!!.size-1){
-//                        val all = sizes[a]!!.split(" ")
-//                        Log.d("EcommItem", sizeMap[1].toString())
-//                        var current = sizeMap[a] as List<TextView>
-//                        current[0].text = all[0] + " "+ all[1]
-//                        current[1].text = "\u20B9" + (specificData.get("price").toString().toInt()+ all[2].toString().toInt()).toString()
-//                    }
-//                } else{
-//                    sizeLinear.visibility = View.GONE
-//                    sizeTitle.visibility = View.GONE
-//                }
-
-
 
                 val allImages = specificData.get("imageUrl") as List<String>
                 for (a in allImages){
                     posters.add(RemoteImage("${a}"))
                 }
                 poster_slider.setPosters(posters)
-
             }
             else{
 
@@ -300,13 +259,6 @@ class EcommerceItemFragment : Fragment(), CellClickListener {
                     addToCart.isClickable = true
                 }
 
-//            for((key, value) in selectionAttribute!!){
-//                realtimeRef.child("${key}").setValue("${value}").addOnSuccessListener {
-//                    Toast.makeText(activity!!.applicationContext, "Added to Cart", Toast.LENGTH_SHORT).show()
-//                }.addOnFailureListener {
-//                    Toast.makeText(activity!!.applicationContext, "${it} : Failed to Add", Toast.LENGTH_SHORT).show()
-//                }
-//            }
         }
 
         buynow.setOnClickListener {
@@ -334,8 +286,6 @@ class EcommerceItemFragment : Fragment(), CellClickListener {
 
     override fun onCellClickListener(name: String) {
         val selectionAttributeAllData = name.split(" ") as List<Any>
-
-//        selectionAttribute!!.put(selectionAttributeAllData[1].toString(), selectionAttributeAllData[0].toString().toInt())
 
         Log.d("EcommItem", selectionAttributeAllData[0].toString())
         Log.d("EcommItem", selectionAttributeAllData[1].toString())

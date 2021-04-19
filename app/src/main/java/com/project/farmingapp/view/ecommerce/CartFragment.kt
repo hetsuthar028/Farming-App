@@ -36,11 +36,12 @@ private const val ARG_PARAM2 = "param2"
  */
 class CartFragment : Fragment(), CartItemBuy {
 
-    lateinit var prePaymentfragment:PrePaymentFragment
+    lateinit var prePaymentfragment: PrePaymentFragment
+
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    var isOpened : Boolean= false
+    var isOpened: Boolean = false
     var totalCount = 0
     var totalPrice = 0
     var items = HashMap<String, Object>()
@@ -92,12 +93,12 @@ class CartFragment : Fragment(), CartItemBuy {
         super.onViewCreated(view, savedInstanceState)
         val firebaseDatabase = FirebaseDatabase.getInstance()
         val firebaseAuth = FirebaseAuth.getInstance()
-        val cartRef = firebaseDatabase.getReference("${firebaseAuth.currentUser!!.uid}").child("cart")
+        val cartRef =
+            firebaseDatabase.getReference("${firebaseAuth.currentUser!!.uid}").child("cart")
 
         (activity as AppCompatActivity).supportActionBar?.title = "Cart"
         isOpened = true
         Log.d("Cart6", isOpened.toString())
-//
 
 //        val header = navView.getHeaderView(0);
         val postListener = object : ValueEventListener {
@@ -106,10 +107,8 @@ class CartFragment : Fragment(), CartItemBuy {
             }
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                // Get Post object and use the values to update the UI
-//                try {
 
-                if(dataSnapshot.exists()) {
+                if (dataSnapshot.exists()) {
 
                     items = dataSnapshot.value as HashMap<String, Object>
 
@@ -121,36 +120,27 @@ class CartFragment : Fragment(), CartItemBuy {
                             .toInt() * currVal.get("basePrice").toString().toInt()
                     }
 
-                    if(isOpened == true){
+                    if (isOpened == true) {
                         Log.d("Cart5", isOpened.toString())
                         totalItemsValue.text = items.size.toString()
                         totalCostValue.text = "\u20B9" + totalCartPrice.toString()
 
-//                        total = items.size
-//                        totalPrice = totalCartPrice
                     }
                     Log.d("Cart4", items.size.toString())
-//
+
                     val adapter =
                         CartItemsAdapter(activity!!.applicationContext, items, this@CartFragment)
                     recyclerCart.adapter = adapter
                     recyclerCart.layoutManager = LinearLayoutManager(activity!!.applicationContext)
                     progress_cart.visibility = View.GONE
                     loadingTitleText.visibility = View.GONE
-                    // ...
-//                }
-//                catch (e: Exception){
-//                    val items = hashMapOf<String, Object>()
-//                    val adapter =
-//                        CartItemsAdapter(activity!!.applicationContext, items, this@CartFragment)
-//                    recyclerCart.adapter = adapter
-//                    recyclerCart.layoutManager = LinearLayoutManager(activity!!.applicationContext)
-//                    totalItemsValue.text = "-"
-//                    totalCostValue.text = "-"
-//                }
-                }
-                 else{
-                    Toast.makeText(activity!!.applicationContext, "Item Not Exist", Toast.LENGTH_SHORT).show()
+
+                } else {
+                    Toast.makeText(
+                        activity!!.applicationContext,
+                        "Item Not Exist",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     progress_cart.visibility = View.GONE
                     loadingTitleText.visibility = View.GONE
                 }
@@ -159,75 +149,25 @@ class CartFragment : Fragment(), CartItemBuy {
 
 
         cartRef.addValueEventListener(postListener)
-
-//        cartRef.get().addOnCompleteListener {
-//            Log.d("CartFrag", it.result!!.value.toString())
-//            val data = it.result!!.value as Map<String, Object>
-//            Log.d("CartFrag", data.toString())
-////            if(it.result!!.value is List<>){
-////                Log.d("CartFrag", "Yes")
-////            }
-//
-////            val adapter = CartItemsAdapter(activity!!.applicationContext, data)
-////            recyclerCart.adapter = adapter
-////            recyclerCart.layoutManager = LinearLayoutManager(activity!!.applicationContext)
-//
-//            val currentData = data.entries.toTypedArray()
-//            Log.d("CartFrag2", currentData[0].toString())
-//
-//
-//
-//            val curr = currentData[0].value as Map<String, Object>
-//            Log.d("CartFrag3", curr.get("qty").toString())
-//
-//        }
-
-
-//        cartRef.get()
-
-
         buyAllBtn.setOnClickListener {
-//            prePaymentfragment = PrePaymentFragment()
-//            val bundle = Bundle()
-//
-//            val transaction = activity!!.supportFragmentManager
-//                .beginTransaction()
-//                .replace(R.id.frame_layout, prePaymentfragment)
-//                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-//                .setReorderingAllowed(true)
-//                .addToBackStack("name")
-//                .commit()
-//val TotalPrice=totalCostValue.text.toString()
-            //var products_id:ArrayList<String>
-           // products_id.add()
-//            Intent (activity!!.applicationContext, RazorPayActivity::class.java).also {
-//                it.putExtra("tp",totalPrice)
-//                it.putExtra()
-//                startActivity(it)
 
-           // }
         }
-//            totalItemsValue.text = totalCount.toString()
-//        totalCostValue.text = totalPrice.toString()
-
     }
 
     override fun addToOrders(productId: String, qty: Int, totalPrice: Int) {
-        var product_id=ArrayList<String>()
-        var item_cost=ArrayList<Int>()
-        var item_qty=ArrayList<Int>()
+        var product_id = ArrayList<String>()
+        var item_cost = ArrayList<Int>()
+        var item_qty = ArrayList<Int>()
         product_id.add(productId)
         item_cost.add(totalPrice)
         item_qty.add(qty)
-        Intent (activity!!.applicationContext, RazorPayActivity::class.java).also {
-          //  it.putExtra("tp", "123")
-            it.putStringArrayListExtra("products_id",product_id)
-            it.putIntegerArrayListExtra("items_cost",item_cost)
-            it.putIntegerArrayListExtra("items_qty",item_qty)
+        Intent(activity!!.applicationContext, RazorPayActivity::class.java).also {
+            //  it.putExtra("tp", "123")
+            it.putStringArrayListExtra("products_id", product_id)
+            it.putIntegerArrayListExtra("items_cost", item_cost)
+            it.putIntegerArrayListExtra("items_qty", item_qty)
             startActivity(it)
         }
     }
-
-
 
 }

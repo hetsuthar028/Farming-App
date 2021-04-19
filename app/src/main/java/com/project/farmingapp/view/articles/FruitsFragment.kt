@@ -52,20 +52,7 @@ class FruitsFragment : Fragment(), ArticleListener {
             .get<ArticleViewModel>(ArticleViewModel::class.java)
 
 
-//        viewModel.message1.observe(viewLifecycleOwner, Observer {
-//            Log.d("FruitFrag1", it.toString())
-//        })
-
-        Toast.makeText(activity!!.applicationContext, "To Load " + tag, Toast.LENGTH_SHORT)
-            .show()
-
         val tag = this.tag.toString()
-//
-//        if (viewModel.message1.value.isNullOrEmpty()){
-//            Log.d("I'm Called", "No")
-//        }
-
-//        viewModel.getMyArticle("${tag.toLowerCase()}")
 
         Log.d("I'm called 2", viewModel.message3.value.toString())
     }
@@ -74,74 +61,16 @@ class FruitsFragment : Fragment(), ArticleListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-//        viewModel.getMyArticle("${this.tag}")
-
-//        val progressBar = findViewById(R.id.progressArticle);
-
-//        val newData = viewModel.message3.value
-//
-//        Log.d("New data length", newData!!.size.toString())
-//        val newDataLength = newData!!.size
-//
-//        for (a in 0 until newDataLength){
-//            if (newData[a].data!!.get("title") == this.tag){
-//
-//
-//
-//                var data = newData[a].data
-//
-//
-//                val attributes: Map<String, String> = data!!.get("attributes") as Map<String, String>
-//                val desc = data!!.get("description").toString()
-//                Log.d("I'm Called3", attributes.get("Temperature").toString())
-//
-//                Log.d("I'm Called", "Yes")
-//                val diseases: List<String> = data!!.get("diseases") as List<String>
-////            Log.d("Diseases", diseases.toString())
-//                Log.d("Diseases2", data!!.get("diseases").toString())
-//                tempTextFruitFragArt.text = "s"
-//                monthTextFruitFragArt.text = attributes.get("Time").toString()
-//
-//                titleTextFruitFragArt.text = data!!.get("title").toString()
-//                descTextValueFruitFragArt.text = desc
-//                processTextValueFruitFragArt.text = data!!.get("process").toString()
-//                soilTextValueFruitFragArt.text = data!!.get("soil").toString()
-//                stateTextValueFruitFragArt.text = data!!.get("state").toString()
-//
-//                val images: List<String> = data!!.get("images") as List<String>
-//                Glide.with(this)
-//                    .load(images[0])
-//                    .into(imageFruitFragArt)
-//
-//                attr1ValueFruitFragArt.text = attributes.get("Weight").toString()
-//                attr2ValueFruitFragArt.text = attributes.get("Vitamins").toString()
-//                attr3ValueFruitFragArt.text = attributes.get("Tree Height").toString()
-//                attr4ValueFruitFragArt.text = attributes.get("growthTime").toString()
-//
-//                diseaseTextValueFruitFragArt.text = ""
-//                for (i in 0..diseases.size - 1) {
-//
-//                    diseaseTextValueFruitFragArt.text =
-//                        diseaseTextValueFruitFragArt.text.toString() +
-//                                (i + 1).toString() + ". " + diseases[i].toString() + "\n"
-//                }
-//
-//
-//
-//
-//            }
-//        }
 
         viewModel.message1.observe(viewLifecycleOwner, Observer {
             progressArticle.show()
-//            Log.d("FruitFrag1", it.toString())
+
             val attributes: Map<String, String> = it.get("attributes") as Map<String, String>
             val desc = it.get("description").toString()
 
-
             Log.d("I'm Called", "Yes")
             val diseases: List<String> = it.get("diseases") as List<String>
-//            Log.d("Diseases", diseases.toString())
+
             Log.d("Diseases2", it.get("diseases").toString())
             tempTextFruitFragArt.text = attributes.get("Temperature").toString()
             monthTextFruitFragArt.text = attributes.get("Time").toString()
@@ -169,7 +98,6 @@ class FruitsFragment : Fragment(), ArticleListener {
                     diseaseTextValueFruitFragArt.text.toString() +
                             (i + 1).toString() + ". " + diseases[i].toString() + "\n"
             }
-//            diseaseTextValueFruitFragArt.text = "\n" + diseases[diseases.size - 1].toString()
             progressArticle.hide()
         })
 
@@ -207,14 +135,13 @@ class FruitsFragment : Fragment(), ArticleListener {
 
         var toggle = 0
 
-//        progressArticle.indeterminateDrawable.setColorFilter(0xFFFF0000, android.graphics.PorterDuff.Mode.MULTIPLY);
 
         descToggleBtnFruitFragArt.setOnClickListener {
 
             if (toggle == 0) {
                 descTextValueFruitFragArt.maxLines = Integer.MAX_VALUE
                 toggle = 1
-//                descToggleBtnFruitFragArt.rotation = 180f
+
                 val rotateAnim = RotateAnimation(
                     0.0f, 180f,
                     RotateAnimation.RELATIVE_TO_SELF, 0.5f,
@@ -226,7 +153,6 @@ class FruitsFragment : Fragment(), ArticleListener {
             } else if (toggle == 1) {
                 descTextValueFruitFragArt.maxLines = 3
                 toggle = 0
-//                descToggleBtnFruitFragArt.rotation = 0f
                 val rotateAnim = RotateAnimation(
                     180f, 0f,
                     RotateAnimation.RELATIVE_TO_SELF, 0.5f,
@@ -241,7 +167,6 @@ class FruitsFragment : Fragment(), ArticleListener {
 
 
         // New
-
         val newData = viewModel.message3.value
 
         Log.d("New data length", newData!!.size.toString())
@@ -253,16 +178,15 @@ class FruitsFragment : Fragment(), ArticleListener {
 
                 var data = newData[a].data
 
-
                 val attributes: Map<String, String> =
                     data!!.get("attributes") as Map<String, String>
                 val desc = data!!.get("description").toString()
-                Log.d("I'm Called3", attributes.get("Temperature").toString())
-
-                Log.d("I'm Called", "Yes")
                 val diseases: List<String> = data!!.get("diseases") as List<String>
-//            Log.d("Diseases", diseases.toString())
+
+                Log.d("I'm Called3", attributes.get("Temperature").toString())
+                Log.d("I'm Called", "Yes")
                 Log.d("Diseases2", data!!.get("diseases").toString())
+
                 tempTextFruitFragArt.text = attributes.get("Temperature").toString()
                 monthTextFruitFragArt.text = attributes.get("Time").toString()
 
@@ -293,13 +217,6 @@ class FruitsFragment : Fragment(), ArticleListener {
             }
         }
 
-
-//        randomFruit.setOnClickListener {
-//            val hash = hashMapOf<String, Any>(
-//                "ss" to "ss"
-//            )
-////            viewModel.getMyArticle("apple")
-//        }
     }
 
     override fun onStarted() {

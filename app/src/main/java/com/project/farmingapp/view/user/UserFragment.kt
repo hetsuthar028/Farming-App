@@ -140,15 +140,9 @@ class UserFragment : Fragment(), CellClickListener {
         addAboutTextUserFrag.paintFlags = Paint.UNDERLINE_TEXT_FLAG
 
         viewModel.userProfilePostsLiveData.observe(viewLifecycleOwner, Observer {
-//            val adapter = PostListUserProfileAdapter(activity!!.applicationContext, it)
-//            userProfilePostsRecycler.adapter = adapter
-//            userProfilePostsRecycler.layoutManager = LinearLayoutManager(activity!!.applicationContext)
+
             Log.d("Some Part", it.toString())
         })
-
-
-//        userDataViewModel.getUserData(firebaseAuth.currentUser!!.email as String)
-//        var userData = userDataViewModel.userliveData.value
 
         userDataViewModel.userliveData.observe(viewLifecycleOwner, Observer {
             Log.d("User Fragment", it.data.toString())
@@ -179,13 +173,6 @@ class UserFragment : Fragment(), CellClickListener {
 
         uploadProgressBarProfile.visibility = View.GONE
         uploadBackProgressProfile.visibility = View.GONE
-
-//        uploadProfilePictureImageToDB.setOnClickListener {
-////            uploadImage2().setImageBitmap(bitmap)
-//
-//            Toast.makeText(activity!!.applicationContext, "Uploading...", Toast.LENGTH_SHORT).show()
-//            uploadProfilePictureImageToDB.visibility = View.GONE
-//        }
 
 
         uploadUserBackgroundImage.setOnClickListener {
@@ -306,32 +293,6 @@ class UserFragment : Fragment(), CellClickListener {
     }
 
 
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//
-//        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK) {
-//            if (data == null || data.data == null) {
-//                return
-//            }
-//
-//            filePath = data.data
-//            try {
-//
-//                bitmap = MediaStore.Images.Media.getBitmap(activity!!.contentResolver, filePath)
-//
-//                if(bitmap!=null){
-//                    Log.d("UserFragment", bitmap.toString())
-//                    uploadImage2().setImageBitmap(bitmap)
-//                }
-//
-//            } catch (e: IOException) {
-//                e.printStackTrace()
-//            }
-//        }
-//    }
-
-
-
     private fun uploadImage2() {
         if (filePath != null) {
             postID = UUID.randomUUID()
@@ -341,7 +302,7 @@ class UserFragment : Fragment(), CellClickListener {
             val urlTask =
                 uploadTask?.continueWithTask(Continuation<UploadTask.TaskSnapshot, Task<Uri>> { task ->
                     if (!task.isSuccessful) {
-                        Toast.makeText(activity!!.applicationContext, "Error3", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(activity!!.applicationContext, "Error in Uploading", Toast.LENGTH_SHORT).show()
                         task.exception?.let {
                             throw it
                         }
@@ -350,7 +311,7 @@ class UserFragment : Fragment(), CellClickListener {
                 })?.addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         val downloadUri = task.result
-                        Toast.makeText(activity!!.applicationContext, "Uploading1...", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(activity!!.applicationContext, "Uploading...", Toast.LENGTH_SHORT).show()
                         uploadUserPhotos(downloadUri.toString(), postID!!)
 
                     } else {
@@ -369,9 +330,7 @@ class UserFragment : Fragment(), CellClickListener {
                     uploadProfilePictureImage.visibility = View.VISIBLE
                 }
         } else {
-//            data2["uploadType"] = ""
-//            addUploadRecordWithImageToDb(null, null)
-//            Log.d("File Type 2", "Null")
+
         }
     }
 
@@ -439,12 +398,6 @@ class UserFragment : Fragment(), CellClickListener {
 
             }
             .show()
-
-//        builder.setOnShowListener{
-//            builder.getButton(AlertDialog.BUTTON_POSITIVE).setBackgroundColor(Color.TRANSPARENT)
-//            builder.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.RED)
-//            builder.getButton(AlertDialog.BUTTON_NEUTRAL).setTextColor(R.color.fontColor!!)
-//        }
 
         Toast.makeText(activity!!.applicationContext, "You Clicked" + name.toString(), Toast.LENGTH_SHORT).show()
     }
