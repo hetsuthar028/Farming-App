@@ -66,7 +66,7 @@ class RazorPayActivity : AppCompatActivity(), PaymentResultListener {
                 pincode.isNullOrEmpty() ||
                 mobile.isNullOrEmpty()
             ) {
-                Toast.makeText(this, "edjedj", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Please Add all Fields", Toast.LENGTH_LONG).show()
             }
 
             //add inputfield validation

@@ -112,16 +112,6 @@ class SMCreatePostFragment : Fragment() {
             )
         }
 
-//        uploadVideoButton.setOnClickListener {
-//            val intent = Intent()
-//            intent.type = "video/*"
-//            intent.action = Intent.ACTION_GET_CONTENT
-//            startActivityForResult(
-//                Intent.createChooser(intent, "Select Video"),
-//                PICK_IMAGE_REQUEST
-//            )
-//        }
-
         val googleLoggedUser = authUser!!.currentUser!!.displayName
         if (googleLoggedUser.isNullOrEmpty()) {
             db.collection("users").document(authUser!!.currentUser!!.email!!)
@@ -172,12 +162,6 @@ class SMCreatePostFragment : Fragment() {
                 } else if(filePath.toString().contains("videos") || filePath.toString().contains("video") || filePath.toString().contains("mp4")){
                     data2["uploadType"] = "video"
                 }
-//
-//                if (type == "jpg" || type == "png" || type == "jpeg") {
-//
-//                } else if (type == "mp4") {
-//
-//                }
 
                 Log.d("File Type 3", data2["uploadType"].toString())
                 bitmap = MediaStore.Images.Media.getBitmap(activity!!.contentResolver, filePath)

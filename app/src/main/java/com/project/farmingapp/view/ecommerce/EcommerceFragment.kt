@@ -95,21 +95,21 @@ class EcommerceFragment : Fragment(), CellClickListener {
                 R.id.chip1 -> {
                     viewmodel.loadAllEcommItems()
 
-                    Toast.makeText(context, "toast clicked1", Toast.LENGTH_LONG).show()
+//                    Toast.makeText(context, "toast clicked1", Toast.LENGTH_LONG).show()
 
                 }
                 R.id.chip2 -> {
-                    Toast.makeText(context, "toast clicked2", Toast.LENGTH_LONG).show()
+//                    Toast.makeText(context, "toast clicked2", Toast.LENGTH_LONG).show()
                     viewmodel.loadSpecificTypeEcomItem("fertilizer")
                 }
 
                 R.id.chip3 -> {
-                    Toast.makeText(context, "toast clicked3", Toast.LENGTH_LONG).show()
+//                    Toast.makeText(context, "toast clicked3", Toast.LENGTH_LONG).show()
                     viewmodel.loadSpecificTypeEcomItem("pestiside")
                 }
 
                 R.id.chip4 -> {
-                    Toast.makeText(context, "toast clicked3", Toast.LENGTH_LONG).show()
+//                    Toast.makeText(context, "toast clicked3", Toast.LENGTH_LONG).show()
                     viewmodel.loadSpecificTypeEcomItem("machine")
                 }
             }
@@ -154,15 +154,12 @@ class EcommerceFragment : Fragment(), CellClickListener {
     }
 
     override fun onCellClickListener(name: String) {
-        Toast.makeText(activity!!.applicationContext, "You Clicked on " + name, Toast.LENGTH_SHORT).show()
+//        Toast.makeText(activity!!.applicationContext, "You Clicked on " + name, Toast.LENGTH_SHORT).show()
         ecommerceItemFragment = EcommerceItemFragment()
         val bundle = Bundle()
         bundle.putString("name",name)
         ecommerceItemFragment.setArguments(bundle)
 
-
-        // Temporary
-//        val cartFragment = CartFragment()
 
         val transaction = activity!!.supportFragmentManager
             .beginTransaction()

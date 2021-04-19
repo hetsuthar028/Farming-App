@@ -30,6 +30,7 @@ import android.widget.Toolbar
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.constraintlayout.motion.widget.Debug.getLocation
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.location.LocationManagerCompat.isLocationEnabled
@@ -59,10 +60,12 @@ import com.project.farmingapp.model.data.Weather
 import com.project.farmingapp.model.data.WeatherList
 import com.project.farmingapp.model.data.WeatherRootList
 import com.project.farmingapp.view.apmc.ApmcFragment
+import com.project.farmingapp.view.articles.ArticleListFragment
 import com.project.farmingapp.view.articles.FruitsFragment
 import com.project.farmingapp.view.auth.LoginActivity
 import com.project.farmingapp.view.ecommerce.*
 import com.project.farmingapp.view.introscreen.IntroActivity
+import com.project.farmingapp.view.socialmedia.SMCreatePostFragment
 import com.project.farmingapp.view.socialmedia.SocialMediaPostsFragment
 import com.project.farmingapp.view.user.UserFragment
 import com.project.farmingapp.view.weather.WeatherFragment
@@ -80,8 +83,11 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import java.util.*
+import kotlin.collections.HashMap
+
 
 class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, com.google.android.gms.location.LocationListener {
+
     lateinit var cartFragment: CartFragment
     lateinit var myOrdersFragment: MyOrdersFragment
     lateinit var ecommerceItemFragment: EcommerceItemFragment
@@ -114,9 +120,11 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     private val UPDATE_INTERVAL = (2 * 1000).toLong()  /* 10 secs */
     private val FASTEST_INTERVAL: Long = 2000 /* 2 sec */
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
+
 
         val binding: ActivityDashboardBinding =
             DataBindingUtil.setContentView(this, R.layout.activity_dashboard)
@@ -170,24 +178,21 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         }
 
 
-
         viewModel.getUserData(firebaseAuth.currentUser!!.email as String)
 
         navView.setNavigationItemSelectedListener(this)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        supportActionBar?.title = "Farming App"
 
-        ecommerceItemFragment = EcommerceItemFragment()
+        supportActionBar?.title = "Agri India"
+
         dashboardFragment = dashboardFragment()
-        weatherFragment = WeatherFragment()
-
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.frame_layout, dashboardFragment, "userDash")
+            .replace(R.id.frame_layout, dashboardFragment, "dashFrag")
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             .setReorderingAllowed(true)
-            .addToBackStack("userDash")
+            .addToBackStack("dashFrag")
             .commit()
 
         bottomNav.selectedItemId = R.id.bottomNavHome
@@ -199,7 +204,6 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         }
 
         something.setOnClickListener {
-            Toast.makeText(this, "You Clicked Slider", Toast.LENGTH_LONG).show()
 
             if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
                 drawerLayout.closeDrawer(GravityCompat.START)
@@ -207,7 +211,13 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 super.onBackPressed()
             }
             userFragment = UserFragment()
-            setCurrentFragment(userFragment)
+            supportFragmentManager.beginTransaction().apply {
+                replace(R.id.frame_layout, userFragment, "userFrag")
+                setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                setReorderingAllowed(true)
+                addToBackStack("userFrag")
+                commit()
+            }
         }
 
         apmcFragment = ApmcFragment()
@@ -217,12 +227,51 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         cartFragment = CartFragment()
         myOrdersFragment = MyOrdersFragment()
 
+        ecommerceItemFragment = EcommerceItemFragment()
+
+        weatherFragment = WeatherFragment()
+
+
         bottomNav.setOnNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.bottomNavAPMC -> setCurrentFragment(apmcFragment)
-                R.id.bottomNavHome -> setCurrentFragment(dashboardFragment)
-                R.id.bottomNavEcomm -> setCurrentFragment(ecommerceFragment)
-                R.id.bottomNavPost -> setCurrentFragment(socialMediaPostFragment)
+                R.id.bottomNavAPMC -> {
+                    supportFragmentManager.beginTransaction().apply {
+                        replace(R.id.frame_layout, apmcFragment, "apmcFrag")
+                        setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        setReorderingAllowed(true)
+                        addToBackStack("apmcFrag")
+                        commit()
+                    }
+                }
+                R.id.bottomNavHome -> {
+                    supportFragmentManager.beginTransaction().apply {
+                        replace(R.id.frame_layout, dashboardFragment, "dashFrag")
+                        setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        setReorderingAllowed(true)
+                        addToBackStack("dashFrag")
+                        commit()
+                    }
+                }
+                R.id.bottomNavEcomm -> {
+                    ecommerceFragment = EcommerceFragment()
+                    supportFragmentManager.beginTransaction().apply {
+                        replace(R.id.frame_layout, ecommerceFragment, "ecommItemFrag")
+                        setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        setReorderingAllowed(true)
+                        addToBackStack("ecommItemFrag")
+                        commit()
+                    }
+                }
+                R.id.bottomNavPost -> {
+                    socialMediaPostFragment = SocialMediaPostsFragment()
+                    supportFragmentManager.beginTransaction().apply {
+                        replace(R.id.frame_layout, socialMediaPostFragment, "ecommItemFrag")
+                        setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        setReorderingAllowed(true)
+                        addToBackStack("ecommItemFrag")
+                        commit()
+                    }
+                }
             }
             true
         }
@@ -253,8 +302,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
     private fun setCurrentFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction().apply {
-            replace(R.id.frame_layout, fragment)
-
+            replace(R.id.frame_layout, fragment, "name")
             setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             setReorderingAllowed(true)
             addToBackStack("name")
@@ -273,30 +321,78 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         when (item.itemId) {
 
             R.id.miItem1 -> {
-                if (supportFragmentManager.findFragmentByTag("name") == null) {
-                    fruitsFragment = FruitsFragment()
-                    supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.frame_layout, fruitsFragment, "article")
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                        .setReorderingAllowed(true)
-                        .addToBackStack("article")
-                        .commit()
-                }
+                ecommerceFragment = EcommerceFragment()
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.frame_layout, ecommerceFragment, "ecommList")
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .setReorderingAllowed(true)
+                    .addToBackStack("ecommList")
+                    .commit()
             }
 
+            R.id.miItem2 -> {
+                apmcFragment = ApmcFragment()
+                bottomNav.selectedItemId = R.id.bottomNavAPMC
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.frame_layout, apmcFragment, "apmcFrag")
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .setReorderingAllowed(true)
+                    .addToBackStack("apmcFrag")
+                    .commit()
+
+            }
+            R.id.miItem3 -> {
+                val smCreatePostFragment = SMCreatePostFragment()
+                bottomNav.selectedItemId = R.id.bottomNavAPMC
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.frame_layout, smCreatePostFragment, "createPostFrag")
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .setReorderingAllowed(true)
+                    .addToBackStack("createPostFrag")
+                    .commit()
+
+            }
             R.id.miItem4 -> {
-                if (supportFragmentManager.findFragmentByTag("name") == null) {
-                    apmcFragment = ApmcFragment()
-                    bottomNav.selectedItemId = R.id.bottomNavAPMC
-                    supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.frame_layout, apmcFragment, "name1")
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                        .setReorderingAllowed(true)
-                        .addToBackStack("name")
-                        .commit()
-                }
+                socialMediaPostFragment = SocialMediaPostsFragment()
+                bottomNav.selectedItemId = R.id.bottomNavAPMC
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.frame_layout, socialMediaPostFragment, "socialMediaFrag")
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .setReorderingAllowed(true)
+                    .addToBackStack("socialMediaFrag")
+                    .commit()
+
+            }
+            R.id.miItem5 -> {
+                weatherFragment = WeatherFragment()
+                bottomNav.selectedItemId = R.id.bottomNavAPMC
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.frame_layout, weatherFragment, "weatherFrag")
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .setReorderingAllowed(true)
+                    .addToBackStack("weatherFrag")
+                    .commit()
+
+            }
+            R.id.miItem6 -> {
+                val articleListFragment = ArticleListFragment()
+                bottomNav.selectedItemId = R.id.bottomNavAPMC
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.frame_layout, articleListFragment, "articleFrag")
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .setReorderingAllowed(true)
+                    .addToBackStack("articleFrag")
+                    .commit()
+
+            }
+            R.id.miItem7 -> {
+
             }
             R.id.miItem8 -> {
                 val builder = AlertDialog.Builder(this)
@@ -304,7 +400,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                     .setMessage("Do you want to logout?")
                     .setPositiveButton("Yes") { dialogInterface, i ->
                         firebaseAuth.signOut()
-                        Toast.makeText(this, "Logged Out", Toast.LENGTH_LONG).show()
+//                        Toast.makeText(this, "Logged Out", Toast.LENGTH_LONG).show()
                         Intent(this, LoginActivity::class.java).also {
                             startActivity(it)
                         }
@@ -313,39 +409,28 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                     }
                     .show()
             }
-            R.id.miItem7 -> {
 
-            }
         }
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
 
-    override fun onBackPressed() {
-        if (dashboardFragment.isVisible) {
-            if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-                drawerLayout.closeDrawer(GravityCompat.START)
-            } else {
-                super.onBackPressed()
-            }
-        }
-    }
 
-
-        fun automatedClick() {
+    fun automatedClick() {
 
             if (!checkGPSEnabled()) {
                 return
             }
 
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                if (ContextCompat.checkSelfPermission(
-                        this,
-                        Manifest.permission.ACCESS_FINE_LOCATION
-                    ) == PackageManager.PERMISSION_GRANTED
-                ) {
-                    //Location Permission already granted
-                    getLocation();
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                ) == PackageManager.PERMISSION_GRANTED
+            ) {
+                //Location Permission already granted
+                getLocation();
+
 
                 } else {
                     //Request Location Permission
@@ -362,22 +447,27 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 return
             }
 
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                if (ContextCompat.checkSelfPermission(
-                        this,
-                        Manifest.permission.ACCESS_FINE_LOCATION
-                    ) == PackageManager.PERMISSION_GRANTED
-                ) {
-                    //Location Permission already granted
-                    getLocation();
-                } else {
-                    //Request Location Permission
-                    checkLocationPermission()
-                }
+
+
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                ) == PackageManager.PERMISSION_GRANTED
+            ) {
+                //Location Permission already granted
+                getLocation();
+
             } else {
                 getLocation();
             }
         }
+
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun getLocation() {
+        mLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
 
         @SuppressLint("MissingPermission")
         private fun getLocation() {
@@ -410,6 +500,26 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             }
         }
 
+        if (mLocation != null) {
+//            Toast.makeText(this, "Lat: " + mLocation!!.latitude.toString(), Toast.LENGTH_SHORT)
+//                .show()
+//            Toast.makeText(
+//                this,
+//                "Long: " + mLocation!!.longitude.toString(),
+//                Toast.LENGTH_SHORT
+//            ).show()
+
+            val coords = mutableListOf<String>()
+            val geocoder = Geocoder(this, Locale.getDefault())
+            val addresses: List<Address> =
+                geocoder.getFromLocation(mLocation!!.latitude, mLocation!!.longitude, 1)
+
+            coords.add(mLocation!!.latitude.toString())
+            coords.add(mLocation!!.longitude.toString())
+            coords.add(addresses[0].locality.toString())
+            weatherViewModel.updateCoordinates(coords)
+
+
         private fun startLocationUpdates() {
             // Create the location request
             mLocationRequest = LocationRequest.create()
@@ -434,9 +544,35 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             )
         }
 
-        override fun onLocationChanged(p0: Location?) {
-            TODO("Not yet implemented")
+    }
+
+    private fun startLocationUpdates() {
+        // Create the location request
+        mLocationRequest = LocationRequest.create()
+            .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+            .setInterval(UPDATE_INTERVAL)
+            .setFastestInterval(FASTEST_INTERVAL)
+        // Request location updates
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            return
         }
+        LocationServices.FusedLocationApi.requestLocationUpdates(
+            mGoogleApiClient,
+            mLocationRequest,
+            this
+        )
+    }
+
+    override fun onLocationChanged(p0: Location?) {
+        TODO("Not yet implemented")
+    }
 
         @Synchronized
         private fun buildGoogleApiClient() {
@@ -454,78 +590,65 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             return isLocationEnabled()
         }
 
-        private fun showAlert() {
-            val dialog = android.app.AlertDialog.Builder(this)
-            dialog.setTitle("Enable Location")
-                .setMessage("Your Locations Settings is set to 'Off'.\nPlease Enable Location to use this app!")
-                .setPositiveButton("Location Settings") { paramDialogInterface, paramInt ->
-                    val myIntent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-                    startActivity(myIntent)
-                }
-                .setNegativeButton("Cancel") { paramDialogInterface, paramInt -> }
-            dialog.show()
-        }
 
-        private fun isLocationEnabled(): Boolean {
-            var locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-            return locationManager!!.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager!!.isProviderEnabled(
-                LocationManager.NETWORK_PROVIDER
-            )
-        }
+    private fun isLocationEnabled(): Boolean {
+        var locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        return locationManager!!.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager!!.isProviderEnabled(
+            LocationManager.NETWORK_PROVIDER
+        )
+    }
 
-        private fun checkLocationPermission() {
-            if (ContextCompat.checkSelfPermission(
+    private fun checkLocationPermission() {
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(
                     this,
                     Manifest.permission.ACCESS_FINE_LOCATION
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                if (ActivityCompat.shouldShowRequestPermissionRationale(
-                        this,
-                        Manifest.permission.ACCESS_FINE_LOCATION
-                    )
-                ) {
-                    android.app.AlertDialog.Builder(this)
-                        .setTitle("Location Permission Needed")
-                        .setMessage("This app needs the Location Permissions!\nPlease accept to use location functionality.")
-                        .setPositiveButton("OK", DialogInterface.OnClickListener { dialog, which ->
-                            ActivityCompat.requestPermissions(
-                                this,
-                                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                                REQUEST_LOCATION_CODE
-                            )
-                        })
-                        .create()
-                        .show()
-
-                } else ActivityCompat.requestPermissions(
-                    this,
-                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                    REQUEST_LOCATION_CODE
                 )
-            }
+            ) {
+                android.app.AlertDialog.Builder(this)
+                    .setTitle("Location Permission Needed")
+                    .setMessage("This app needs the Location Permissions!\nPlease accept to use location functionality.")
+                    .setPositiveButton("OK", DialogInterface.OnClickListener { dialog, which ->
+                        ActivityCompat.requestPermissions(
+                            this,
+                            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                            REQUEST_LOCATION_CODE
+                        )
+                    })
+                    .create()
+                    .show()
+
+            } else ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                REQUEST_LOCATION_CODE
+            )
+
         }
 
-        override fun onRequestPermissionsResult(
-            requestCode: Int,
-            permissions: Array<String>,
-            grantResults: IntArray
-        ) {
-            when (requestCode) {
-                REQUEST_LOCATION_CODE -> {
-                    // If request is cancelled, the result arrays are empty.
-                    if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                        // permission was granted, yay! Do the location-related task you need to do.
-                        if (ContextCompat.checkSelfPermission(
-                                this,
-                                Manifest.permission.ACCESS_FINE_LOCATION
-                            ) == PackageManager.PERMISSION_GRANTED
-                        ) {
-                            Toast.makeText(this, "Permission Granted", Toast.LENGTH_LONG).show()
-                            automatedClick()
-                        }
-                    } else {
-                        // permission denied, boo! Disable the functionality that depends on this permission.
-                        Toast.makeText(this, "Permission Denied", Toast.LENGTH_LONG).show()
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        when (requestCode) {
+            REQUEST_LOCATION_CODE -> {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission was granted, yay! Do the location-related task you need to do.
+                    if (ContextCompat.checkSelfPermission(
+                            this,
+                            Manifest.permission.ACCESS_FINE_LOCATION
+                        ) == PackageManager.PERMISSION_GRANTED
+                    ) {
+                        Toast.makeText(this, "Permission Granted", Toast.LENGTH_LONG).show()
+                        automatedClick()
+
                     }
                     return
                 }
@@ -547,5 +670,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 mGoogleApiClient!!.disconnect()
             }
         }
+
+    }
 
 }
