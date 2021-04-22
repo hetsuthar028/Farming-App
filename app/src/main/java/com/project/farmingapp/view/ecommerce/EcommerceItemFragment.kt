@@ -29,6 +29,9 @@ import com.project.farmingapp.model.data.CartItem
 import com.project.farmingapp.utilities.CellClickListener
 import com.project.farmingapp.viewmodel.EcommViewModel
 import kotlinx.android.synthetic.main.fragment_ecommerce_item.*
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -49,7 +52,7 @@ class EcommerceItemFragment : Fragment(), CellClickListener {
     private var currentItemId: Any?= null
     lateinit var realtimeDatabase: FirebaseDatabase
     lateinit var firebaseAuth: FirebaseAuth
-
+    val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -239,14 +242,14 @@ class EcommerceItemFragment : Fragment(), CellClickListener {
             loadingText.text = "Adding to Cart..."
             loadingText.visibility = View.GONE
             val realtimeRef = realtimeDatabase.getReference("${firebaseAuth.currentUser!!.uid}").child("cart").child("${currentItemId}")
-            val basePrice = productPrice.text.toString().split("₹") as List<String>
-            selectionAttribute!!.put("qty", quantityCountEcomm.text.toString().toInt())
-            selectionAttribute.put("basePrice", basePrice[1].toString().toInt())
-            selectionAttribute.put("delCharge", deliverycost.text.toString().toInt())
 
-            realtimeRef.setValue(CartItem(quantityCountEcomm.text.toString().toInt(), basePrice[1].toString().toInt(), deliverycost.text.toString().toInt()))
+//            selectionAttribute!!.put("quantity", quantityCountEcomm.text.toString().toInt())
+//            selectionAttribute.put("basePrice", productPrice.text.toString().toInt())
+//            selectionAttribute.put("delCharge", deliverycost.text.toString().toInt())
+
+            val currentDateTime = sdf.format(Date())
+            realtimeRef.setValue(CartItem(quantityCountEcomm.text.toString().toInt(), currentDateTime.toString()))
                 .addOnCompleteListener {
-
                     Toast.makeText(activity!!.applicationContext, "Item Added", Toast.LENGTH_SHORT).show()
                     progress_ecommItem.visibility = View.GONE
                     loadingText.visibility = View.GONE
@@ -262,22 +265,23 @@ class EcommerceItemFragment : Fragment(), CellClickListener {
         }
 
         buynow.setOnClickListener {
-            var product_id = ArrayList<String>()
-            var item_cost=ArrayList<Int>()
-            var item_qty=ArrayList<Int>()
+//            var product_id = ArrayList<String>()
+//            var item_cost=ArrayList<Int>()
+//            var item_qty=ArrayList<Int>()
             val productPrice = productPrice.text.toString().split("₹") as ArrayList<String>
 
 
-            var totalPrice = quantityCountEcomm.text.toString().toInt()*productPrice[1].toString().toInt() + deliverycost.text.toString().toInt()
+//            var totalPrice = quantityCountEcomm.text.toString().toInt()*productPrice[1].toString().toInt() + deliverycost.text.toString().toInt()
 
-            product_id.add(currentItemId as String)
-            item_cost.add(totalPrice)
-            item_qty.add(quantityCountEcomm.text.toString().toInt())
+//            product_id.add(currentItemId as String)
+//            item_cost.add(totalPrice)
+//            item_qty.add(quantityCountEcomm.text.toString().toInt())
 
             Intent(activity!!.applicationContext, RazorPayActivity::class.java).also {
-                it.putStringArrayListExtra("products_id",product_id)
-                it.putIntegerArrayListExtra("items_cost",item_cost)
-                it.putIntegerArrayListExtra("items_qty",item_qty)
+                it.putExtra("productId",currentItemId.toString())
+                it.putExtra("itemCost",productPrice[1].toString())
+                it.putExtra("quantity", quantityCountEcomm.text.toString())
+                it.putExtra("deliveryCost", deliverycost.text.toString())
                 startActivity(it)
             }
 

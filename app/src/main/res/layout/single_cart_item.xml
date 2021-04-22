@@ -111,7 +111,7 @@
                         android:foregroundTint="#000"
                         android:layout_height="30dp"
                         android:backgroundTint="#00FFFFFF"
-                        app:srcCompat="@drawable/add_icon"
+                        app:srcCompat="@drawable/minus_icon"
                         />
 
 
@@ -135,13 +135,29 @@
                 android:id="@+id/deliveryChargeCart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="7dp"
-                android:text="Delivery Charge: ₹18"
+                app:layout_constraintTop_toTopOf="@id/deliveryChargeTitle"
+                android:text="Loading..."
                 android:textColor="@color/fontColor"
                 android:textSize="10sp"
+                android:layout_marginHorizontal="1dp"
                 android:textStyle="italic"
-                app:layout_constraintStart_toEndOf="@id/cartItemImage"
+                app:layout_constraintStart_toEndOf="@id/deliveryChargeTitle"
                 app:layout_constraintTop_toBottomOf="@id/quantityChangeCard" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:textColor="@color/fontColor"
+                android:layout_marginVertical="7dp"
+                android:layout_marginStart="7dp"
+                app:layout_constraintStart_toEndOf="@id/cartItemImage"
+                app:layout_constraintTop_toBottomOf="@id/quantityChangeCard"
+                android:textStyle="italic"
+                android:id="@+id/deliveryChargeTitle"
+                android:text="Delivery Charge: ₹"
+                />
 
             <TextView
                 android:id="@+id/cartItemFirm"

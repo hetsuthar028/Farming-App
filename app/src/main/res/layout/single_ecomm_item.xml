@@ -38,18 +38,17 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:textColor="@color/fontColor"
                 android:id="@+id/ecommtitle"
-                app:layout_constraintBottom_toTopOf="@id/ecommPrice"
-                android:fontFamily="@font/lato_bold"
                 android:layout_width="0dp"
-                android:justificationMode="inter_word"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="7dp"
                 android:layout_marginTop="5dp"
-                android:text="Swaraj Tractor 774 3E"
+                android:justificationMode="inter_word"
+                android:text="Greatindos Premium Quality GRADE A NPK, Hydroponic Fertilizer"
+                android:textColor="@color/fontColor"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/ecommPrice"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/ecommImage"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -64,8 +63,8 @@
                 android:textColor="@color/colorPrimary"
                 android:textSize="24dp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@id/ecommImage"
                 app:layout_constraintBottom_toTopOf="@id/ecommRating"
+                app:layout_constraintStart_toEndOf="@id/ecommImage"
                 app:layout_constraintTop_toBottomOf="@id/ecommtitle" />
 
             <RatingBar
@@ -82,33 +81,30 @@
                 app:layout_constraintTop_toBottomOf="@id/ecommPrice" />
 
             <TextView
-                android:textColor="@color/fontColor"
                 android:id="@+id/ecommretailer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
-                android:text="india pvt ltd"
                 android:layout_marginBottom="3.5dp"
+                android:text="india pvt ltd"
+                android:textColor="@color/fontColor"
                 android:textSize="10sp"
                 android:textStyle="italic"
-                app:layout_constraintStart_toEndOf="@id/ecommImage"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ecommImage"
                 app:layout_constraintTop_toBottomOf="@id/ecommRating" />
 
             <TextView
-                android:layout_margin="7dp"
-                android:textColor="@color/fontColor"
-                android:id="@+id/ecommstock"
+                android:id="@+id/ecommItemAvailability"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-
+                android:layout_margin="7dp"
                 android:text="In Stock"
+                android:textColor="@color/fontColor"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                 />
+                app:layout_constraintEnd_toEndOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
