@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/currentWeatherContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="250dp"
+        android:layout_height="265dp"
+        android:outlineSpotShadowColor="@color/fontColor"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/secondary"
+            android:paddingTop="20dp">
+
+            <TextView
+                android:id="@+id/todayTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Today 12:00 PM"
+                android:textColor="@color/fontColor"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:src="@drawable/ic_launcher_foreground"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/todayTitle" />
+
+            <TextView
+                android:id="@+id/temp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="26*C"
+                android:textColor="@color/fontColor"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/icon" />
+
+            <TextView
+                android:id="@+id/desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:text="Cloudy Sky"
+                android:textColor="@color/fontColor"
+                android:textSize="20sp"
+
+                app:layout_constraintBottom_toTopOf="@id/icon2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/temp" />
+
+
+            <ImageView
+                android:id="@+id/icon2"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginVertical="7dp"
+                android:src="@drawable/ic_low_temp"
+                app:layout_constraintBottom_toTopOf="@id/minTemp"
+                app:layout_constraintEnd_toStartOf="@id/icon3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/desc" />
+
+            <TextView
+                android:id="@+id/minTemp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="2dp"
+                android:text="18*C"
+                android:textColor="@color/fontColor"
+                app:layout_constraintEnd_toEndOf="@id/icon2"
+                app:layout_constraintStart_toStartOf="@id/icon2"
+                app:layout_constraintTop_toBottomOf="@id/icon2" />
+
+
+            <ImageView
+                android:id="@+id/icon3"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_high_temp"
+                app:layout_constraintBottom_toBottomOf="@id/icon2"
+                app:layout_constraintBottom_toTopOf="@id/maxTemp"
+                app:layout_constraintEnd_toStartOf="@id/icon4"
+                app:layout_constraintStart_toEndOf="@id/icon2"
+                app:layout_constraintTop_toTopOf="@id/icon2" />
+
+            <TextView
+                android:id="@+id/maxTemp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="2dp"
+                android:text="34*C"
+                android:textColor="@color/fontColor"
+                app:layout_constraintEnd_toEndOf="@id/icon3"
+                app:layout_constraintStart_toStartOf="@id/icon3"
+                app:layout_constraintTop_toBottomOf="@id/icon3" />
+
+            <ImageView
+                android:id="@+id/icon4"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_humidity"
+                app:layout_constraintBottom_toBottomOf="@id/icon2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/icon3"
+                app:layout_constraintTop_toTopOf="@id/icon2" />
+
+            <TextView
+                android:id="@+id/humidity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="2dp"
+                android:text="70%"
+                android:textColor="@color/fontColor"
+                app:layout_constraintEnd_toEndOf="@id/icon4"
+                app:layout_constraintStart_toStartOf="@id/icon4"
+                app:layout_constraintTop_toBottomOf="@id/icon4" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

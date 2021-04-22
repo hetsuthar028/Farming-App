@@ -5,8 +5,22 @@ apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs"
 apply plugin: 'com.google.gms.google-services'
 
+repositories {
+
+    mavenCentral()
+
+    flatDir {
+        dirs 'libs'
+    }
+}
 
 android {
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
 
@@ -58,6 +72,8 @@ dependencies {
     // ViewModel and LiveData
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
 
+    //Location
+    implementation 'com.google.android.gms:play-services-location:18.0.0'
 
 // New Material Design
     implementation 'com.google.android.material:material:1.1.0-alpha07'
@@ -79,4 +95,30 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore:21.5.0'
     implementation 'com.google.firebase:firebase-storage:19.1.1'
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
+
+    //Picasso
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
+    //Glide
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+
+    implementation 'com.littlemango:stacklayoutmanager:1.0.5'
+
+    implementation 'com.azoft.carousellayoutmanager:carousel:1.4.4'
+
+    implementation "com.jakewharton:butterknife:10.1.0"
+    annotationProcessor "com.jakewharton:butterknife-compiler:10.1.0"
+
+
+    //carossal
+    implementation 'com.github.mohan-dev1248:PosterSlider:1.0.2'
+
+    //Realtime
+    implementation 'com.google.firebase:firebase-database-ktx'
+
+    //RazorPay
+    implementation 'com.razorpay:checkout:1.5.16'
+
+
 }

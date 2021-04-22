@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.apmc.ApmcFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/apmcSearchBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:textColor="@color/fontColor"
+            android:layout_marginEnd="20dp"
+            android:text="State : "
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/apmcSearchBar2"
+            app:layout_constraintEnd_toStartOf="@id/guide1"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <Spinner
+            android:id="@+id/spinner1"
+            android:layout_width="150dp"
+            android:layout_height="0dp"
+
+            android:layout_marginStart="20dp"
+            android:spinnerMode="dialog"
+            app:layout_constraintBottom_toBottomOf="@id/apmcSearchBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guide1"
+            app:layout_constraintTop_toTopOf="@id/apmcSearchBar" />
+
+        <TextView
+            android:id="@+id/apmcSearchBar2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:text="District : "
+            android:textColor="@color/fontColor"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/hr1Apmc"
+            app:layout_constraintEnd_toStartOf="@id/guide1"
+
+            android:layout_marginEnd="20dp"
+            app:layout_constraintTop_toBottomOf="@id/apmcSearchBar" />
+
+        <Spinner
+            android:id="@+id/spinner2"
+            android:layout_width="150dp"
+            android:layout_height="21dp"
+            android:layout_marginStart="20dp"
+            android:spinnerMode="dialog"
+
+            app:layout_constraintBottom_toBottomOf="@id/apmcSearchBar2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guide1"
+            app:layout_constraintTop_toTopOf="@id/apmcSearchBar2" />
+
+        <!--        <androidx.appcompat.widget.SearchView-->
+        <!--            android:id="@+id/apmcSearchBar"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginVertical="10dp"-->
+        <!--            app:layout_constraintBottom_toTopOf="@id/hr1Apmc"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guide1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.39" />
+
+        <TextView
+            android:id="@+id/dateTextApmc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Last Updated: "
+            android:textColor="@color/fontColor"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/dateValueTextApmc"
+            app:layout_constraintTop_toBottomOf="@id/hr1Apmc" />
+
+        <TextView
+            android:id="@+id/dateValueTextApmc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="17dp"
+            android:layout_marginVertical="5dp"
+            android:text="29/01/2021"
+            android:textColor="@color/fontColor"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/dateTextApmc"
+            app:layout_constraintEnd_toEndOf="parent"
+
+            app:layout_constraintTop_toTopOf="@id/dateTextApmc" />
+
+        <View
+            android:id="@+id/hr1Apmc"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="12dp"
+            android:background="#202124"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/apmcSearchBar2" />
+
+        <TextView
+            android:id="@+id/textAPMCWarning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/hr1Apmc"
+            android:textSize="21sp"
+            android:textStyle="bold|italic"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="Please Select State and District"
+            android:textColor="@color/fontColor"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycleAPMC"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="7dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dateTextApmc"
+            tools:listitem="@layout/apmc_single_list" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</FrameLayout>

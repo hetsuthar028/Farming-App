@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".view.ecommerce.PaymentFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <TextView
+            android:id="@+id/paymentFragTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="14dp"
+            android:text="Order Payment"
+            app:layout_constraintBottom_toTopOf="@id/addressEditPayment"
+
+            android:textColor="#000"
+            android:textSize="21sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+
+            />
+
+
+        <EditText
+            android:id="@+id/addressEditPayment"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="7dp"
+            android:background="@drawable/edit_back"
+            android:drawableRight="@drawable/dash_home"
+            android:hint="Address"
+            android:padding="10dp"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="#FF404A3A"
+            android:textSize="18dp"
+            app:layout_constraintBottom_toTopOf="@id/pinEditPayment"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/paymentFragTitle" />
+
+
+        <EditText
+            android:id="@+id/pinEditPayment"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="7dp"
+            android:background="@drawable/edit_back"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="#FF404A3A"
+            android:hint="Pin Code"
+            android:inputType="number"
+            android:padding="10dp"
+            app:layout_constraintBottom_toTopOf="@id/phoneEditPayment"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/addressEditPayment" />
+
+
+        <EditText
+            android:id="@+id/phoneEditPayment"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="7dp"
+            android:background="@drawable/edit_back"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="#FF404A3A"
+            android:hint="Phone Number"
+            android:inputType="phone"
+            android:padding="10dp"
+            app:layout_constraintBottom_toTopOf="@id/paymentOptTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pinEditPayment" />
+
+
+        <!--    <View-->
+        <!--        android:id="@+id/hrPayment"-->
+        <!--        android:layout_width="match_parent"-->
+        <!--        app:layout_constraintBottom_toTopOf="@id/paymentOptTitle"-->
+        <!--        app:layout_constraintTop_toBottomOf="@id/phoneEditPaymentContainer"-->
+        <!--        android:layout_marginHorizontal="18dp"-->
+        <!--        android:layout_marginVertical="14dp"-->
+        <!--        android:layout_height="2dp"-->
+        <!--        android:background="@color/colorPrimary"-->
+        <!--        />-->
+
+        <TextView
+            android:id="@+id/paymentOptTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="7dp"
+            android:layout_marginVertical="7dp"
+            android:text="Payment Method"
+            android:textColor="@color/colorThird"
+            android:textSize="18dp"
+
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/paymentOptionsRadioGroup"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/phoneEditPayment" />
+
+
+        <RadioGroup
+            android:id="@+id/paymentOptionsRadioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="14dp"
+            android:layout_marginVertical="14dp"
+            android:foregroundGravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@id/paymentOptionsRadioGroup"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/paymentOptTitle">
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="E-Wallet" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Debit Card" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Cash on Delivery" />
+
+        </RadioGroup>
+
+        <ImageView
+            android:id="@+id/rupayCardImage"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="14dp"
+
+            android:src="@drawable/rupaycard"
+            app:layout_constraintEnd_toStartOf="@id/masterCard"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/paymentOptionsRadioGroup" />
+
+        <ImageView
+            android:id="@+id/masterCard"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="14dp"
+
+            android:scaleType="fitXY"
+            android:src="@drawable/master"
+            android:paddingHorizontal="7dp"
+            android:paddingVertical="4dp"
+            app:layout_constraintEnd_toStartOf="@id/visaCard"
+            app:layout_constraintStart_toEndOf="@id/rupayCardImage"
+            app:layout_constraintTop_toBottomOf="@id/paymentOptionsRadioGroup" />
+
+        <ImageView
+            android:id="@+id/visaCard"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="14dp"
+
+            android:src="@drawable/visa"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/masterCard"
+            app:layout_constraintTop_toBottomOf="@id/paymentOptionsRadioGroup" />
+
+
+        <EditText
+            android:id="@+id/cardNumberEditPayment"
+            android:layout_width="match_parent"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="#FF404A3A"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="21dp"
+            android:layout_marginBottom="7dp"
+            android:background="@drawable/edit_back"
+            android:hint="Card Number"
+            android:inputType="number"
+            android:padding="10dp"
+            app:layout_constraintBottom_toTopOf="@id/cardHolderNameEditPayment"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rupayCardImage" />
+
+
+        <EditText
+            android:id="@+id/cardHolderNameEditPayment"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="7dp"
+            android:background="@drawable/edit_back"
+            android:padding="10dp"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="#FF404A3A"
+            android:hint="Card Holder Name"
+            android:inputType="text"
+            app:layout_constraintBottom_toTopOf="@id/cvvEditPayment"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardNumberEditPayment" />
+
+
+        <EditText
+            android:id="@+id/cvvEditPayment"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="14dp"
+            android:background="@drawable/edit_back"
+            android:hint="CVV"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="#FF404A3A"
+            android:padding="10dp"
+            android:inputType="numberPassword"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardHolderNameEditPayment" />
+
+
+        <EditText
+            android:id="@+id/expiryDateEditPayment"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:padding="10dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="14dp"
+            android:background="@drawable/edit_back"
+            android:hint="Expiry Date"
+            android:inputType="date"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="#FF404A3A"
+            app:layout_constraintTop_toBottomOf="@id/cardHolderNameEditPayment" />
+
+
+        <Button
+            android:id="@+id/orderNowBtn"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="7dp"
+            android:backgroundTint="@color/colorThird"
+            android:background="@drawable/round_borderless_general"
+            android:text="Order Now"
+            android:textAllCaps="false"
+            android:textColor="#fff"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

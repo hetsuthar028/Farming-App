@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.user.UserFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imageEdit"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:elevation="0.1dp"
+            android:layout_margin="14sp"
+            android:src="@drawable/ic_baseline_edit_24"
+            app:tint="@color/fontColor" />
+
+        <ImageView
+            android:id="@+id/imageChecked"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:elevation="0.1dp"
+            android:layout_margin="14sp"
+            android:src="@drawable/ic_baseline_check_24"
+            app:tint="@color/fontColor" />
+
+        <ImageView
+            android:id="@+id/userBackgroundImage"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+
+            android:scaleType="fitXY"
+            android:background="@color/secondary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/uploadUserBackgroundImage"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintBottom_toBottomOf="@id/userBackgroundImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:src="@drawable/ic_baseline_photo_camera_24"
+            app:layout_constraintTop_toTopOf="@id/userBackgroundImage"
+            app:tint="@color/colorPrimary" />
+
+        <ProgressBar
+            android:id="@+id/uploadBackProgressProfile"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintBottom_toBottomOf="@id/userBackgroundImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/userBackgroundImage"
+            />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/userImageCardUserFrag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="150dp"
+            app:cardCornerRadius="14dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/userImageUserFrag"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:scaleType="fitXY"
+                android:src="@color/colorPrimary" />
+
+            <ImageView
+                android:id="@+id/uploadProfilePictureImage"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_baseline_photo_camera_24" />
+
+            <ProgressBar
+                android:id="@+id/uploadProgressBarProfile"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center" />
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/userNameUserProfileFrag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="14dp"
+            android:text="Het Suthar"
+            android:textColor="@color/fontColor"
+            android:textSize="21sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/userImageCardUserFrag"
+            app:layout_constraintTop_toBottomOf="@id/userBackgroundImage" />
+
+        <TextView
+            android:id="@+id/userCityUserProfileFrag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="14dp"
+            android:text="Ahmedabad"
+            android:textColor="@color/fontColor"
+            app:layout_constraintEnd_toStartOf="@id/userPostsCountUserProfileFrag"
+            app:layout_constraintStart_toEndOf="@id/userImageCardUserFrag"
+            app:layout_constraintTop_toBottomOf="@id/userNameUserProfileFrag" />
+
+        <TextView
+            android:id="@+id/userPostsCountUserProfileFrag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="14dp"
+            android:text="Ahmedabad"
+            android:textColor="@color/fontColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/userCityUserProfileFrag"
+            app:layout_constraintTop_toBottomOf="@id/userNameUserProfileFrag" />
+
+        <TextView
+            android:id="@+id/userEmailUserProfileFrag"
+            android:text="sirvi3014@gmail.com"
+            app:layout_constraintTop_toBottomOf="@id/userImageCardUserFrag"
+            app:layout_constraintStart_toStartOf="@id/userImageCardUserFrag"
+            android:textColor="@color/fontColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="7dp"
+            />
+
+        <TextView
+            android:id="@+id/aboutTitleUserProfileFrag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="14dp"
+            android:text="About"
+            android:textColor="@color/fontColor"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/userImageCardUserFrag"
+            app:layout_constraintTop_toBottomOf="@id/userEmailUserProfileFrag" />
+
+        <TextView
+            android:id="@+id/aboutValueUserProfileFrag"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="25dp"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+            android:textColor="@color/fontColor"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/userImageCardUserFrag"
+            app:layout_constraintTop_toBottomOf="@id/aboutTitleUserProfileFrag" />
+
+        <TextView
+            android:id="@+id/addAboutTextUserFrag"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="25dp"
+            android:text="Add About Information"
+            android:textColor="@color/fontColor"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/userImageCardUserFrag"
+            app:layout_constraintTop_toBottomOf="@id/aboutValueUserProfileFrag" />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputLayout1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@id/saveBtnAboutUserProfileFrag"
+            app:layout_constraintStart_toStartOf="@id/userImageCardUserFrag"
+            app:layout_constraintTop_toBottomOf="@id/addAboutTextUserFrag">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/aboutValueEditUserProfileFrag"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="14sp"
+                android:backgroundTint="#0060AA39"
+                android:hint="Enter About Information"
+                android:textColor="@color/fontColor"
+                android:textSize="14sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/saveBtnAboutUserProfileFrag"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="25dp"
+            android:text="✔"
+            app:layout_constraintBottom_toBottomOf="@+id/inputLayout1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/inputLayout1"
+            app:layout_constraintTop_toBottomOf="@id/aboutValueUserProfileFrag" />
+
+
+        <TextView
+            android:id="@+id/postTitleUserProfileFrag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="14dp"
+            android:text="Posts"
+            android:textColor="@color/fontColor"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/userImageCardUserFrag"
+            app:layout_constraintTop_toBottomOf="@id/inputLayout1" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/userProfilePostsRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="25dp"
+            android:layout_marginTop="7dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/postTitleUserProfileFrag"
+            app:layout_constraintTop_toBottomOf="@id/postTitleUserProfileFrag" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

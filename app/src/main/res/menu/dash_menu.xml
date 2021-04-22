@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/action_search"
+    <item android:id="@+id/bottomNavHome"
         android:title="Home"
         android:icon="@drawable/dash_home" />
-    <item android:id="@+id/action_settings"
+    <item android:id="@+id/bottomNavPost"
         android:title="Posts"
         android:icon="@drawable/post_logo" />
-    <item android:id="@+id/Commodity"
-        android:title="Commodity"
-        android:icon="@drawable/dash_home" />
+    <item android:id="@+id/bottomNavAPMC"
+        android:title="APMC"
+        android:icon="@drawable/ic_baseline_trending_up_24" />
+    <item android:id="@+id/bottomNavEcomm"
+        android:title="E-Commerce"
+        android:icon="@drawable/buy" />
+
 
 </menu>

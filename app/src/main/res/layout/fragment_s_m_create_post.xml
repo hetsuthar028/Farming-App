@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.socialmedia.SMCreatePostFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateDrawable="@drawable/progress_background"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/progress_create_post"
+            app:layout_constraintStart_toStartOf="parent"
+            android:elevation="2dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Creating..."
+            android:id="@+id/progressTitle"
+            app:layout_constraintTop_toBottomOf="@id/progress_create_post"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            android:elevation="2dp"
+            android:textSize="18sp"
+            android:textColor="@color/fontColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginVertical="14dp"
+            />
+
+        <TextView
+            android:id="@+id/createPostTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/uploadImagePreview"
+            android:text="Create Post"
+            android:textColor="@color/fontColor"
+            android:textStyle="bold"
+            android:textSize="21sp"
+            android:layout_marginVertical="14dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:background="@drawable/edit_back"
+            android:id="@+id/uploadImagePreview"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:backgroundTint="@color/secondary"
+            android:src="@drawable/add_icon"
+
+            android:layout_marginHorizontal="14dp"
+            android:layout_marginVertical="80dp"
+            />
+
+
+
+
+
+            <EditText
+                android:background="@drawable/edit_back"
+                android:id="@+id/postTitleSM"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/uploadImagePreview"
+                android:layout_marginHorizontal="14dp"
+                android:layout_marginVertical="14dp"
+                android:padding="10dp"
+                android:hint="Title"
+                android:textStyle="bold" />
+
+
+
+
+
+
+
+
+            <EditText
+                android:id="@+id/descPostSM"
+                android:layout_width="match_parent"
+                android:background="@drawable/edit_back"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="14dp"
+                android:layout_marginHorizontal="14dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/postTitleSM"
+                android:padding="10dp"
+                android:hint="Description"
+                android:textStyle="bold" />
+
+
+        <Button
+            android:id="@+id/createPostBtnSM"
+            android:layout_width="120dp"
+            android:background="@drawable/all_buttons"
+            android:layout_height="60dp"
+            android:textStyle="bold"
+            android:layout_marginVertical="14dp"
+            android:textAllCaps="false"
+            android:textSize="18sp"
+            android:text="Create"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/descPostSM" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

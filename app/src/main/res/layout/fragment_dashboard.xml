@@ -4,13 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f00"
     tools:context=".view.weather.WeatherFragment">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
         <!-- TODO: Update blank fragment layout -->
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,9 +22,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:background="#6800BFFF"
-
+                app:cardBackgroundColor="@color/secondary"
                 app:cardCornerRadius="15sp"
-
+                app:cardElevation="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -37,57 +35,65 @@
                     android:layout_height="match_parent">
 
                     <ImageView
-                        android:id="@+id/weatherIcon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:id="@+id/weathIconImageWeathFrag"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_marginStart="20dp"
                         android:src="@drawable/ic_launcher_foreground"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
 
-                        />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/weatherCityTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Ahmedabad"
-                        android:textSize="25sp"
+                        android:text="-"
+                        android:textColor="@color/fontColor"
+                        android:textSize="21sp"
                         android:textStyle="bold"
+                        app:layout_constraintBottom_toTopOf="@id/windTextWeathFrag"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/weatherIcon"
+                        app:layout_constraintStart_toEndOf="@id/weathIconImageWeathFrag"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/weatherTemp"
+                        android:id="@+id/weathTempTextWeathFrag"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="27* C"
-                        android:textSize="25sp"
+                        android:layout_marginStart="20dp"
+                        android:text="- C"
+                        android:textColor="@color/fontColor"
+                        android:textSize="21sp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/weatherAttr1"
-                        app:layout_constraintStart_toEndOf="@id/weatherIcon"
+                        app:layout_constraintEnd_toStartOf="@id/windTextWeathFrag"
+                        app:layout_constraintStart_toEndOf="@id/weathIconImageWeathFrag"
                         app:layout_constraintTop_toBottomOf="@id/weatherCityTitle" />
 
                     <TextView
-                        android:id="@+id/weatherAttr1"
+                        android:id="@+id/windTextWeathFrag"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Wind : 15km/h"
-                        app:layout_constraintBottom_toTopOf="@id/weatherAttr2"
+                        android:text="Wind : - km/h"
+                        android:textColor="@color/fontColor"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toTopOf="@id/humidityTextWeathFrag"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/weatherTemp"
+                        app:layout_constraintStart_toEndOf="@id/weathTempTextWeathFrag"
                         app:layout_constraintTop_toBottomOf="@id/weatherCityTitle" />
 
                     <TextView
-                        android:id="@+id/weatherAttr2"
+                        android:id="@+id/humidityTextWeathFrag"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Wind : 15km/h"
+                        android:text="Humidity : - %"
+                        android:textColor="@color/fontColor"
+                        android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/weatherTemp"
-                        app:layout_constraintTop_toBottomOf="@id/weatherAttr1" />
+                        app:layout_constraintStart_toStartOf="@id/windTextWeathFrag"
+                        app:layout_constraintTop_toBottomOf="@id/windTextWeathFrag" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
@@ -96,18 +102,22 @@
                 android:id="@+id/articlesTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="20dp"
+                android:layout_marginVertical="14dp"
                 android:text="Articles"
-                android:textSize="25sp"
+
+                android:textSize="21sp"
+                android:textColor="@color/fontColor"
                 android:textStyle="bold"
+
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/weatherCard" />
 
             <HorizontalScrollView
                 android:id="@+id/categoryHorizontal"
                 android:layout_width="match_parent"
-                android:scrollbars="none"
                 android:layout_height="wrap_content"
+                android:scrollbars="none"
+                android:layout_marginVertical="7dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/articlesTitle">
 
@@ -119,26 +129,30 @@
                         android:id="@+id/cat1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+
                         android:layout_marginVertical="10dp"
-                        android:layout_marginEnd="10dp"
-                        >
+                        android:layout_marginEnd="10dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
+                            android:background="@drawable/edit_back"
                             android:layout_height="match_parent"
                             android:orientation="vertical">
 
                             <ImageView
                                 android:layout_width="100dp"
                                 android:layout_height="100dp"
-                                android:src="@drawable/ic_launcher_foreground" />
+                                android:scaleType="fitXY"
+                                android:src="@drawable/seed" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:text="Seeds"
-                                android:textSize="20sp"
+                                android:textColor="@color/fontColor"
+                                android:layout_marginVertical="7dp"
+                                android:textSize="14sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
@@ -159,14 +173,17 @@
                             <ImageView
                                 android:layout_width="100dp"
                                 android:layout_height="100dp"
-                                android:src="@drawable/ic_launcher_foreground" />
+                                android:scaleType="fitXY"
+                                android:src="@drawable/plant3" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:text="Plants"
-                                android:textSize="20sp"
+                                android:textColor="@color/fontColor"
+                                android:layout_marginVertical="7dp"
+                                android:textSize="14sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
@@ -186,14 +203,17 @@
                             <ImageView
                                 android:layout_width="100dp"
                                 android:layout_height="100dp"
-                                android:src="@drawable/ic_launcher_foreground" />
+                                android:scaleType="fitXY"
+                                android:src="@drawable/method2" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:textColor="@color/fontColor"
                                 android:layout_gravity="center"
                                 android:text="Methods"
-                                android:textSize="20sp"
+                                android:layout_marginVertical="7dp"
+                                android:textSize="14sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
@@ -212,244 +232,285 @@
                             <ImageView
                                 android:layout_width="100dp"
                                 android:layout_height="100dp"
-                                android:src="@drawable/ic_launcher_foreground" />
+                                android:scaleType="fitXY"
+                                android:src="@drawable/disease" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/fontColor"
+                                android:layout_marginVertical="7dp"
+                                android:layout_gravity="center"
+                                android:text="Diseases"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cat4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+
+                        android:layout_marginVertical="10dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/fruits" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:text="Diseases"
-                                android:textSize="20sp"
+                                android:layout_marginVertical="7dp"
+                                android:textColor="@color/fontColor"
+                                android:text="Fruits"
+                                android:textSize="14sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
+
                 </LinearLayout>
             </HorizontalScrollView>
 
             <View
+                android:id="@+id/carousel"
                 android:layout_width="match_parent"
                 android:layout_height="175dp"
-                android:id="@+id/carousel"
                 android:layout_marginVertical="10dp"
-                app:layout_constraintTop_toBottomOf="@id/categoryHorizontal"
                 android:background="@color/colorPrimary"
-                />
+                app:layout_constraintTop_toBottomOf="@id/categoryHorizontal" />
 
             <TextView
+                android:id="@+id/productsTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginVertical="14dp"
+                android:textColor="@color/fontColor"
                 android:text="Products"
-                android:textSize="25sp"
-                android:id="@+id/productsTitle"
+                android:textSize="21sp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/carousel"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginVertical="10dp"
+                app:layout_constraintTop_toBottomOf="@id/carousel" />
+
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:id="@+id/ecomm1"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="175dp"-->
+<!--                android:layout_marginVertical="10dp"-->
+<!--                android:layout_marginEnd="10dp"-->
+<!--                app:cardCornerRadius="10dp"-->
+<!--                app:layout_constraintEnd_toStartOf="@id/ecomm2"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/productsTitle">-->
+
+<!--                <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent">-->
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/ecommIcon1"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="125dp"-->
+<!--                        android:background="@color/colorPrimary"-->
+<!--                        app:layout_constraintEnd_toEndOf="parent"-->
+<!--                        app:layout_constraintHorizontal_bias="0.5"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/ecommName1"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:paddingHorizontal="10dp"-->
+<!--                        android:text="TVC Tractor"-->
+<!--                        android:textSize="14sp"-->
+<!--                        app:layout_constraintBottom_toTopOf="@id/someID"-->
+<!--                        android:textStyle="bold"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toBottomOf="@id/ecommIcon1" />-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:paddingHorizontal="10dp"-->
+<!--                        android:id="@+id/someID"-->
+<!--                        android:text="$994"-->
+<!--                        android:textColor="@color/colorPrimary"-->
+<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toBottomOf="@id/ecommName1" />-->
+
+<!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--            </androidx.cardview.widget.CardView>-->
+
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:id="@+id/ecomm2"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="175dp"-->
+<!--                android:layout_marginVertical="10dp"-->
+<!--                android:layout_marginStart="10dp"-->
+<!--                app:cardCornerRadius="10dp"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toEndOf="@id/ecomm1"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/productsTitle">-->
+
+<!--                <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent">-->
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/ecommIcon2"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="125dp"-->
+<!--                        android:background="@color/colorPrimary"-->
+<!--                        app:layout_constraintEnd_toEndOf="parent"-->
+<!--                        app:layout_constraintHorizontal_bias="0.5"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/ecommName2"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:paddingHorizontal="10dp"-->
+<!--                        android:text="TVC Tractor"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:textStyle="bold"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toBottomOf="@id/ecommIcon2" />-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:paddingHorizontal="10dp"-->
+<!--                        android:text="$994"-->
+<!--                        android:textColor="@color/colorPrimary"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toBottomOf="@id/ecommName2" />-->
+
+<!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--            </androidx.cardview.widget.CardView>-->
+
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:id="@+id/ecomm3"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="175dp"-->
+<!--                android:layout_marginVertical="10dp"-->
+<!--                android:layout_marginEnd="10dp"-->
+<!--                app:cardCornerRadius="10dp"-->
+<!--                app:layout_constraintEnd_toStartOf="@id/ecomm4"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/ecomm1">-->
+
+<!--                <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent">-->
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/ecommIcon3"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="125dp"-->
+<!--                        android:background="@color/colorPrimary"-->
+<!--                        app:layout_constraintEnd_toEndOf="parent"-->
+<!--                        app:layout_constraintHorizontal_bias="0.5"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/ecommName3"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:paddingHorizontal="10dp"-->
+<!--                        android:text="TVC Tractor"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:textStyle="bold"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toBottomOf="@id/ecommIcon3" />-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:paddingHorizontal="10dp"-->
+<!--                        android:text="$994"-->
+<!--                        android:textColor="@color/colorPrimary"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toBottomOf="@id/ecommName3" />-->
+
+<!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--            </androidx.cardview.widget.CardView>-->
+
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:id="@+id/ecomm4"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="175dp"-->
+<!--                android:layout_marginVertical="10dp"-->
+<!--                android:layout_marginStart="10dp"-->
+<!--                app:cardCornerRadius="10dp"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toEndOf="@id/ecomm3"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/ecomm2">-->
+
+<!--                <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent">-->
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/ecommIcon4"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="125dp"-->
+<!--                        android:background="@color/colorPrimary"-->
+<!--                        app:layout_constraintEnd_toEndOf="parent"-->
+<!--                        app:layout_constraintHorizontal_bias="0.5"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/ecommName4"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:paddingHorizontal="10dp"-->
+<!--                        android:text="TVC Tractor"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:textStyle="bold"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toBottomOf="@id/ecommIcon4" />-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:paddingHorizontal="10dp"-->
+<!--                        android:text="$994"-->
+<!--                        android:textColor="@color/colorPrimary"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toBottomOf="@id/ecommName4" />-->
+
+<!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--            </androidx.cardview.widget.CardView>-->
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/dashboardEcommRecycler"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/productsTitle"
+                android:layout_marginVertical="7dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 />
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="175dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/productsTitle"
-                android:layout_marginVertical="10dp"
-                app:cardCornerRadius="10dp"
-                android:layout_marginEnd="10dp"
-                app:layout_constraintEnd_toStartOf="@id/ecomm2"
-                android:id="@+id/ecomm1"
-                >
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:layout_width="0dp"
-                        android:layout_height="125dp"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:id="@+id/ecommIcon1"
-                        android:background="@color/colorPrimary"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="TVC Tractor"
-                        app:layout_constraintTop_toBottomOf="@id/ecommIcon1"
-                        app:layout_constraintStart_toStartOf="parent"
-                        android:textSize="17sp"
-                        android:textStyle="bold"
-                        android:id="@+id/ecommName1"
-                        android:paddingHorizontal="10dp"
-                        />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="$994"
-                        android:paddingHorizontal="10dp"
-                        android:textColor="@color/colorPrimary"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/ecommName1"
-                        />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="175dp"
-                app:layout_constraintStart_toEndOf="@id/ecomm1"
-                app:layout_constraintTop_toBottomOf="@id/productsTitle"
-                android:layout_marginVertical="10dp"
-                app:cardCornerRadius="10dp"
-                android:layout_marginStart="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:id="@+id/ecomm2"
-                >
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:layout_width="0dp"
-                        android:layout_height="125dp"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:id="@+id/ecommIcon2"
-                        android:background="@color/colorPrimary"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="TVC Tractor"
-                        app:layout_constraintTop_toBottomOf="@id/ecommIcon2"
-                        app:layout_constraintStart_toStartOf="parent"
-                        android:textSize="17sp"
-                        android:textStyle="bold"
-                        android:id="@+id/ecommName2"
-                        android:paddingHorizontal="10dp"
-                        />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="$994"
-                        android:paddingHorizontal="10dp"
-                        android:textColor="@color/colorPrimary"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/ecommName2"
-                        />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="175dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ecomm1"
-                android:layout_marginVertical="10dp"
-                app:cardCornerRadius="10dp"
-                android:layout_marginEnd="10dp"
-                app:layout_constraintEnd_toStartOf="@id/ecomm4"
-                android:id="@+id/ecomm3"
-                >
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:layout_width="0dp"
-                        android:layout_height="125dp"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:id="@+id/ecommIcon3"
-                        android:background="@color/colorPrimary"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="TVC Tractor"
-                        app:layout_constraintTop_toBottomOf="@id/ecommIcon3"
-                        app:layout_constraintStart_toStartOf="parent"
-                        android:textSize="17sp"
-                        android:textStyle="bold"
-                        android:id="@+id/ecommName3"
-                        android:paddingHorizontal="10dp"
-                        />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="$994"
-                        android:paddingHorizontal="10dp"
-                        android:textColor="@color/colorPrimary"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/ecommName3"
-                        />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="175dp"
-                app:layout_constraintStart_toEndOf="@id/ecomm3"
-                app:layout_constraintTop_toBottomOf="@id/ecomm2"
-                android:layout_marginVertical="10dp"
-                app:cardCornerRadius="10dp"
-                android:layout_marginStart="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:id="@+id/ecomm4"
-                >
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:layout_width="0dp"
-                        android:layout_height="125dp"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:id="@+id/ecommIcon4"
-                        android:background="@color/colorPrimary"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="TVC Tractor"
-                        app:layout_constraintTop_toBottomOf="@id/ecommIcon4"
-                        app:layout_constraintStart_toStartOf="parent"
-                        android:textSize="17sp"
-                        android:textStyle="bold"
-                        android:id="@+id/ecommName4"
-                        android:paddingHorizontal="10dp"
-                        />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="$994"
-                        android:paddingHorizontal="10dp"
-                        android:textColor="@color/colorPrimary"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/ecommName4"
-                        />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </androidx.cardview.widget.CardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
