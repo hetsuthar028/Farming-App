@@ -329,11 +329,12 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     }
 
     override fun onBackPressed() {
+        super.onBackPressed()
         if (dashboardFragment.isVisible) {
             if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
                 drawerLayout.closeDrawer(GravityCompat.START)
             } else {
-                super.onBackPressed()
+                
             }
         }
     }
