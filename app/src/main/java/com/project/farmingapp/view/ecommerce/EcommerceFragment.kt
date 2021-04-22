@@ -37,6 +37,7 @@ class EcommerceFragment : Fragment(), CellClickListener {
     private lateinit var viewmodel: EcommViewModel
     private var adapter: EcommerceAdapter? = null
     lateinit var ecommerceItemFragment: EcommerceItemFragment
+
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -57,7 +58,6 @@ class EcommerceFragment : Fragment(), CellClickListener {
         }
 
 
-
     }
 
     override fun onCreateView(
@@ -70,11 +70,9 @@ class EcommerceFragment : Fragment(), CellClickListener {
 
         viewmodel.ecommLiveData.observe(viewLifecycleOwner, Observer {
             adapter = EcommerceAdapter(activity!!.applicationContext, it, this)
-            Log.d("ecommFragment ", it.toString())
             ecommrcyclr.adapter = adapter
             ecommrcyclr.layoutManager = LinearLayoutManager(activity!!.applicationContext)
         })
-
 
         return inflater.inflate(R.layout.fragment_ecommerce, container, false)
     }
@@ -93,44 +91,36 @@ class EcommerceFragment : Fragment(), CellClickListener {
 
             when (checkedId) {
                 R.id.chip1 -> {
-                    viewmodel.loadAllEcommItems()
-
-                    Toast.makeText(context, "toast clicked1", Toast.LENGTH_LONG).show()
-
+                    viewmodel.loadAllEcommItems().observe(viewLifecycleOwner, Observer {
+                        ecommrcyclr.adapter =
+                            EcommerceAdapter(activity!!.applicationContext, it, this)
+                    })
                 }
                 R.id.chip2 -> {
-                    Toast.makeText(context, "toast clicked2", Toast.LENGTH_LONG).show()
-                    viewmodel.loadSpecificTypeEcomItem("fertilizer")
+                    viewmodel.getSpecificCategoryItems("fertilizer")
+                        .observe(viewLifecycleOwner, Observer {
+                            ecommrcyclr.adapter =
+                                EcommerceAdapter(activity!!.applicationContext, it, this)
+                        })
                 }
 
                 R.id.chip3 -> {
-                    Toast.makeText(context, "toast clicked3", Toast.LENGTH_LONG).show()
-                    viewmodel.loadSpecificTypeEcomItem("pestiside")
+                    viewmodel.getSpecificCategoryItems("pestiside")
+                        .observe(viewLifecycleOwner, Observer {
+                            ecommrcyclr.adapter =
+                                EcommerceAdapter(activity!!.applicationContext, it, this)
+                        })
                 }
 
                 R.id.chip4 -> {
-                    Toast.makeText(context, "toast clicked3", Toast.LENGTH_LONG).show()
-                    viewmodel.loadSpecificTypeEcomItem("machine")
+                    viewmodel.getSpecificCategoryItems("machine")
+                        .observe(viewLifecycleOwner, Observer {
+                            ecommrcyclr.adapter =
+                                EcommerceAdapter(activity!!.applicationContext, it, this)
+                        })
                 }
             }
-
         }
-
-
-    }
-
-    fun getProductData() {
-        val firebaseFirestore: FirebaseFirestore = FirebaseFirestore.getInstance()
-
-
-        firebaseFirestore.collection("products").get()
-            .addOnSuccessListener {
-                Log.d("Posts data", it.documents[0].getString("title").toString())
-
-            }
-            .addOnFailureListener {
-
-            }
     }
 
     companion object {
@@ -154,26 +144,22 @@ class EcommerceFragment : Fragment(), CellClickListener {
     }
 
     override fun onCellClickListener(name: String) {
-        Toast.makeText(activity!!.applicationContext, "You Clicked on " + name, Toast.LENGTH_SHORT).show()
+        Toast.makeText(activity!!.applicationContext, "You Clicked on " + name, Toast.LENGTH_SHORT)
+            .show()
         ecommerceItemFragment = EcommerceItemFragment()
         val bundle = Bundle()
-        bundle.putString("name",name)
+        bundle.putString("name", name)
         ecommerceItemFragment.setArguments(bundle)
-
-
-        // Temporary
-//        val cartFragment = CartFragment()
 
         val transaction = activity!!.supportFragmentManager
             .beginTransaction()
             .replace(R.id.frame_layout, ecommerceItemFragment, name)
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             .setReorderingAllowed(true)
-            .addToBackStack("name")
+            .addToBackStack("ecommItem")
             .commit()
 
     }
-
 
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -183,7 +169,7 @@ class EcommerceFragment : Fragment(), CellClickListener {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-        when (item.itemId){
+        when (item.itemId) {
             R.id.cart_item -> {
                 val cartFragment = CartFragment()
                 val transaction = activity!!.supportFragmentManager
@@ -197,7 +183,4 @@ class EcommerceFragment : Fragment(), CellClickListener {
         }
         return super.onOptionsItemSelected(item)
     }
-
-
-
 }

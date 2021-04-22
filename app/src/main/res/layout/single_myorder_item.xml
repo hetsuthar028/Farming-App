@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cartCard2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="7dp"
+        android:layout_marginVertical="14dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounder_border_general">
+
+            <ImageView
+                android:id="@+id/myOderItemImage"
+                android:layout_width="130dp"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="7dp"
+                android:background="@drawable/round_borderless_general"
+                android:src="@color/secondary"
+                app:layout_constraintBottom_toBottomOf="@id/myOrderDeliveryStatus"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/myOrderItemName" />
+
+            <TextView
+                android:id="@+id/myOrderItemName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="7dp"
+                android:layout_marginVertical="7dp"
+                android:text="Loading..."
+                android:textColor="@color/fontColor"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/myOderItemImage"
+                app:layout_constraintTop_toTopOf="parent"
+
+                />
+
+            <TextView
+                android:id="@+id/myOrderItemPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:text="Loading..."
+                android:textColor="@color/colorPrimary"
+                android:textSize="21sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/myOderItemImage"
+                app:layout_constraintTop_toBottomOf="@id/myOrderItemName"
+
+                />
+
+            <TextView
+                android:id="@+id/deliverChargeTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:text="Delivery Charge: ₹"
+                android:textColor="@color/fontColor"
+                android:textSize="10sp"
+                android:textStyle="italic"
+                app:layout_constraintStart_toEndOf="@id/myOderItemImage"
+                app:layout_constraintTop_toBottomOf="@id/myOrderItemPrice" />
+
+            <TextView
+                android:id="@+id/myOderDeliveryCharge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="7dp"
+                android:text=""
+                android:textColor="@color/fontColor"
+                android:textSize="10sp"
+                android:textStyle="italic"
+                app:layout_constraintStart_toEndOf="@id/deliverChargeTitle"
+                app:layout_constraintTop_toBottomOf="@id/myOrderItemPrice" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/includedTitle"
+                app:layout_constraintStart_toEndOf="@id/myOderDeliveryCharge"
+                app:layout_constraintTop_toTopOf="@id/myOderDeliveryCharge"
+                android:textStyle="italic"
+                android:text="(Included)"
+                android:textSize="10sp"
+                android:textColor="@color/fontColor"
+                android:layout_marginHorizontal="7dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="7dp"
+                android:text="Loading..."
+                android:textColor="@color/fontColor"
+                android:textSize="10sp"
+                android:id="@+id/myOrderTimeStamp"
+                android:textStyle="italic"
+                app:layout_constraintBottom_toBottomOf="@id/myOderDeliveryCharge"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/myOderDeliveryCharge" />
+
+            <TextView
+                android:id="@+id/myOrderPinCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:text="Loading..."
+                android:textColor="@color/fontColor"
+                android:textSize="12sp"
+                android:textStyle="bold|italic"
+                app:layout_constraintStart_toEndOf="@id/myOderItemImage"
+                app:layout_constraintTop_toBottomOf="@id/myOderDeliveryCharge" />
+
+            <TextView
+                android:id="@+id/myOrderDeliveryStatus"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="3.5dp"
+                android:layout_margin="7dp"
+                android:text="Loading..."
+                android:textColor="@color/fontColor"
+                app:layout_constraintEnd_toStartOf="@id/myOrderPurchaseAgain"
+                android:textSize="12sp"
+                android:textStyle="bold|italic"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/myOderItemImage"
+                app:layout_constraintTop_toBottomOf="@id/myOrderPinCode" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginHorizontal="7dp"
+                android:background="@drawable/all_buttons"
+                android:backgroundTint="@color/colorThird"
+                android:paddingHorizontal="7dp"
+                android:id="@+id/myOrderPurchaseAgain"
+                android:text="Purchase Again"
+                android:textColor="#fff"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="@id/myOrderDeliveryStatus"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/myOrderPinCode" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -250,7 +250,16 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                     .show()
             }
             R.id.miItem7 -> {
-
+                if (supportFragmentManager.findFragmentByTag("myOrdersFrag") == null) {
+                    myOrdersFragment = MyOrdersFragment()
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.frame_layout, myOrdersFragment, "myOrdersFrag")
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .setReorderingAllowed(true)
+                        .addToBackStack("myOrdersFrag")
+                        .commit()
+                }
             }
         }
         drawerLayout.closeDrawer(GravityCompat.START)

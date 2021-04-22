@@ -32,10 +32,11 @@ class RazorPayActivity : AppCompatActivity(), PaymentResultListener {
     var mobile: String = ""
     var currentDate = sdf.format(Date())
     lateinit var realtimeDatabase: FirebaseDatabase
-    var products_id: ArrayList<String>? = null
+    var productId: String? = null
     var totalPrice = 0
-    var items_cost: ArrayList<Int>? = null
-    var items_qty: ArrayList<Int>? = null
+    var itemCost: Int? = null
+    var quantity: Int? = null
+    var deliveryCost: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,21 +45,23 @@ class RazorPayActivity : AppCompatActivity(), PaymentResultListener {
 
         //val totalCost=intent.getStringExtra("tp")
         firebaseAuth = FirebaseAuth.getInstance()
-        products_id = intent.getStringArrayListExtra("products_id")
-        items_cost = intent.getIntegerArrayListExtra("items_cost")
-        items_qty = intent.getIntegerArrayListExtra("items_qty")
-        Log.d("tp", products_id.toString())
-        Log.d("tp", items_cost.toString())
-        Log.d("tp", items_qty.toString())
+        productId = intent.getStringExtra("productId")
+        itemCost = intent.getStringExtra("itemCost")!!.toString().toInt()
+        quantity = intent.getStringExtra("quantity")!!.toString().toInt()
+        deliveryCost = intent.getStringExtra("deliveryCost")!!.toString().toInt()
+        Log.d("tp", productId.toString())
+        Log.d("tp", itemCost.toString())
+        Log.d("tp", quantity.toString())
+        Log.d("tp", deliveryCost.toString())
         // Toast.makeText(this,abc,Toast.LENGTH_LONG).show()
 //Log.d("tp",abc.toString())
         orderNowBtn.setOnClickListener {
             name = fullNamePrePay.text.toString()
-             locality = localityPrePay.text.toString()
-             city = cityPrePay.text.toString()
-             state = statePrePay.text.toString()
-             pincode = pincodePrePay.text.toString()
-             mobile = mobileNumberPrePay.text.toString()
+            locality = localityPrePay.text.toString()
+            city = cityPrePay.text.toString()
+            state = statePrePay.text.toString()
+            pincode = pincodePrePay.text.toString()
+            mobile = mobileNumberPrePay.text.toString()
             if (name.isNullOrEmpty() ||
                 locality.isNullOrEmpty() ||
                 city.isNullOrEmpty() ||
@@ -78,11 +81,8 @@ class RazorPayActivity : AppCompatActivity(), PaymentResultListener {
             }
         }
 
-        for(i in items_cost!!){
-            totalPrice += i
-        }
-
-        netValue.text = "Net Value: ₹ " + totalPrice.toString()
+        netValue.text =
+            "Net Value: ₹ " + (itemCost.toString().toInt() * quantity!! + deliveryCost!!).toString()
     }
 
     private fun startPayment() {
@@ -101,8 +101,8 @@ class RazorPayActivity : AppCompatActivity(), PaymentResultListener {
             options.put("image", "https://s3.amazonaws.com/rzp-mobile/images/rzp.png")
             options.put("currency", "INR")
 
-
-            options.put("amount", "${totalPrice*100}")
+            totalPrice = itemCost!! * quantity!! + deliveryCost!!
+            options.put("amount", "${totalPrice!! * 100}")
 
             val prefill = JSONObject()
 
@@ -135,7 +135,22 @@ class RazorPayActivity : AppCompatActivity(), PaymentResultListener {
                     .child("${postId}")
             val currDate = System.currentTimeMillis()
 
-            orderRef.setValue(orders(
+            var date1 = Date()
+            val calendar = Calendar.getInstance()
+            calendar.time = date1
+
+            var randomDay = (0..12).shuffled().take(1) as List<Int>
+            val sdf = SimpleDateFormat("dd/MM/yyyy")
+
+            calendar.add(Calendar.DATE, randomDay[0])
+            date1 = calendar.time
+
+//            calendar.timeInMillis
+//            Toast.makeText(this, randomDay[0].toString(), Toast.LENGTH_LONG).show()
+//            Toast.makeText(this, calendar.timeInMillis.toString(), Toast.LENGTH_LONG).show()
+
+            orderRef.setValue(
+                orders(
                     name!!,
                     locality!!,
                     city!!,
@@ -143,11 +158,16 @@ class RazorPayActivity : AppCompatActivity(), PaymentResultListener {
                     pincode!!,
                     mobile!!,
                     currentDate,
-                    products_id!!, items_cost!!, items_qty!!)
+                    productId!!,
+                    itemCost!!,
+                    quantity!!,
+                    deliveryCost!!,
+                    "Arriving By: " + sdf.format(date1).toString()
+                )
             ).addOnCompleteListener {
                 Toast.makeText(this, "Payment Successful", Toast.LENGTH_LONG).show()
                 finish()
-            }.addOnFailureListener{
+            }.addOnFailureListener {
                 Toast.makeText(this, "Payment Failed", Toast.LENGTH_LONG).show()
                 Toast.makeText(this, "Please Try Again", Toast.LENGTH_LONG).show()
                 finish()
