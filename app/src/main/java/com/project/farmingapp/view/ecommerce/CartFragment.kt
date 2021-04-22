@@ -120,12 +120,11 @@ class CartFragment : Fragment(), CartItemBuy {
                         Log.d("Total Price - 3", key.toString())
                     }
 
-
-
                     if (isOpened == true) {
                         totalItemsValue.text = items.size.toString()
                         totalCostValue.text = "\u20B9" + totalCartPrice.toString()
                     }
+
 
                     val adapter =
                         CartItemsAdapter(this@CartFragment, items, this@CartFragment)
@@ -133,6 +132,7 @@ class CartFragment : Fragment(), CartItemBuy {
                     recyclerCart.layoutManager = LinearLayoutManager(activity!!.applicationContext)
                     progress_cart.visibility = View.GONE
                     loadingTitleText.visibility = View.GONE
+                  
                 } else {
                     Toast.makeText(
                         activity!!.applicationContext,
@@ -147,6 +147,7 @@ class CartFragment : Fragment(), CartItemBuy {
 
 
         cartRef.addValueEventListener(postListener)
+
 
         buyAllBtn.setOnClickListener {
 //            prePaymentfragment = PrePaymentFragment()
@@ -181,4 +182,5 @@ class CartFragment : Fragment(), CartItemBuy {
             startActivity(it)
         }
     }
+
 }

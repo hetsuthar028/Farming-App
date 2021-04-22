@@ -144,8 +144,6 @@ class EcommerceFragment : Fragment(), CellClickListener {
     }
 
     override fun onCellClickListener(name: String) {
-        Toast.makeText(activity!!.applicationContext, "You Clicked on " + name, Toast.LENGTH_SHORT)
-            .show()
         ecommerceItemFragment = EcommerceItemFragment()
         val bundle = Bundle()
         bundle.putString("name", name)

@@ -2,22 +2,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/miItem1"
-        android:title="Articles" />
+        android:title="E-Commerce" />
     <item
         android:id="@+id/miItem2"
-        android:title="Ecommerce" />
-    <item
-        android:id="@+id/miItem3"
-        android:title="Government Policies" />
-    <item
-        android:id="@+id/miItem4"
         android:title="APMC Updates" />
     <item
+        android:id="@+id/miItem3"
+        android:title="Create Post" />
+    <item
+        android:id="@+id/miItem4"
+        android:title="Community Network" />
+    <item
         android:id="@+id/miItem5"
-        android:title="Social media" />
+        android:title="Weather Forecast" />
     <item
         android:id="@+id/miItem6"
-        android:title="Help/Support" />
+        android:title="Fruits Articles" />
     <item
         android:id="@+id/miItem7"
         android:title="Contact Us" />

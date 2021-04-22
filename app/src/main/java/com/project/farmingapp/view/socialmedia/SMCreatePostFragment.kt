@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.gms.tasks.Continuation
 import com.google.android.gms.tasks.Task
@@ -94,8 +95,14 @@ class SMCreatePostFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setHasOptionsMenu(true)
+        (activity as AppCompatActivity).supportActionBar?.title = "Social Media"
+
+        progress_create_post.visibility = View.GONE
+        progressTitle.visibility = View.GONE
+
         data2["uploadType"] = ""
-        uploadImageButton.setOnClickListener {
+        uploadImagePreview.setOnClickListener {
             val intent = Intent()
             intent.type = "image/* video/*"
             intent.action = Intent.ACTION_PICK
@@ -104,16 +111,6 @@ class SMCreatePostFragment : Fragment() {
                 PICK_IMAGE_REQUEST
             )
         }
-
-//        uploadVideoButton.setOnClickListener {
-//            val intent = Intent()
-//            intent.type = "video/*"
-//            intent.action = Intent.ACTION_GET_CONTENT
-//            startActivityForResult(
-//                Intent.createChooser(intent, "Select Video"),
-//                PICK_IMAGE_REQUEST
-//            )
-//        }
 
         val googleLoggedUser = authUser!!.currentUser!!.displayName
         if (googleLoggedUser.isNullOrEmpty()) {
@@ -152,6 +149,7 @@ class SMCreatePostFragment : Fragment() {
             }
 
             filePath = data.data
+            uploadImagePreview.setImageURI(filePath)
             try {
                 val lastIndex = filePath.toString().length - 1
                 val type =
@@ -164,12 +162,6 @@ class SMCreatePostFragment : Fragment() {
                 } else if(filePath.toString().contains("videos") || filePath.toString().contains("video") || filePath.toString().contains("mp4")){
                     data2["uploadType"] = "video"
                 }
-//
-//                if (type == "jpg" || type == "png" || type == "jpeg") {
-//
-//                } else if (type == "mp4") {
-//
-//                }
 
                 Log.d("File Type 3", data2["uploadType"].toString())
                 bitmap = MediaStore.Images.Media.getBitmap(activity!!.contentResolver, filePath)
@@ -182,6 +174,8 @@ class SMCreatePostFragment : Fragment() {
     }
 
     private fun uploadImage() {
+        progress_create_post.visibility = View.VISIBLE
+        progressTitle.visibility = View.VISIBLE
         if (filePath != null) {
             postID = UUID.randomUUID()
             val ref = storageReference?.child("posts/" + postID.toString())
@@ -192,6 +186,8 @@ class SMCreatePostFragment : Fragment() {
                     if (!task.isSuccessful) {
                         task.exception?.let {
                             throw it
+                            progress_create_post.visibility = View.GONE
+                            progressTitle.visibility = View.GONE
                         }
                     }
                     return@Continuation ref.downloadUrl
@@ -199,11 +195,17 @@ class SMCreatePostFragment : Fragment() {
                     if (task.isSuccessful) {
                         val downloadUri = task.result
                         addUploadRecordWithImageToDb(downloadUri.toString(), postID!!)
+//                        progress_create_post.visibility = View.GONE
+//                        progressTitle.visibility = View.GONE
                     } else {
                         // Handle failures
+                        progress_create_post.visibility = View.GONE
+                        progressTitle.visibility = View.GONE
                     }
                 }?.addOnFailureListener {
-
+                    progress_create_post.visibility = View.GONE
+                    progressTitle.visibility = View.GONE
+                    Toast.makeText(activity!!.applicationContext, it.message, Toast.LENGTH_LONG).show()
                 }
         } else {
             data2["uploadType"] = ""
@@ -224,37 +226,14 @@ class SMCreatePostFragment : Fragment() {
 
         }
 
-//        val docRef = FirebaseFirestore.getInstance().collection("users").document(authUser!!.currentUser.toString())
-
-//        db.collection("users/" + authUser!!.currentUser?.email.toString() + "/posts")
-//            .add(data)
-//            .addOnSuccessListener { documentReference ->
-//                Toast.makeText(activity!!.applicationContext, "Saved to DB", Toast.LENGTH_LONG)
-//                    .show()
-//            }
-//            .addOnFailureListener { e ->
-//                Toast.makeText(
-//                    activity!!.applicationContext,
-//                    "Error saving to DB",
-//                    Toast.LENGTH_LONG
-//                ).show()
-//            }
-
-
         val data3 = HashMap<String, Any>()
-//        data3["gender"] = "male"
-//        data3["name"] = authUser!!.currentUser?.email.toString()
-//        data2["imageUrl"] = uri
-//        data2["uploadTime"] = System.currentTimeMillis()
-//        data2["users"] = data3
-
         val postTimeStamp = System.currentTimeMillis()
+
         data2["userID"] = authUser!!.currentUser?.email.toString()
         data2["timeStamp"] = postTimeStamp
-//        data2["name"] = googleLoggedUser.toString()
         data2["title"] = postTitleSM.text.toString()
         data2["description"] = descPostSM.text.toString()
-//        data2["userProfileImage"] = authUser!!.currentUser!!.photoUrl.toString()
+
 
         db.collection("posts")
             .add(data2)
@@ -277,6 +256,9 @@ class SMCreatePostFragment : Fragment() {
                             Toast.LENGTH_LONG
                         ).show()
 
+                        progress_create_post.visibility = View.GONE
+                        progressTitle.visibility = View.GONE
+
                         socialMediaPostsFragment = SocialMediaPostsFragment()
                         val transaction = activity!!.supportFragmentManager
                             .beginTransaction()
@@ -292,7 +274,8 @@ class SMCreatePostFragment : Fragment() {
                             "Error saving to DB",
                             Toast.LENGTH_LONG
                         ).show()
-
+                        progress_create_post.visibility = View.GONE
+                        progressTitle.visibility = View.GONE
                     }
             }
             .addOnFailureListener { e ->
@@ -301,6 +284,8 @@ class SMCreatePostFragment : Fragment() {
                     "Error saving to DB",
                     Toast.LENGTH_LONG
                 ).show()
+                progress_create_post.visibility = View.GONE
+                progressTitle.visibility = View.GONE
             }
     }
 }
