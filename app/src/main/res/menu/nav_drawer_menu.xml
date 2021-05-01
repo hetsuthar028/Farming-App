@@ -20,7 +20,7 @@
         android:title="Fruits Articles" />
     <item
         android:id="@+id/miItem7"
-        android:title="Contact Us" />
+        android:title="My Orders" />
     <item
         android:id="@+id/miItem8"
         android:title="Log Out" />

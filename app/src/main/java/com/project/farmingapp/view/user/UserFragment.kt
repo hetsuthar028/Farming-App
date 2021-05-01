@@ -25,6 +25,7 @@ import com.bumptech.glide.Glide
 import com.google.android.gms.tasks.Continuation
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -39,6 +40,7 @@ import com.project.farmingapp.viewmodel.UserProfilePostsViewModel
 import kotlinx.android.synthetic.main.fragment_user.*
 import java.io.IOException
 import java.util.*
+import kotlin.collections.ArrayList
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -205,7 +207,13 @@ class UserFragment : Fragment(), CellClickListener {
             Log.d("User Data in VM Frag", it.get("name").toString())
             Log.d("Data in User", it.toString())
             userNameUserProfileFrag.text = it!!.getString("name")
-            userCityUserProfileFrag.text = "City: " + it?.getString("city")
+            val city = it?.getString("city")
+            if(city == null){
+                userCityUserProfileFrag.text = "City: "
+            } else{
+                userCityUserProfileFrag.text = "City: " + it.getString("city")
+            }
+
             if(it?.get("profileImage") == null || it?.getString("profileImage").isNullOrBlank()){
                 uploadProfilePictureImage.visibility = View.VISIBLE
             } else{
@@ -223,7 +231,7 @@ class UserFragment : Fragment(), CellClickListener {
                     .into(userBackgroundImage)
             }
 
-            val posts = it?.get("posts") as List<String>
+            val posts = it.get("posts") as List<String>
             userPostsCountUserProfileFrag.text = "Posts: " + posts.size.toString()
             userEmailUserProfileFrag.text = firebaseAuth.currentUser!!.email
             val about = it?.getString("about")

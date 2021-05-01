@@ -48,6 +48,7 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.project.farmingapp.R
 import com.project.farmingapp.adapter.CurrentWeatherAdapter
@@ -58,14 +59,17 @@ import com.project.farmingapp.model.data.Weather
 import com.project.farmingapp.model.data.WeatherList
 import com.project.farmingapp.model.data.WeatherRootList
 import com.project.farmingapp.view.apmc.ApmcFragment
+import com.project.farmingapp.view.articles.ArticleListFragment
 import com.project.farmingapp.view.articles.FruitsFragment
 import com.project.farmingapp.view.auth.LoginActivity
 import com.project.farmingapp.view.ecommerce.*
 import com.project.farmingapp.view.introscreen.IntroActivity
+import com.project.farmingapp.view.socialmedia.SMCreatePostFragment
 import com.project.farmingapp.view.socialmedia.SocialMediaPostsFragment
 import com.project.farmingapp.view.user.UserFragment
 import com.project.farmingapp.view.weather.WeatherFragment
 import com.project.farmingapp.viewmodel.UserDataViewModel
+import com.project.farmingapp.viewmodel.UserProfilePostsViewModel
 import com.project.farmingapp.viewmodel.WeatherViewModel
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.PicassoProvider
@@ -74,15 +78,16 @@ import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.fragment_weather.*
 import kotlinx.android.synthetic.main.nav_header.*
 import kotlinx.android.synthetic.main.nav_header.view.*
+import org.w3c.dom.Document
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import java.util.*
+import kotlin.collections.ArrayList
 
 class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, com.google.android.gms.location.LocationListener  {
     lateinit var cartFragment: CartFragment
-    lateinit var myOrdersFragment: MyOrdersFragment
     lateinit var ecommerceItemFragment: EcommerceItemFragment
     lateinit var paymentFragment: PaymentFragment
     lateinit var dashboardFragment: dashboardFragment
@@ -92,10 +97,13 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     lateinit var toggle: ActionBarDrawerToggle
     lateinit var blankFragment1: WeatherFragment
     lateinit var apmcFragment: ApmcFragment
-    lateinit var fruitsFragment: FruitsFragment
+    lateinit var articleListFragment: ArticleListFragment
+    lateinit var myOrdersFragment: MyOrdersFragment
     lateinit var userFragment: UserFragment
     lateinit var socialMediaPostFragment: SocialMediaPostsFragment
+    lateinit var smCreatePostFragment: SMCreatePostFragment
     private lateinit var viewModel: UserDataViewModel
+    private lateinit var viewModel2: UserProfilePostsViewModel
     private lateinit var weatherViewModel: WeatherViewModel
     lateinit var sharedPreferences: SharedPreferences
 
@@ -129,7 +137,9 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
          weatherViewModel = ViewModelProviders.of(this)
             .get<WeatherViewModel>(WeatherViewModel::class.java)
 
-
+        viewModel2 = ViewModelProviders.of(this)
+            .get<UserProfilePostsViewModel>(UserProfilePostsViewModel::class.java)
+//        viewModel2.getAllPosts(firebaseAuth.currentUser!!.email.toString())
 
         mGoogleApiClient = GoogleApiClient.Builder(this)
             .addApi(LocationServices.API)
@@ -182,10 +192,9 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.frame_layout, dashboardFragment, "userDash")
+            .replace(R.id.frame_layout, dashboardFragment, "dashFrag")
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             .setReorderingAllowed(true)
-            .addToBackStack("userDash")
             .commit()
 
         bottomNav.selectedItemId = R.id.bottomNavHome
@@ -205,7 +214,13 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 super.onBackPressed()
             }
             userFragment = UserFragment()
-            setCurrentFragment(userFragment)
+            supportFragmentManager.beginTransaction().apply {
+                replace(R.id.frame_layout, userFragment, "userFrag")
+                setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                setReorderingAllowed(true)
+                addToBackStack("userFrag")
+                commit()
+            }
         }
 
         apmcFragment = ApmcFragment()
@@ -217,10 +232,44 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
         bottomNav.setOnNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.bottomNavAPMC -> setCurrentFragment(apmcFragment)
-                R.id.bottomNavHome -> setCurrentFragment(dashboardFragment)
-                R.id.bottomNavEcomm -> setCurrentFragment(ecommerceFragment)
-                R.id.bottomNavPost -> setCurrentFragment(socialMediaPostFragment)
+                R.id.bottomNavAPMC -> {
+                    supportFragmentManager.beginTransaction().apply {
+                        replace(R.id.frame_layout, apmcFragment, "apmcFrag")
+                        setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        setReorderingAllowed(true)
+                        addToBackStack("apmcFrag")
+                        commit()
+                    }
+                }
+                R.id.bottomNavHome -> {
+                    supportFragmentManager.beginTransaction().apply {
+                        replace(R.id.frame_layout, dashboardFragment, "dashFrag")
+                        setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        setReorderingAllowed(true)
+                        addToBackStack("dashFrag")
+                        commit()
+                    }
+                }
+                R.id.bottomNavEcomm -> {
+                    ecommerceFragment = EcommerceFragment()
+                    supportFragmentManager.beginTransaction().apply {
+                        replace(R.id.frame_layout, ecommerceFragment, "ecommItemFrag")
+                        setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        setReorderingAllowed(true)
+                        addToBackStack("ecommItemFrag")
+                        commit()
+                    }
+                }
+                R.id.bottomNavPost -> {
+                    socialMediaPostFragment = SocialMediaPostsFragment()
+                    supportFragmentManager.beginTransaction().apply {
+                        replace(R.id.frame_layout, socialMediaPostFragment, "socialFrag")
+                        setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        setReorderingAllowed(true)
+                        addToBackStack("socialFrag")
+                        commit()
+                    }
+                }
             }
             true
         }
@@ -229,9 +278,17 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
             val something = navView.getHeaderView(0);
             val posts = it.get("posts") as List<String>
-
+            val city = it.get("city")
             userName = it.get("name").toString()
-            something.cityTextNavHeader.text ="City: " +  it.get("city").toString()
+
+//            val allPosts = viewModel2.liveData3.value as ArrayList<DocumentSnapshot>
+
+            if(city == null){
+                something.cityTextNavHeader.text ="City: "
+            } else{
+                something.cityTextNavHeader.text ="City: " +  it.get("city").toString()
+            }
+
             something.navbarUserName.text = userName
             something.navbarUserEmail.text = firebaseAuth.currentUser!!.email
             Glide.with(this).load(it.get("profileImage")).into(something.navbarUserImage)
@@ -271,30 +328,73 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         when (item.itemId) {
 
             R.id.miItem1 -> {
-                if (supportFragmentManager.findFragmentByTag("name") == null) {
-                    fruitsFragment = FruitsFragment()
+                    ecommerceFragment = EcommerceFragment()
                     supportFragmentManager
                         .beginTransaction()
-                        .replace(R.id.frame_layout, fruitsFragment, "article")
+                        .replace(R.id.frame_layout, ecommerceFragment, "ecommListFrag")
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         .setReorderingAllowed(true)
-                        .addToBackStack("article")
+                        .addToBackStack("ecommListFrag")
                         .commit()
-                }
             }
-
+            R.id.miItem2 -> {
+                apmcFragment = ApmcFragment()
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.frame_layout, apmcFragment, "apmcFrag")
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .setReorderingAllowed(true)
+                    .addToBackStack("apmcFrag")
+                    .commit()
+            }
+            R.id.miItem3 ->{
+                smCreatePostFragment = SMCreatePostFragment()
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.frame_layout, smCreatePostFragment, "createPostFrag")
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .setReorderingAllowed(true)
+                    .addToBackStack("createPostFrag")
+                    .commit()
+            }
             R.id.miItem4 -> {
-                if (supportFragmentManager.findFragmentByTag("name") == null) {
-                    apmcFragment = ApmcFragment()
-                    bottomNav.selectedItemId = R.id.bottomNavAPMC
-                    supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.frame_layout, apmcFragment, "name1")
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                        .setReorderingAllowed(true)
-                        .addToBackStack("name")
-                        .commit()
-                }
+                socialMediaPostFragment = SocialMediaPostsFragment()
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.frame_layout, socialMediaPostFragment, "socialFrag")
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .setReorderingAllowed(true)
+                    .addToBackStack("socialFrag")
+                    .commit()
+            }
+            R.id.miItem5 -> {
+                weatherFragment = WeatherFragment()
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.frame_layout, weatherFragment, "weatherFrag")
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .setReorderingAllowed(true)
+                    .addToBackStack("weatherFrag")
+                    .commit()
+            }
+            R.id.miItem6 -> {
+                articleListFragment = ArticleListFragment()
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.frame_layout, articleListFragment, "articleListFrag")
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .setReorderingAllowed(true)
+                    .addToBackStack("articleListFrag")
+                    .commit()
+            }
+            R.id.miItem7 -> {
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.frame_layout, myOrdersFragment, "myOrdersFrag")
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .setReorderingAllowed(true)
+                    .addToBackStack("myOrdersFrag")
+                    .commit()
             }
             R.id.miItem8 -> {
                 val builder = AlertDialog.Builder(this)
@@ -310,18 +410,6 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                     .setNegativeButton("No") { dialogInterface, i ->
                     }
                     .show()
-            }
-            R.id.miItem7 -> {
-                if (supportFragmentManager.findFragmentByTag("myOrdersFrag") == null) {
-                    myOrdersFragment = MyOrdersFragment()
-                    supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.frame_layout, myOrdersFragment, "myOrdersFrag")
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                        .setReorderingAllowed(true)
-                        .addToBackStack("myOrdersFrag")
-                        .commit()
-                }
             }
         }
         drawerLayout.closeDrawer(GravityCompat.START)

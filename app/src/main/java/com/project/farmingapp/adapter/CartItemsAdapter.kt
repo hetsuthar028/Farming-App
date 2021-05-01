@@ -54,12 +54,13 @@ class CartItemsAdapter(
 
         holder.itemView.cartItemBuyBtn.setOnClickListener {
             var qty = holder.itemView.quantityCountEcomm.text.toString().toInt()
-            var totalPrice =
-                holder.itemView.cartItemBuyBtn.text.toString().split("₹") as ArrayList<String>
+            var itemPrice =
+                holder.itemView.itemPriceCart.text.toString().split("₹") as ArrayList<String>
+            var deliveryCharge = holder.itemView.deliveryChargeCart.text.toString().toInt()
             Log.d("totalPrice", quantity.toString())
             Log.d("totalPrice", itemCost.toString())
             Log.d("totalPrice", deliveryCharge.toString())
-            cartitembuy.addToOrders("${currentData.key}", quantity, itemCost, deliveryCharge)
+            cartitembuy.addToOrders("${currentData.key}", qty,itemPrice[1].toInt() , deliveryCharge)
         }
 
         holder.itemView.removeCartBtn.setOnClickListener {

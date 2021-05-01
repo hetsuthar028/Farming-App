@@ -50,7 +50,7 @@ class FruitsFragment : Fragment(), ArticleListener {
 
         viewModel = ViewModelProviders.of(requireActivity())
             .get<ArticleViewModel>(ArticleViewModel::class.java)
-
+//        viewModel.getAllArticles(tag!!)
 
         val tag = this.tag.toString()
 
