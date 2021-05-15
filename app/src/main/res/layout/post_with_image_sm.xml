@@ -29,14 +29,15 @@
 
     app:cardUseCompatPadding="true"
     app:cardCornerRadius="5dp"
+
     app:cardElevation="5dp"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:padding="5dp"
-   android:background="@drawable/post_border"
+        android:padding="7dp"
+        android:background="@drawable/post_border"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     <androidx.cardview.widget.CardView
@@ -118,7 +119,8 @@
         android:id="@+id/userPostTitleValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="7dp"
+        android:layout_marginVertical="10dp"
+        android:lineSpacingExtra="5dp"
         android:text="This is the title."
         android:textSize="18sp"
         android:textStyle="bold"
@@ -134,7 +136,10 @@
         android:gravity="fill_horizontal"
         android:justificationMode="inter_word"
         android:maxLines="3"
+        android:layout_marginVertical="7dp"
         android:text="This is the Description."
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:lineSpacingExtra="5dp"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/userPostTitleValue" />

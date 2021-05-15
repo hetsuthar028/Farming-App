@@ -89,12 +89,11 @@
                     android:id="@+id/productTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:layout_marginTop="14dp"
                     android:text="Natures Plus Organic Fertiliser, 1 Kg"
                     android:textStyle="bold"
                     android:textColor="@color/greenDark"
-                    android:textSize="18sp"
+                    android:textSize="21sp"
                     app:layout_constraintBottom_toTopOf="@id/productTitle"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -182,33 +181,33 @@
 
                 <ImageView
                     android:id="@+id/deliveryTruckImage"
-                    android:layout_width="10dp"
-                    android:layout_height="10dp"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@id/deliverycost"
+
                     android:src="@drawable/ic_baseline_local_shipping_24"
                     app:layout_constraintBottom_toBottomOf="@id/deliverycost"
                     />
 
                 <TextView
                     android:id="@+id/deliverycostTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="3.5dp"
-                    android:text="Delivery Charge: ₹"
-                    android:textStyle="italic"
-                    android:textSize="10sp"
+                    android:layout_width="79dp"
+                    android:layout_height="14dp"
                     android:layout_marginHorizontal="7dp"
+                    android:layout_marginVertical="7dp"
+                    android:text="Delivery Charge: ₹"
                     android:textColor="@color/fontColor"
+                    android:textSize="10sp"
+                    android:textStyle="italic"
                     app:layout_constraintStart_toEndOf="@id/deliveryTruckImage"
-                    app:layout_constraintTop_toBottomOf="@id/savedAmount"
-                    />
+                    app:layout_constraintTop_toBottomOf="@id/savedAmount" />
 
                 <TextView
                     android:id="@+id/deliverycost"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="3.5dp"
+                    android:layout_marginVertical="7dp"
                     android:text="-"
                     android:textStyle="italic"
                     android:textSize="10sp"
@@ -248,7 +247,11 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="7dp"
+                    android:justificationMode="inter_word"
+                    android:gravity="fill_horizontal"
                     android:text="HELLO WORLD. This is some description"
+                    android:lineSpacingExtra="3dp"
+                    android:textSize="17sp"
                     android:textColor="@color/fontColor"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -410,8 +413,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="7dp"
+                    android:justificationMode="inter_word"
+                    android:gravity="fill_horizontal"
                     android:text="For all Indore Plant, Outdoor Plants, Fruit-bearing trees and vegetable gardening Maintaining terrace gardening, Bonsal plants, lawns, Apply 1-2 inch below or in rows or in rings on the surface of the plant, After Application water essential."
-                    android:textSize="14sp"
+                    android:lineSpacingExtra="3dp"
+                    android:textSize="17sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/howToUseLabel" />
 

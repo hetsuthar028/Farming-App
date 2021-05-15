@@ -52,7 +52,7 @@ class CurrentWeatherAdapter(val context: Context, val weatherrootdatas:List<Weat
         holder.Ctemp.text = (weathernew.main.temp - 273.15).toInt().toString() + "\u2103"
         holder.Cwedesc.text = weathernew.weather[0].description.toString().capitalize()
 
-        holder.CtodayTitle.text = "Today " + weathernew.dt_txt.toString().slice(10..15)
+        holder.CtodayTitle.text = "Today, " + weathernew.dt_txt.toString().slice(10..15)
 
 
         Log.d("Something", weathernew.dt_txt.toString().slice(10..-1))

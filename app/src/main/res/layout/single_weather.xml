@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="60dp"
-    android:padding="7dp"
-
+    android:paddingVertical="2dp"
+    android:paddingHorizontal="7dp"
     >
 
     <androidx.constraintlayout.widget.Guideline
@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:id="@+id/guide1_weather"
-        app:layout_constraintGuide_percent="0.3"
+        app:layout_constraintGuide_percent="0.27"
          />
 
     <androidx.constraintlayout.widget.Guideline
@@ -82,14 +82,13 @@
         android:id="@+id/weatherDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="21/01/2020"
-        android:textColor="@color/colorPrimary"
-        android:textSize="18sp"
-        android:textStyle="bold"
+        android:text="01/01/2021"
+        android:textColor="@color/fontColor"
+        android:textSize="17sp"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/guide1_weather"
         app:layout_constraintStart_toStartOf="parent"
-
         app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -110,7 +109,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="26* C"
-        android:textColor="@color/fontColor"
+        android:textColor="@color/colorPrimary"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -124,9 +123,10 @@
         android:layout_height="wrap_content"
         android:inputType="textCapSentences"
         android:text="Cloudy Sky"
-        android:textColor="@color/colorPrimary"
+        android:layout_marginHorizontal="3dp"
+        android:textColor="@color/fontColor"
         android:textSize="18sp"
-        android:textStyle="bold"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/guide3_weather"

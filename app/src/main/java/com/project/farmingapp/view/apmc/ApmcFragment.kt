@@ -54,6 +54,8 @@ class ApmcFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
+
     }
 
     override fun onCreateView(
@@ -70,6 +72,9 @@ class ApmcFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        progress_apmc.visibility = View.GONE
+        loadingTextAPMC.visibility = View.GONE
 
         setHasOptionsMenu(true)
         (activity as AppCompatActivity).supportActionBar?.title = "APMC"
@@ -322,11 +327,13 @@ class ApmcFragment : Fragment() {
                     recycleAPMC.visibility = View.GONE
                     textAPMCWarning.visibility = View.VISIBLE
                 } else {
-
+                    textAPMCWarning.visibility = View.GONE
                     if (p2 != 0) {
                         getApmc("${someMap!![states!![indexSpinner1!!]]!![p2]}")
                     }
                     indexSpinner2 = p2
+                    progress_apmc.visibility = View.VISIBLE
+                    loadingTextAPMC.visibility = View.VISIBLE
                 }
             }
 
@@ -367,6 +374,8 @@ class ApmcFragment : Fragment() {
             apmc2!!.enqueue(object : Callback<APMCMain> {
                 override fun onFailure(call: Call<APMCMain>, t: Throwable) {
                     Log.d("bharat222", "fail ho gya", t)
+                    progress_apmc.visibility = View.GONE
+                    loadingTextAPMC.visibility = View.GONE
                 }
 
                 override fun onResponse(
@@ -384,6 +393,8 @@ class ApmcFragment : Fragment() {
 
                         dateValueTextApmc.text = "$updatedDate/$updatedMonth/$updatedYear"
                         if (apmcdata.records.size == 0) {
+                            progress_apmc.visibility = View.GONE
+                            loadingTextAPMC.visibility = View.GONE
                             textAPMCWarning.visibility = View.VISIBLE
                             recycleAPMC.visibility = View.GONE
                             textAPMCWarning.text = "No records found!"
@@ -459,7 +470,8 @@ class ApmcFragment : Fragment() {
                             recycleAPMC.adapter = adapter
                             recycleAPMC.layoutManager =
                                 LinearLayoutManager(activity!!.applicationContext)
-
+                            progress_apmc.visibility = View.GONE
+                            loadingTextAPMC.visibility = View.GONE
                             Log.d("bharat222", apmcdata.toString())
                         }
 

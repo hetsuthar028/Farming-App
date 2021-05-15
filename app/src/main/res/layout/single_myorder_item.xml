@@ -118,7 +118,7 @@
                 android:text="Loading..."
                 android:textColor="@color/fontColor"
                 android:textSize="12sp"
-                android:textStyle="bold|italic"
+                android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@id/myOderItemImage"
                 app:layout_constraintTop_toBottomOf="@id/myOderDeliveryCharge" />
 
@@ -132,7 +132,7 @@
                 android:textColor="@color/fontColor"
                 app:layout_constraintEnd_toStartOf="@id/myOrderPurchaseAgain"
                 android:textSize="12sp"
-                android:textStyle="bold|italic"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/myOderItemImage"
                 app:layout_constraintTop_toBottomOf="@id/myOrderPinCode" />

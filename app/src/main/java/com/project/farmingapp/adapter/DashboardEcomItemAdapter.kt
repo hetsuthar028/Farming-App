@@ -30,7 +30,7 @@ class DashboardEcomItemAdapter(var context: Context,val allData: List<DocumentSn
         val currentData = allData[itemsToShow[position]]
 
         holder.itemView.itemTitle.text = currentData.get("title").toString()
-        holder.itemView.itemPrice.text = "\u20B9 "  + currentData.get("price").toString()
+        holder.itemView.itemPrice.text = "\u20B9"  + currentData.get("price").toString()
         val allImages = currentData.get("imageUrl") as ArrayList<String>
         Glide.with(context).load(allImages[0]).into(holder.itemView.itemImage)
         holder.itemView.setOnClickListener {

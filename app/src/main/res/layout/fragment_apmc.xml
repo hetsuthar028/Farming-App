@@ -12,14 +12,38 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent">
 
+        <ProgressBar
+            android:id="@+id/progress_apmc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="12dp"
+            android:indeterminateDrawable="@drawable/progress_background"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/loadingTextAPMC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="7dp"
+            android:elevation="12dp"
+            android:text="Loading..."
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/progress_apmc" />
+
         <TextView
             android:id="@+id/apmcSearchBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="12dp"
-            android:textColor="@color/fontColor"
             android:layout_marginEnd="20dp"
             android:text="State : "
+            android:textColor="@color/fontColor"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/apmcSearchBar2"
@@ -44,14 +68,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="12dp"
+            android:layout_marginEnd="20dp"
             android:text="District : "
             android:textColor="@color/fontColor"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/hr1Apmc"
-            app:layout_constraintEnd_toStartOf="@id/guide1"
 
-            android:layout_marginEnd="20dp"
+            app:layout_constraintEnd_toStartOf="@id/guide1"
             app:layout_constraintTop_toBottomOf="@id/apmcSearchBar" />
 
         <Spinner
@@ -125,15 +149,14 @@
             android:id="@+id/textAPMCWarning"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/hr1Apmc"
+            android:text="Please Select State and District"
+            android:textColor="@color/fontColor"
             android:textSize="21sp"
             android:textStyle="bold|italic"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:text="Please Select State and District"
-            android:textColor="@color/fontColor"
-            />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/hr1Apmc" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycleAPMC"
