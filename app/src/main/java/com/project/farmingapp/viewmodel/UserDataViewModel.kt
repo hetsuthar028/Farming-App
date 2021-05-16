@@ -28,7 +28,7 @@ class UserDataViewModel : ViewModel() {
 
     fun updateUserField(context: Context, userID: String, about: String?, city: String?) {
 
-        if (!about.toString().isNullOrEmpty()) {
+        if (about !=null) {
             val firebaseFireStore = FirebaseFirestore.getInstance()
             firebaseFireStore.collection("users").document("${userID}")
                 .update(
@@ -38,7 +38,6 @@ class UserDataViewModel : ViewModel() {
                 )
                 .addOnSuccessListener {
                     Log.d("UserDataViewModel", "User About Data Updated")
-                    Toast.makeText(context, "About Updated", Toast.LENGTH_SHORT).show()
                     getUserData(userID)
                 }
                 .addOnFailureListener {
@@ -57,7 +56,6 @@ class UserDataViewModel : ViewModel() {
                 )
                 .addOnSuccessListener {
                     Log.d("UserDataViewModel", "User City Data Updated")
-                    Toast.makeText(context, "City Updated", Toast.LENGTH_SHORT).show()
                     getUserData(userID)
                 }
                 .addOnFailureListener {
@@ -65,6 +63,7 @@ class UserDataViewModel : ViewModel() {
                     Toast.makeText(context, "Failed to Update City Try Again!", Toast.LENGTH_SHORT).show()
                 }
         }
+        Toast.makeText(context, "Profile Updated", Toast.LENGTH_SHORT).show()
     }
 
     fun deleteUserPost(userId: String, postId: String){

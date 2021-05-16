@@ -142,6 +142,20 @@
             android:layout_marginVertical="7dp"
             />
 
+        <EditText
+            android:id="@+id/cityEditUserProfile"
+            app:layout_constraintTop_toBottomOf="@id/userEmailUserProfileFrag"
+            app:layout_constraintStart_toStartOf="@id/userImageCardUserFrag"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="25dp"
+            android:layout_marginVertical="7dp"
+            android:layout_width="0dp"
+            android:hint="Enter City"
+            android:background="@drawable/edit_back"
+            android:layout_height="50dp"
+            android:paddingStart="10dp"
+            />
+
         <TextView
             android:id="@+id/aboutTitleUserProfileFrag"
             android:layout_width="wrap_content"
@@ -152,7 +166,7 @@
             android:textSize="17sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/userImageCardUserFrag"
-            app:layout_constraintTop_toBottomOf="@id/userEmailUserProfileFrag" />
+            app:layout_constraintTop_toBottomOf="@id/cityEditUserProfile" />
 
         <TextView
             android:id="@+id/aboutValueUserProfileFrag"
@@ -160,45 +174,59 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
             android:layout_marginEnd="25dp"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
             android:textColor="@color/fontColor"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/userImageCardUserFrag"
             app:layout_constraintTop_toBottomOf="@id/aboutTitleUserProfileFrag" />
 
-        <TextView
-            android:id="@+id/addAboutTextUserFrag"
+<!--        <TextView-->
+<!--            android:id="@+id/addAboutTextUserFrag"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="7dp"-->
+<!--            android:layout_marginEnd="25dp"-->
+<!--            android:text="Add About Information"-->
+<!--            android:textColor="@color/fontColor"-->
+<!--            android:textSize="16sp"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="@id/userImageCardUserFrag"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/aboutValueUserProfileFrag" />-->
+
+        <EditText
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="7dp"
-            android:layout_marginEnd="25dp"
-            android:text="Add About Information"
-            android:textColor="@color/fontColor"
-            android:textSize="16sp"
+            android:layout_height="50dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/userImageCardUserFrag"
-            app:layout_constraintTop_toBottomOf="@id/aboutValueUserProfileFrag" />
-
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/inputLayout1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_marginEnd="25dp"
+            android:background="@drawable/edit_back"
+            android:layout_marginVertical="7dp"
+            android:paddingStart="10dp"
+            android:hint="Enter About Information"
             app:layout_constraintEnd_toStartOf="@id/saveBtnAboutUserProfileFrag"
+            android:id="@+id/aboutValueEditUserProfileFrag"
             app:layout_constraintStart_toStartOf="@id/userImageCardUserFrag"
-            app:layout_constraintTop_toBottomOf="@id/addAboutTextUserFrag">
+            app:layout_constraintTop_toBottomOf="@id/aboutValueUserProfileFrag"
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/aboutValueEditUserProfileFrag"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="14sp"
-                android:backgroundTint="#0060AA39"
-                android:hint="Enter About Information"
-                android:textColor="@color/fontColor"
-                android:textSize="14sp" />
-        </com.google.android.material.textfield.TextInputLayout>
+            />
+
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            android:id="@+id/inputLayout1"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintEnd_toStartOf="@id/saveBtnAboutUserProfileFrag"-->
+<!--            app:layout_constraintStart_toStartOf="@id/userImageCardUserFrag"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/addAboutTextUserFrag">-->
+
+<!--            <com.google.android.material.textfield.TextInputEditText-->
+<!--                android:id="@+id/aboutValueEditUserProfileFrag"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginEnd="14sp"-->
+<!--                android:backgroundTint="#0060AA39"-->
+<!--                android:hint="Enter About Information"-->
+<!--                android:textColor="@color/fontColor"-->
+<!--                android:textSize="14sp" />-->
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
 
         <Button
             android:id="@+id/saveBtnAboutUserProfileFrag"
@@ -206,9 +234,9 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="25dp"
             android:text="✔"
-            app:layout_constraintBottom_toBottomOf="@+id/inputLayout1"
+            app:layout_constraintBottom_toBottomOf="@+id/aboutValueEditUserProfileFrag"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/inputLayout1"
+            app:layout_constraintStart_toEndOf="@id/aboutValueEditUserProfileFrag"
             app:layout_constraintTop_toBottomOf="@id/aboutValueUserProfileFrag" />
 
 
@@ -222,7 +250,7 @@
             android:textSize="17sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/userImageCardUserFrag"
-            app:layout_constraintTop_toBottomOf="@id/inputLayout1" />
+            app:layout_constraintTop_toBottomOf="@id/aboutValueEditUserProfileFrag" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/userProfilePostsRecycler"

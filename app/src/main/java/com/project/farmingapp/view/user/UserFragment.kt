@@ -139,7 +139,8 @@ class UserFragment : Fragment(), CellClickListener {
         setHasOptionsMenu(true)
         (activity as AppCompatActivity).supportActionBar?.title = "Profile"
 
-        addAboutTextUserFrag.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+//        addAboutTextUserFrag.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+        cityEditUserProfile.visibility = View.GONE
 
         viewModel.userProfilePostsLiveData.observe(viewLifecycleOwner, Observer {
 
@@ -150,28 +151,26 @@ class UserFragment : Fragment(), CellClickListener {
             Log.d("User Fragment", it.data.toString())
         })
 
-        aboutValueUserProfileFrag.setOnClickListener {
-            inputLayout1.visibility = View.VISIBLE
-            addAboutTextUserFrag.visibility = View.GONE
-            aboutValueEditUserProfileFrag.setText(aboutValueUserProfileFrag.text.toString())
-            aboutValueUserProfileFrag.visibility = View.GONE
-            saveBtnAboutUserProfileFrag.visibility = View.VISIBLE
-        }
+//        aboutValueUserProfileFrag.setOnClickListener {
+//            aboutValueEditUserProfileFrag.visibility = View.VISIBLE
+//            addAboutTextUserFrag.visibility = View.GONE
+//            aboutValueEditUserProfileFrag.setText(aboutValueUserProfileFrag.text.toString())
+//            aboutValueUserProfileFrag.visibility = View.GONE
+//            saveBtnAboutUserProfileFrag.visibility = View.VISIBLE
+//        }
 
-        addAboutTextUserFrag.setOnClickListener {
-            inputLayout1.visibility = View.VISIBLE
-            addAboutTextUserFrag.visibility = View.GONE
-            saveBtnAboutUserProfileFrag.visibility = View.VISIBLE
-        }
+//        addAboutTextUserFrag.setOnClickListener {
+//            aboutValueEditUserProfileFrag.visibility = View.VISIBLE
+//            saveBtnAboutUserProfileFrag.visibility = View.VISIBLE
+//        }
 
-        saveBtnAboutUserProfileFrag.setOnClickListener {
-            addAboutTextUserFrag.visibility = View.GONE
-            aboutValueUserProfileFrag.visibility = View.VISIBLE
-            aboutValueUserProfileFrag.text = aboutValueEditUserProfileFrag.text
-            saveBtnAboutUserProfileFrag.visibility = View.GONE
-            userDataViewModel.updateUserField(activity!!.applicationContext, firebaseAuth.currentUser!!.email.toString() as String, aboutValueEditUserProfileFrag.text.toString() as String, null)
-            inputLayout1.visibility = View.GONE
-        }
+//        saveBtnAboutUserProfileFrag.setOnClickListener {
+//            aboutValueUserProfileFrag.visibility = View.VISIBLE
+//            aboutValueUserProfileFrag.text = aboutValueEditUserProfileFrag.text
+//            saveBtnAboutUserProfileFrag.visibility = View.GONE
+//            userDataViewModel.updateUserField(activity!!.applicationContext, firebaseAuth.currentUser!!.email.toString() as String, aboutValueEditUserProfileFrag.text.toString() as String, null)
+//            aboutValueEditUserProfileFrag.visibility = View.GONE
+//        }
 
         uploadProgressBarProfile.visibility = View.GONE
         uploadBackProgressProfile.visibility = View.GONE
@@ -238,12 +237,11 @@ class UserFragment : Fragment(), CellClickListener {
 
             if (about == null || about == "") {
                 aboutValueUserProfileFrag.visibility = View.GONE
-                inputLayout1.visibility = View.GONE
+                aboutValueEditUserProfileFrag.visibility = View.GONE
                 saveBtnAboutUserProfileFrag.visibility = View.GONE
             } else {
                 aboutValueUserProfileFrag.visibility = View.VISIBLE
-                addAboutTextUserFrag.visibility = View.GONE
-                inputLayout1.visibility = View.GONE
+                aboutValueEditUserProfileFrag.visibility = View.GONE
                 saveBtnAboutUserProfileFrag.visibility = View.GONE
                 aboutValueUserProfileFrag.text = about
             }
@@ -255,13 +253,23 @@ class UserFragment : Fragment(), CellClickListener {
             uploadUserBackgroundImage.visibility = View.VISIBLE
             imageChecked.visibility = View.VISIBLE
             imageEdit.visibility = View.GONE
+            cityEditUserProfile.setText(userCityUserProfileFrag!!.text.toString().removePrefix("City: "))
+            cityEditUserProfile.visibility = View.VISIBLE
+            aboutValueEditUserProfileFrag.visibility = View.VISIBLE
+            aboutValueEditUserProfileFrag.setText(aboutValueUserProfileFrag.text.toString())
+            aboutValueUserProfileFrag.visibility = View.GONE
         }
 
         imageChecked.setOnClickListener {
             uploadProfilePictureImage.visibility = View.GONE
             uploadUserBackgroundImage.visibility = View.GONE
             imageEdit.visibility = View.VISIBLE
+            cityEditUserProfile.visibility = View.GONE
             imageChecked.visibility = View.GONE
+            userDataViewModel.updateUserField(activity!!.applicationContext, firebaseAuth.currentUser!!.email.toString() as String, aboutValueEditUserProfileFrag.text.toString(), cityEditUserProfile.text.toString())
+            userDataViewModel.getUserData(firebaseAuth.currentUser!!.email.toString())
+            aboutValueEditUserProfileFrag.visibility = View.GONE
+            aboutValueUserProfileFrag.visibility = View.VISIBLE
         }
     }
 
