@@ -6,11 +6,13 @@ import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.project.farmingapp.R
 import com.project.farmingapp.view.user.UserFragment
 import kotlinx.android.synthetic.main.fragment_user.*
 import kotlinx.android.synthetic.main.nav_header.view.*
+import kotlinx.coroutines.channels.consumesAll
 
 class UserDataViewModel : ViewModel() {
 
@@ -74,7 +76,14 @@ class UserDataViewModel : ViewModel() {
             .addOnSuccessListener {
                 Log.d("User Data View Model", "Post Deleted")
                 UserProfilePostsViewModel().getAllPosts(userId)
-
+                firebaseFirestore.collection("users").document(userId).update("posts", FieldValue.arrayRemove("${postId}"))
+                    .addOnSuccessListener {
+                        Log.d("UserDataViewModel", "Successfully Deleted User Doc Post")
+                        getUserData(userId)
+                    }
+                    .addOnFailureListener{
+                        Log.e("UserDataViewModel", "Failed to delete post from User Doc")
+                    }
             }
             .addOnFailureListener {
                 Log.d("User Data View Model", "Failed to delete post")

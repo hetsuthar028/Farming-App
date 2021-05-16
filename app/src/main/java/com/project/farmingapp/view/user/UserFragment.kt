@@ -402,12 +402,14 @@ class UserFragment : Fragment(), CellClickListener {
         val dialog = AlertDialog.Builder(activity)
 
         dialog.setTitle("Your Post")
-            .setMessage("Do you want to manipulate your post?")
+            .setMessage("Do you want to edit your post?")
             .setPositiveButton("View") { dialogInterface, i ->
 
             }
             .setNegativeButton("Delete") { dialogInterface, i ->
                 userDataViewModel.deleteUserPost(firebaseAuth.currentUser!!.email!!, name)
+                userDataViewModel.getUserData(firebaseAuth.currentUser!!.email.toString())
+                viewModel.getAllPosts(firebaseAuth.currentUser!!.email)
             }
             .setNeutralButton("Cancel"){
                 dialogInterface, i ->
