@@ -14,6 +14,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.ViewModelProviders
 import com.google.android.gms.tasks.Continuation
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
@@ -23,6 +24,8 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
 import com.project.farmingapp.R
+import com.project.farmingapp.viewmodel.UserDataViewModel
+import com.project.farmingapp.viewmodel.UserProfilePostsViewModel
 import kotlinx.android.synthetic.main.fragment_s_m_create_post.*
 import kotlinx.android.synthetic.main.nav_header.view.*
 import java.io.IOException
@@ -50,6 +53,7 @@ class SMCreatePostFragment : Fragment() {
     private var postID: UUID? = null
     private var bitmap: Bitmap? = null
     lateinit var socialMediaPostsFragment: SocialMediaPostsFragment
+    lateinit var userDataViewModel : UserDataViewModel
     val db = FirebaseFirestore.getInstance()
     val data2 = HashMap<String, Any>()
 
@@ -62,6 +66,9 @@ class SMCreatePostFragment : Fragment() {
         storageReference = FirebaseStorage.getInstance().reference
         authUser = FirebaseAuth.getInstance()
         firebaseStore = FirebaseStorage.getInstance()
+
+        userDataViewModel = ViewModelProviders.of(requireActivity())
+            .get<UserDataViewModel>(UserDataViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -258,7 +265,7 @@ class SMCreatePostFragment : Fragment() {
 
                         progress_create_post.visibility = View.GONE
                         progressTitle.visibility = View.GONE
-
+                        userDataViewModel.getUserData(authUser!!.currentUser?.email.toString())
                         socialMediaPostsFragment = SocialMediaPostsFragment()
                         val transaction = activity!!.supportFragmentManager
                             .beginTransaction()

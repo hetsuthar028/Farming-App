@@ -1,6 +1,7 @@
 package com.project.farmingapp.model
 
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -57,16 +58,27 @@ class AuthRepository {
         firebaseAuth!!.signInWithCredential(credential)
             .addOnCompleteListener {
                 if (it.isSuccessful) {
-                    firebaseDb!!.collection("users").document("${email}")
-                        .set(otherData)
-                        .addOnSuccessListener {
-                            data.value = "Success"
+                    val userDocRef = firebaseDb!!.collection("users").document("${email}")
+
+                    userDocRef.get().addOnSuccessListener {
+                        data.value = "Success"
+                        if(it.exists()){
+                            Log.d("User", "User Exists")
+                        } else{
+                            Log.d("User", "User Does not Exists")
+                            firebaseDb!!.collection("users").document("${email}")
+                                .set(otherData)
+                                .addOnSuccessListener {
+                                    data.value = "Success"
+                                }
+                                .addOnFailureListener { Exception ->
+                                    {
+                                        data.value = "Failure"
+                                    }
+                                }
                         }
-                        .addOnFailureListener { Exception ->
-                            {
-                                data.value = "Failure"
-                            }
-                        }
+                    }
+
                     val user = firebaseAuth!!.currentUser
                 } else {
                     data.value = "Failure"
