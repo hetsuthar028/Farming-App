@@ -27,6 +27,7 @@ import com.project.farmingapp.view.articles.ArticleListFragment
 import com.project.farmingapp.view.articles.FruitsFragment
 import com.project.farmingapp.view.ecommerce.EcommerceItemFragment
 import com.project.farmingapp.view.weather.WeatherFragment
+import com.project.farmingapp.view.yojna.YojnaListFragment
 import com.project.farmingapp.viewmodel.ArticleViewModel
 import com.project.farmingapp.viewmodel.EcommViewModel
 import com.project.farmingapp.viewmodel.WeatherViewModel
@@ -54,6 +55,7 @@ class dashboardFragment : Fragment(), CellClickListener {
     private var param2: String? = null
     lateinit var weatherFragment: WeatherFragment
     lateinit var fruitsFragment: FruitsFragment
+    lateinit var yojnaListFragment: YojnaListFragment
     lateinit var articleListFragment: ArticleListFragment
     private lateinit var viewModel: WeatherViewModel
     private lateinit var viewModel2: EcommViewModel
@@ -142,16 +144,20 @@ class dashboardFragment : Fragment(), CellClickListener {
 
 
         cat4.setOnClickListener {
-            articleListFragment = ArticleListFragment()
+            yojnaListFragment=YojnaListFragment()
+            //articleListFragment = ArticleListFragment()
             if (activity!!.supportFragmentManager.findFragmentByTag("name3") == null) {
                 val transaction = activity!!.supportFragmentManager
                     .beginTransaction()
-                    .replace(R.id.frame_layout, articleListFragment, "name3")
+                    .replace(R.id.frame_layout, yojnaListFragment, "name3")
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .setReorderingAllowed(true)
                     .addToBackStack("name3")
                     .commit()
             }
+
+
+
         }
     }
 
