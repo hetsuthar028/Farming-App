@@ -1,11 +1,19 @@
 package com.project.farmingapp.view.yojna
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import com.bumptech.glide.Glide
 import com.project.farmingapp.R
+import com.project.farmingapp.viewmodel.YojnaViewModel
+import kotlinx.android.synthetic.main.fragment_yojna.*
+import kotlinx.coroutines.GlobalScope
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,6 +29,7 @@ class YojnaFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    lateinit var yojnaViewModel: YojnaViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +37,13 @@ class YojnaFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+        val tag = this.tag.toString()
+        Log.d("YojnaFragment", this.tag.toString())
+
+        yojnaViewModel =
+            ViewModelProviders.of(requireActivity()).get<YojnaViewModel>(YojnaViewModel::class.java)
+
+        yojnaViewModel.getYojna(this.tag.toString())
     }
 
     override fun onCreateView(
@@ -56,5 +72,47 @@ class YojnaFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setHasOptionsMenu(true)
+        (activity as AppCompatActivity).supportActionBar?.title = "Krishi Yojna"
+        progressYojna.visibility = View.VISIBLE
+
+        yojnaViewModel.msg.observe(viewLifecycleOwner, Observer {
+            yojnaTitle.text = it.get("title").toString()
+            yojnaDesc.text = it.get("description").toString()
+            yojnaDate.text = it.get("launch").toString()
+            yojnaLaunchedBy.text = it.get("headedBy").toString()
+            yojnaBudget.text = it.get("budget").toString()
+            val eligibility: ArrayList<String> = it.get("eligibility") as ArrayList<String>
+            val documents: ArrayList<String> = it.get("documents") as ArrayList<String>
+            val objectives: ArrayList<String> = it.get("objective") as ArrayList<String>
+
+            yojnaEligibility.text = ""
+            yojnaDocumentsRequired.text = ""
+            yojnaObjectives.text = ""
+
+            for (i in 0..(eligibility.size - 1)) {
+                yojnaEligibility.text =
+                    yojnaEligibility.text.toString() + (i + 1).toString() + ". " + eligibility[i].toString() + "\n"
+            }
+
+            for (i in 0..(documents.size - 1)) {
+                yojnaDocumentsRequired.text =
+                    yojnaDocumentsRequired.text.toString() + (i + 1).toString() + ". " + documents[i].toString() + "\n"
+            }
+
+            for (i in 0..(objectives.size - 1)) {
+                yojnaObjectives.text =
+                    yojnaObjectives.text.toString() + (i + 1).toString() + ". " + objectives[i].toString() + "\n"
+            }
+
+            yojnaWebsite.text = it.get("website").toString()
+            Glide.with(this).load(it.get("image").toString()).into(yojnaImage)
+            progressYojna.visibility = View.GONE
+        })
     }
 }

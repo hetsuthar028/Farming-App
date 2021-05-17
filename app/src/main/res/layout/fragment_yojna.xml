@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,197 +8,276 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         tools:context=".yojnaMain">
-        <ScrollView
 
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:id="@+id/progressYojna"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:indeterminateDrawable="@drawable/progress_background"
+            android:elevation="12dp"
+            android:layout_height="wrap_content"
+            />
+
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            >
-            <androidx.constraintlayout.widget.ConstraintLayout
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
+
                 <ImageView
-                    android:scaleType="fitXY"
-                    android:id="@+id/yojnaImg"
-                    android:src="@color/colorPrimaryDark"
+                    android:id="@+id/yojnaImage"
                     android:layout_width="match_parent"
                     android:layout_height="220dp"
+                    android:scaleType="fitXY"
+                    android:src="@color/secondary"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <TextView
-                    android:id="@+id/yojnaName"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/yojnaTitle"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="14dp"
+                    android:layout_marginVertical="14dp"
                     android:layout_marginBottom="7dp"
-                    android:text="Pradhan Mantri Krashi Sinchayee Yojana (PMKSY)"
-                    android:textSize="22sp"
+                    android:lineSpacingExtra="3dp"
+                    android:text="@string/loading"
+                    android:textSize="21sp"
                     android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/yojnaImg" />
+                    app:layout_constraintTop_toBottomOf="@id/yojnaImage" />
 
                 <TextView
-                    android:layout_marginTop="22dp"
-                    android:id="@+id/ministry"
+                    android:id="@+id/yojnaDesc"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="14dp"
+                    android:layout_marginVertical="7dp"
+                    android:ellipsize="end"
+                    android:gravity="fill_horizontal"
+                    android:justificationMode="inter_word"
+                    android:lineSpacingExtra="3dp"
+                    android:maxLines="5"
+                    android:text="@string/loading"
+                    android:textSize="17sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/yojnaTitle" />
+
+                <View
+                    android:id="@+id/hr1"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="14dp"
+                    android:layout_marginVertical="7dp"
+                    android:background="@color/secondary"
+                    app:layout_constraintTop_toBottomOf="@id/yojnaDesc" />
+
+                <ImageView
+                    android:id="@+id/yojnaDateIcon"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginVertical="14dp"
+                    android:layout_marginStart="14dp"
+                    android:src="@drawable/c2"
+                    app:layout_constraintEnd_toEndOf="@id/yojnaDate"
+                    app:layout_constraintStart_toStartOf="@id/yojnaDate"
+                    app:layout_constraintTop_toBottomOf="@id/hr1"
+                    app:tint="@color/colorPrimary" />
+
+                <TextView
+                    android:id="@+id/yojnaDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Ministry:"
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                    app:layout_constraintTop_toBottomOf="@id/yojnaName"
+                    android:layout_marginVertical="7dp"
+                    android:text="@string/loading"
+                    app:layout_constraintEnd_toStartOf="@id/yojnaLaunchedBy"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/yojnaDateIcon" />
+
+                <ImageView
+                    android:id="@+id/yojnaBudgetIcon"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginVertical="14dp"
+                    android:layout_marginEnd="14dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/budget"
+                    app:layout_constraintEnd_toEndOf="@id/yojnaBudget"
+                    app:layout_constraintStart_toStartOf="@id/yojnaBudget"
+                    app:layout_constraintTop_toBottomOf="@id/hr1"
                     />
-                <TextView
-                    android:layout_marginLeft="7dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Jal shakti Mantralaya"
-                    android:textSize="18sp"
-                    app:layout_constraintStart_toEndOf="@id/ministry"
-                    app:layout_constraintTop_toTopOf="@id/ministry"
-                    app:layout_constraintBottom_toBottomOf="@id/ministry"/>
-
-
-
 
                 <TextView
-                    android:layout_marginTop="22dp"
-                    android:id="@+id/Budget"
+                    android:id="@+id/yojnaBudget"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Budget:"
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                    app:layout_constraintTop_toBottomOf="@id/ministry"
-                    app:layout_constraintStart_toStartOf="parent"
-                    />
-                <TextView
-                    android:layout_marginLeft="7dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="2600 Crore"
-                    android:textSize="18sp"
-                    app:layout_constraintStart_toEndOf="@id/Budget"
-                    app:layout_constraintTop_toTopOf="@id/Budget"
-                    app:layout_constraintBottom_toBottomOf="@id/Budget"/>
-                <TextView
-                    android:layout_marginTop="22dp"
-                    android:id="@+id/Status"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Status:"
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                    app:layout_constraintTop_toBottomOf="@id/Budget"
-                    app:layout_constraintStart_toStartOf="parent"
-                    />
-                <TextView
-                    android:layout_marginLeft="7dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Active"
-                    android:textSize="18sp"
-                    app:layout_constraintStart_toEndOf="@id/Status"
-                    app:layout_constraintTop_toTopOf="@id/Status"
-                    app:layout_constraintBottom_toBottomOf="@id/Status"/>
-                <TextView
-                    android:layout_marginTop="22dp"
-                    android:id="@+id/Website"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Website:"
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                    app:layout_constraintTop_toBottomOf="@id/Status"
-                    app:layout_constraintStart_toStartOf="parent"
-                    />
-                <TextView
-                    android:autoLink="web"
-                    android:layout_marginLeft="7dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="http://pmksy.gov.in/"
-                    android:textSize="18sp"
-                    app:layout_constraintStart_toEndOf="@id/Website"
-                    app:layout_constraintTop_toTopOf="@id/Website"
-                    app:layout_constraintBottom_toBottomOf="@id/Website"/>
+                    android:layout_marginVertical="7dp"
+                    android:text="@string/loading"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/yojnaLaunchedBy"
+                    app:layout_constraintTop_toBottomOf="@id/yojnaBudgetIcon" />
+
+                <ImageView
+                    android:id="@+id/launchedByIcon"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginHorizontal="7dp"
+                    android:layout_marginVertical="14dp"
+                    android:src="@drawable/c2"
+                    app:layout_constraintEnd_toEndOf="@id/yojnaLaunchedBy"
+                    app:layout_constraintStart_toStartOf="@id/yojnaLaunchedBy"
+                    app:layout_constraintTop_toBottomOf="@id/hr1"
+                    app:tint="@color/colorPrimary" />
 
                 <TextView
-                    android:layout_marginTop="18dp"
-                    android:id="@+id/objectiveofscheme"
+                    android:id="@+id/yojnaLaunchedBy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="objective of scheme:"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/Website"
-                    android:textStyle="bold"
-                    android:textSize="18sp"/>
-                <TextView
+                    android:layout_marginVertical="7dp"
+                    android:text="@string/loading"
+                    app:layout_constraintEnd_toStartOf="@id/yojnaBudget"
+                    app:layout_constraintStart_toEndOf="@id/yojnaDate"
+                    app:layout_constraintTop_toBottomOf="@id/launchedByIcon" />
 
-                    android:id="@+id/objectiveofschemeValue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    android:text="objective of scheme objective of schemeobjective of schemeobjective of schemeobjective of schemeobjective of schemeobjective of schemeobjective of schemeobjective of schemeobjective of schemeobjective of schemeobjective of scheme"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/objectiveofscheme"
-
-                    android:textSize="18sp"/>
+                <View
+                    android:id="@+id/hr2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="14dp"
+                    android:layout_marginVertical="7dp"
+                    android:background="@color/secondary"
+                    app:layout_constraintTop_toBottomOf="@id/yojnaDate" />
 
                 <TextView
-                    android:layout_marginTop="18dp"
-                    android:id="@+id/RequiredDocumenttoApply"
+                    android:id="@+id/eligibilityTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Required Document to Apply :"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/objectiveofschemeValue"
-                    android:textStyle="bold"
-                    android:textSize="18sp"/>
-                <TextView
-
-                    android:id="@+id/RequiredDocumenttoApplyValue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    android:text="objective of scheme objective of schemeobjective of schemeobjective of schemeobjective of schemeobjective of schemeobjective of schemeobjective of schemeobjective of schemeobjective of schemeobjective of schemeobjective of scheme"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/RequiredDocumenttoApply"
-
-                    android:textSize="18sp"/>
-
-                <TextView
-                    android:layout_marginTop="18dp"
-                    android:id="@+id/EligibilityCriteria"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="14dp"
+                    android:layout_marginStart="14dp"
                     android:text="Eligibility Criteria:"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/RequiredDocumenttoApplyValue"
+                    android:textSize="18sp"
                     android:textStyle="bold"
-                    android:textSize="18sp"/>
-                <TextView
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/hr2" />
 
-                    android:id="@+id/EligibilityCriteriaValue"
+                <TextView
+                    android:id="@+id/yojnaEligibility"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="14dp"
+                    android:layout_marginVertical="7dp"
+                    android:gravity="fill_horizontal"
+                    android:justificationMode="inter_word"
+                    android:lineSpacingExtra="3dp"
+                    android:text="@string/loading"
+                    android:textSize="17sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/eligibilityTitle" />
+
+                <TextView
+                    android:id="@+id/documentsRequiredTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
-                    android:text="objective of scheme objective of schemeobjective of schemeobjective of schemeobjective of schemeobjective of schemeobjective of schemeobjective of schemeobjective of schemeobjective of schemeobjective of schemeobjective of scheme"
+                    android:layout_marginHorizontal="14dp"
+                    android:layout_marginVertical="14dp"
+                    android:text="Required Documents:"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/EligibilityCriteria"
+                    app:layout_constraintTop_toBottomOf="@id/yojnaEligibility" />
 
-                    android:textSize="18sp"/>
+                <TextView
+                    android:id="@+id/yojnaDocumentsRequired"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="14dp"
+                    android:layout_marginVertical="7dp"
+                    android:gravity="fill_horizontal"
+                    android:justificationMode="inter_word"
+                    android:lineSpacingExtra="3dp"
+                    android:text="@string/loading"
+                    android:textSize="17sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/documentsRequiredTitle" />
+
+                <TextView
+                    android:id="@+id/objectivesTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="14dp"
+                    android:layout_marginVertical="14dp"
+                    android:text="Objectives:"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/yojnaDocumentsRequired" />
+
+                <TextView
+                    android:id="@+id/yojnaObjectives"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="14dp"
+                    android:layout_marginVertical="7dp"
+                    android:gravity="fill_horizontal"
+                    android:justificationMode="inter_word"
+                    android:lineSpacingExtra="3dp"
+                    android:text="@string/loading"
+                    android:textSize="17sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/objectivesTitle" />
+
+                <TextView
+                    android:id="@+id/moreInfoTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="14dp"
+                    android:layout_marginVertical="14dp"
+                    android:text="Website:"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/yojnaObjectives" />
+
+                <TextView
+                    android:id="@+id/yojnaWebsite"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="7dp"
+                    android:layout_marginBottom="14dp"
+                    android:textSize="17sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:autoLink="web"
+                    android:text="@string/loading"
+                    android:textColor="@color/fontColor"
+                    android:textColorLink="@color/fontColor"
+                    app:layout_constraintStart_toEndOf="@id/moreInfoTitle"
+                    app:layout_constraintTop_toTopOf="@id/moreInfoTitle" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </ScrollView
-            >
+
+        </ScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

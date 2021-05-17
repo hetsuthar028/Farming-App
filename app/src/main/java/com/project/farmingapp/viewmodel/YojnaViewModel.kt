@@ -25,10 +25,10 @@ class YojnaViewModel: ViewModel() {
             .get()
             .addOnSuccessListener {
                 msg.value = it.data as HashMap<String, Any>?
-                Log.d("ArticleViewModelDirect", msg.value.toString())
+                Log.d("YojnaViewModel", msg.value.toString())
             }
             .addOnFailureListener {
-                Log.d("ArticleRepo3", "ss")
+                Log.d("YojnaViewModel", "ss")
             }
     }
 

@@ -38,7 +38,7 @@ class YojnaListFragment : Fragment(), CellClickListener {
     private var param2: String? = null
     private lateinit var viewModel: YojnaViewModel
     lateinit var Adapter: YojnaAdapter
-   // lateinit var fruitFragment: YojnaFragment
+    lateinit var yojnaFragment: YojnaFragment
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -73,7 +73,7 @@ class YojnaListFragment : Fragment(), CellClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
-        (activity as AppCompatActivity).supportActionBar?.title = "yojnas"
+        (activity as AppCompatActivity).supportActionBar?.title = "Krishi Yojna"
     }
 
     companion object {
@@ -96,16 +96,16 @@ class YojnaListFragment : Fragment(), CellClickListener {
             }
     }
     override fun onCellClickListener(name: String) {
-       // fruitFragment = FruitsFragment()
+       yojnaFragment = YojnaFragment()
         val bundle = Bundle()
         bundle.putString("name", name)
-       // fruitFragment.setArguments(bundle)
+        yojnaFragment.setArguments(bundle)
         val transaction = activity!!.supportFragmentManager
             .beginTransaction()
-           // .replace(R.id.frame_layout, fruitFragment, name)
+            .replace(R.id.frame_layout, yojnaFragment, name)
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             .setReorderingAllowed(true)
-            .addToBackStack("name")
+            .addToBackStack("yojnaListFrag")
             .commit()
     }
 

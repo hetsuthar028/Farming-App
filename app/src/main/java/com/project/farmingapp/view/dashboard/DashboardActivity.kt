@@ -503,7 +503,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this)
     }
     override fun onLocationChanged(p0: Location?) {
-        automatedClick()
+//        automatedClick()
     }
 
     @Synchronized

@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:background="#40349500"
-    android:layout_height="130dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content"
+    android:layout_margin="7dp">
+
     <androidx.cardview.widget.CardView
         android:id="@+id/singlelistyojnacard"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="2dp"
-
+        android:layout_height="match_parent"
+        android:layout_margin="3dp"
         app:cardElevation="5dp"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,37 +18,55 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-    <TextView
-        android:layout_marginLeft="11dp"
-        android:layout_marginTop="11dp"
-        android:id="@+id/yojnatitle"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:text="National Mission For Sustainable Agriculture"
-        android:textColor="@color/fontColor"
-        android:textSize="22sp"
+            android:layout_height="match_parent"
+            android:background="@drawable/edit_back">
 
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-    <TextView
-        android:layout_marginLeft="11dp"
-android:id="@+id/yojnaDate"
-        app:layout_constraintBottom_toBottomOf="@id/yojnaImg"
-        app:layout_constraintTop_toBottomOf="@id/yojnatitle"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="21 August 2021"/>
-    <ImageView
-        android:id="@+id/yojnaImg"
-       android:src="@color/colorPrimary"
-        android:layout_marginTop="11dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@id/yojnatitle"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_width="100dp"
-        android:layout_height="100dp"/>
+            <TextView
+                android:id="@+id/yojnaTitleYojnaList"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="14dp"
+                android:lineSpacingExtra="3dp"
+                android:text="National Mission For Sustainable Agriculture"
+                android:textColor="@color/fontColor"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toStartOf="@id/yojnaImageYojnaList"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/yojnaImageYojnaList" />
+
+            <TextView
+                android:id="@+id/yojnaDateYojnaList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="21 August 2021"
+                app:layout_constraintBottom_toBottomOf="@id/yojnaImageYojnaList"
+                app:layout_constraintStart_toStartOf="@id/yojnaTitleYojnaList" />
+
+            <ImageView
+                android:id="@+id/yojnaImageYojnaList"
+                android:layout_width="130dp"
+                android:layout_height="100dp"
+                android:layout_marginVertical="10dp"
+                android:layout_marginEnd="14dp"
+                android:src="@color/secondary"
+                android:scaleType="fitXY"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/yojnaTitleYojnaList"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/yojnaStatusYojnaList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="14dp"
+                android:text="Active"
+                android:textColor="@color/colorPrimary"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/yojnaDateYojnaList"
+                app:layout_constraintEnd_toStartOf="@id/yojnaImageYojnaList" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

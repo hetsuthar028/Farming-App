@@ -125,39 +125,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
+
+
                     <androidx.cardview.widget.CardView
                         android:id="@+id/cat1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-
-                        android:layout_marginVertical="10dp"
-                        android:layout_marginEnd="10dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:layout_width="100dp"
-                                android:layout_height="100dp"
-                                android:scaleType="fitXY"
-                                android:src="@drawable/seed" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:text="Seeds"
-                                android:textColor="@color/fontColor"
-                                android:layout_marginVertical="7dp"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/cat2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="10dp"
@@ -190,7 +161,7 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
+                        android:id="@+id/cat2"
                         android:layout_marginHorizontal="10dp"
                         android:layout_marginVertical="10dp">
 
@@ -220,6 +191,7 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:id="@+id/cat3"
                         android:layout_marginHorizontal="10dp"
                         android:layout_marginVertical="10dp">
 
@@ -248,6 +220,37 @@
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/cat4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginVertical="10dp"
+                        android:layout_marginEnd="10dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/yojna2" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="Yojanas"
+                                android:textColor="@color/fontColor"
+                                android:layout_marginVertical="7dp"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cat5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="10dp"

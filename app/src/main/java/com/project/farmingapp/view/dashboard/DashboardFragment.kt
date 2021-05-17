@@ -86,12 +86,14 @@ class dashboardFragment : Fragment(), CellClickListener {
         viewModel.getCoordinates().observe(viewLifecycleOwner, Observer {
             Log.d("DashFrag", it.toString())
             viewModel.updateNewData()
-            val city =  it.get(2) as String
+            val city = it.get(2) as String
             viewModel.newDataTrial.observe(viewLifecycleOwner, Observer {
 
                 Log.d("Observed Here", "Yes")
-                weathTempTextWeathFrag.text = (it.list[0].main.temp - 273).toInt().toString() + "\u2103"
-                humidityTextWeathFrag.text = "Humidity: " + it!!.list[0].main.humidity.toString() + " %"
+                weathTempTextWeathFrag.text =
+                    (it.list[0].main.temp - 273).toInt().toString() + "\u2103"
+                humidityTextWeathFrag.text =
+                    "Humidity: " + it!!.list[0].main.humidity.toString() + " %"
                 windTextWeathFrag.text = "Wind: " + it!!.list[0].wind.speed.toString() + " km/hr"
                 weatherCityTitle.text = city.toString()
                 var iconcode = it!!.list[0].weather[0].icon
@@ -103,10 +105,12 @@ class dashboardFragment : Fragment(), CellClickListener {
 
 
         viewModel2.ecommLiveData.observe(viewLifecycleOwner, Observer {
-            var itemsToShow = (0..it.size-1).shuffled().take(4) as List<Int>
-            val adapterEcomm = DashboardEcomItemAdapter(activity!!.applicationContext,it,  itemsToShow, this)
+            var itemsToShow = (0..it.size - 1).shuffled().take(4) as List<Int>
+            val adapterEcomm =
+                DashboardEcomItemAdapter(activity!!.applicationContext, it, itemsToShow, this)
             dashboardEcommRecycler.adapter = adapterEcomm
-            dashboardEcommRecycler.layoutManager = GridLayoutManager(activity!!.applicationContext, 2)
+            dashboardEcommRecycler.layoutManager =
+                GridLayoutManager(activity!!.applicationContext, 2)
         })
 
         // Inflate the layout for this fragment
@@ -144,20 +148,25 @@ class dashboardFragment : Fragment(), CellClickListener {
 
 
         cat4.setOnClickListener {
-            yojnaListFragment=YojnaListFragment()
-            //articleListFragment = ArticleListFragment()
-            if (activity!!.supportFragmentManager.findFragmentByTag("name3") == null) {
-                val transaction = activity!!.supportFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.frame_layout, yojnaListFragment, "name3")
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                    .setReorderingAllowed(true)
-                    .addToBackStack("name3")
-                    .commit()
-            }
+            yojnaListFragment = YojnaListFragment()
+            val transaction = activity!!.supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.frame_layout, yojnaListFragment, "yojnaListFrag")
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .setReorderingAllowed(true)
+                .addToBackStack("yojnaListFrag")
+                .commit()
+        }
 
-
-
+        cat5.setOnClickListener {
+            articleListFragment = ArticleListFragment()
+            val transaction = activity!!.supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.frame_layout, articleListFragment, "articlesListFrag")
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .setReorderingAllowed(true)
+                .addToBackStack("articlesListFrag")
+                .commit()
         }
     }
 
