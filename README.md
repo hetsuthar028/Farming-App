@@ -1,4 +1,4 @@
-# 👨‍🌾 Agri India - One stop application for Indian Farmers 🚜
+# 👨‍🌾 Agri India - One stop application for Indian Farmers
 
 ✒️ This is an Android Application designed for our Indian farmers. 
 
@@ -24,4 +24,6 @@ The application is also designed in such a way that it will be easy to use.
 | Android Studio | Firebase | Kotlin | External APIs | Android OS |
 | --- | --- | --- | --- | --- |
 
-## Design:
+
+## 🤩 Designs:
+<img src="https://github.com/hetsuthar028/Farming-App/blob/master/Agri India.png" />
