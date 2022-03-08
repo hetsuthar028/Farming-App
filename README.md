@@ -11,6 +11,7 @@ We identified that in the Agriculture sector, the farmers are still lacking the 
 The application is also designed in such a way that it will be easy to use.
 <br /><br />
 
+
 ## ✨ Features:
 - Government Yojna Awareness
 - E-commerce Platform
@@ -27,3 +28,5 @@ The application is also designed in such a way that it will be easy to use.
 
 ## 🤩 Designs:
 <img src="https://github.com/hetsuthar028/Farming-App/blob/master/Agri India.png" />
+
+## 😀 If you liked the app, Please give it a ⭐ and fork the repository. 🤚🏻
